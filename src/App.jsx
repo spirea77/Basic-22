@@ -164,7 +164,6 @@ function detectTheme(raw) {
 const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
 const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmtLong = d => d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
 const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
 const MAX_SEC = 300;
@@ -189,7 +188,12 @@ function LoginScreen() {
     try {
       await signInWithPopup(auth, gProvider);
     } catch(e) {
-      if (e.code !== "auth/popup-closed-by-user") setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+      console.error("Login Error:", e);
+      if (e.code === "auth/unauthorized-domain") {
+        setError("접속하신 도메인이 구글(Firebase)에 등록되지 않았습니다. 관리자(개발자) 설정이 필요합니다. (auth/unauthorized-domain)");
+      } else if (e.code !== "auth/popup-closed-by-user") {
+        setError(`로그인 오류가 발생했습니다: ${e.message}`);
+      }
       setLoading(false);
     }
   };
@@ -217,7 +221,7 @@ function LoginScreen() {
           <img src="https://www.google.com/favicon.ico" width={18} height={18} alt="G" onError={e=>e.target.style.display="none"}/>
           {loading ? "로그인 중..." : "Google로 로그인"}
         </button>
-        {error && <div style={{marginTop:16,fontSize:13,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
+        {error && <div style={{marginTop:16,fontSize:13,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px",wordBreak:"keep-all",lineHeight:1.5}}>{error}</div>}
       </div>
     </div>
   );
@@ -246,7 +250,7 @@ function LeaderDashboard({ theme }) {
     if (m.done && m.voiceDone) return "#4CAF81";
     if (m.done) return "#C9A84C";
     if (m.voiceDone) return "#6EA8D4";
-    return "#AAAAAA"; // 미완료 어두운 색상 밝게 조절
+    return "#AAAAAA"; 
   };
   const getLabel = m => {
     if (m.done && m.voiceDone) return "통독 + 기도 ✓";
@@ -657,11 +661,12 @@ export default function App() {
 
       <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
 
-        {/* 헤더 */}
-        <header style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"22px 0 0",gap:12}}>
+        {/* 헤더 수정 (텍스트 한줄로) */}
+        <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"22px 0 0",gap:12}}>
           <div>
-            <div style={{fontSize:11,letterSpacing:".2em",color:"#888888",textTransform:"uppercase",marginBottom:3,fontFamily:"'Noto Sans KR',sans-serif"}}>BASIC Community Church · 2026 성경통독</div>
-            <div style={{fontSize:13,color:"#666666"}}>{fmtLong(viewDate)}</div>
+            <div style={{fontSize:16,fontWeight:700,color:"#111111",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.02em"}}>
+              성경통독 {viewDate.getFullYear()}/{viewDate.getMonth() + 1}/{viewDate.getDate()}
+            </div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
             <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:11,color:theme.color,letterSpacing:".08em",fontFamily:"'Noto Sans KR',sans-serif"}}>{theme.badge}</div>
