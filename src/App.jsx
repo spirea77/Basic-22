@@ -495,7 +495,10 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
               </div>
               <div>
                 <div style={{fontSize:13,color:isVoiceDone?theme.color:"#666666",fontWeight:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
-                <div style={{fontSize:11,color:"#888888"}}>{savedMeta?.duration?fmtTime(savedMeta.duration):"—"}</div>
+                {/* 녹음 시간 표시 영역 수정 (시간 데이터가 있을 때만 표시, 빈 대시(-)는 출력 안 함) */}
+                {savedMeta?.duration ? (
+                  <div style={{fontSize:11,color:"#888888"}}>{fmtTime(savedMeta.duration)}</div>
+                ) : null}
               </div>
             </button>
             <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:60,color:"#08090F",fontFamily:"'Noto Sans KR',sans-serif",fontSize:13,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
@@ -661,11 +664,11 @@ export default function App() {
 
       <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
 
-        {/* 헤더 수정 (텍스트 한줄로) */}
+        {/* 헤더 수정 (성경통독 단어 제거, 날짜만 표시) */}
         <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"22px 0 0",gap:12}}>
           <div>
             <div style={{fontSize:16,fontWeight:700,color:"#111111",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.02em"}}>
-              성경통독 {viewDate.getFullYear()}/{viewDate.getMonth() + 1}/{viewDate.getDate()}
+              {viewDate.getFullYear()}/{viewDate.getMonth() + 1}/{viewDate.getDate()}
             </div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
