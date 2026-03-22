@@ -56,7 +56,7 @@ const DEVOTIONALS = {
 "3-27":{핵심:"룻기는 사사 시대의 혼란 속에서 피어난 신실함의 이야기입니다. 룻의 고백과 보아스의 기업 무를 자로서의 사랑이 아름답게 펼쳐집니다.",성품:"하나님은 이방인도 품으시는 분입니다. 룻은 모압 여인이었지만 하나님의 언약 백성 안으로 들어왔고, 다윗 왕의 조상이 되었습니다.",묵상:"어디를 가든 함께하겠다는 룻의 고백처럼, 오늘 하나님께 그런 신실함으로 나아갈 수 있나요?",기도:"신실하신 하나님, 룻처럼 어떤 상황에서도 주님을 따르는 믿음을 허락하시고, 내 삶에서도 당신의 선한 섭리를 경험하게 하소서.",구절:"어머니의 백성이 나의 백성이 되고 어머니의 하나님이 나의 하나님이 되시리니 (룻기 1:16)"},
 "3-28":{핵심:"한나의 간절한 기도와 사무엘의 탄생은 하나님이 기도를 들으시는 분임을 보여줍니다. 어린 사무엘은 '말씀하옵소서, 주의 종이 듣겠나이다'라고 응답합니다.",성품:"하나님은 고통 중에 부르짖는 기도를 들으시는 분입니다. 한나가 울며 기도할 때 하나님은 그 기도를 기억하셨습니다.",묵상:"오래 기도했지만 아직 응답이 없는 것이 있나요? 한나의 기도는 응답될 때까지 멈추지 않았습니다.",기도:"기도를 들으시는 하나님, 한나처럼 포기하지 않고 당신 앞에 내 마음을 쏟아내게 하소서.",구절:"여호와는 죽이기도 하시고 살리기도 하시며 스올에 내리게도 하시고 거기에서 올리기도 하시는도다 (사무엘상 2:6)"},
 "3-29":{핵심:"언약궤를 빼앗기고 엘리와 그 아들들이 죽는 비극이 일어납니다. 그러나 하나님은 블레셋의 다곤 신전에서 스스로 당신의 영광을 지키십니다.",성품:"하나님은 스스로 당신의 영광을 지키시는 분입니다. 다곤 신상이 엎드러진 것은 하나님의 주권이 모든 우상보다 높음을 선포합니다.",묵상:"때로 상황이 마치 하나님이 패배하신 것처럼 보일 때가 있습니다. 하지만 하나님은 스스로의 영광을 지키십니다.",기도:"영광의 하나님, 어떤 상황에서도 당신의 이름이 높임 받으며, 내 삶이 그 영광을 드러내는 통로가 되게 하소서.",구절:"여호와의 손이 아스돗 사람에게 엄중히 더하사 (사무엘상 5:6)"},
-"3-30":{핵심:"사무엘이 마지막 사사로 이스라엘을 이끄는 동안 백성은 왕을 요구합니다. 하나님은 이를 허락하시지만 왕의 폐단을 미리 경고하십니다.",성품:"하나님은 인간의 자유를 존중하시되 그 선택의 결과도 경험하게 하시는 분입니다.",묵상:"내가 원하는 것이 반드시 내게 필요한 것은 아닐 수 있습니다. 오늘 내 소원을 하나님의 뜻 앞에 다시 놓으며 '당신의 뜻이 이루어지이다'를 고백할 수 있나요?",기도:"지혜로우신 하나님, 내 원함보다 당신의 뜻이 더 선함을 믿으며, 오늘 내 계획을 당신께 맡기게 하소서.",구절:"여호와께서는 그의 크신 이름을 위해서라도 자기 백성을 버리지 아니하실 것이요 (사무엘상 12:22)"},
+"3-30":{핵심:"사무엘이 마지막 사사로 이스라엘을 이끄는 동안 백성은 왕을 요구합니다. 하나님은 이를 허락하시지만 왕의 폐단을 미리 경고하십니다.",성품:"하나님은 인간의 자유를 존중하시되 그 선택의 결과도 경험하게 하시는 분입니다.",묵상:"내가 원하는 것이 반드시 내게 필요한 것은 아닐 수 있습니다. 오늘 내 소원을 하나님의 뜻 앞에 다시 놓으며 '당신의 뜻이 이루어지이다'를 고백할 수 있나요?",기도:"지혜로우신 하나님, 내 원함보다 당신의 뜻이 더 선함을 믿으며, 오늘 내 계획을 당신께 맡기게 하소서.",구절:"여호와의께서는 그의 크신 이름을 위해서라도 자기 백성을 버리지 아니하실 것이요 (사무엘상 12:22)"},
 "3-31":{핵심:"사울의 불순종에 사무엘은 '순종이 제사보다 낫고 듣는 것이 수양의 기름보다 낫다'고 선포합니다.",성품:"하나님은 외적인 종교 행위보다 마음의 순종을 기뻐하시는 분입니다.",묵상:"오늘 내 신앙이 형식에 머물고 있지는 않나요? 하나님은 오늘 나의 진심 어린 순종을 원하십니다.",기도:"마음을 보시는 하나님, 형식이 아닌 진심으로 당신께 나아가며, 오늘 하루 말씀에 순종하는 삶을 살게 하소서.",구절:"여호와의 구원은 사람이 많고 적음에 달리지 아니하였느니라 (사무엘상 14:6)"},
 "4-1":{핵심:"사울은 아말렉을 완전히 진멸하지 않습니다. 결국 하나님은 사울을 왕으로 삼은 것을 후회하시고 다윗을 예비하십니다.",성품:"하나님은 완전한 순종을 원하시는 분입니다. 사울은 90% 순종했지만 그것은 불순종이었습니다.",묵상:"거의 다 순종했는데라고 생각하는 영역이 있나요? 오늘 완전히 내어드리지 못한 것이 무엇인지 물어보세요.",기도:"전능하신 하나님, 부분적인 순종이 아닌 온전한 헌신으로 당신을 따르게 하소서.",구절:"순종이 제사보다 낫고 듣는 것이 숫양의 기름보다 나으니 (사무엘상 15:22)"},
 "4-2":{핵심:"다윗이 기름부음을 받습니다. 하나님은 사무엘에게 '외모를 보지 말라, 나는 중심을 보느니라'고 하십니다.",성품:"하나님은 중심을 보시는 분입니다. 세상은 외모와 조건을 보지만 하나님은 마음의 중심을 보십니다.",묵상:"아무도 알아주지 않는 곳에서도 하나님은 내 중심을 보고 계십니다.",기도:"중심을 보시는 하나님, 사람의 시선이 아니라 하나님의 시선 앞에서 살아가는 오늘이 되게 하소서.",구절:"사람은 외모를 보거니와 나 여호와는 중심을 보느니라 (사무엘상 16:7)"},
@@ -440,9 +440,9 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
       {recState==="recording" && (
         <div style={{textAlign:"center",padding:"8px 0"}}>
           <div style={{position:"relative",width:80,height:80,margin:"0 auto 16px"}}>
-            <div style={{position:"absolute",inset:0,borderRadius:40,background:`${theme.color}18`,animation:"ripple 1.2s ease infinite"}}/>
-            <div style={{position:"absolute",inset:8,borderRadius:32,background:`${theme.color}25`,animation:"ripple 1.2s ease .3s infinite"}}/>
-            <div style={{position:"absolute",inset:16,borderRadius:24,background:`linear-gradient(135deg,${theme.color}55,${theme.color}33)`,border:`2px solid ${theme.color}`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <div style={{position:"absolute",inset:0,borderRadius:40,background:`${theme.color}18`,animation:"ripple 1.2s ease infinite",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:8,borderRadius:32,background:`${theme.color}25`,animation:"ripple 1.2s ease .3s infinite",pointerEvents:"none"}}/>
+            <div style={{position:"absolute",inset:16,borderRadius:24,background:`linear-gradient(135deg,${theme.color}55,${theme.color}33)`,border:`2px solid ${theme.color}`,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none"}}>
               <span style={{fontSize:22}}>🎙</span>
             </div>
           </div>
@@ -548,6 +548,13 @@ export default function App() {
     next.has(key) ? next.delete(key) : next.add(key);
     setDone(next);
     if (user) await saveCompletion(user, key, next.has(key), voiceDone.has(key), raw);
+  };
+
+  const toggleVoiceDone = async () => {
+    const next = new Set(voiceDone);
+    next.has(key) ? next.delete(key) : next.add(key);
+    setVoiceDone(next);
+    if (user) await saveCompletion(user, key, done.has(key), next.has(key), raw);
   };
 
   const handleVoiceSaved = async () => {
@@ -714,42 +721,26 @@ export default function App() {
               <button onClick={toggleDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:done.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,boxShadow:done.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
                 {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
               </button>
+              {/* 버튼 텍스트 '말씀 녹음'으로 고정 */}
               <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
-                {voiceDone.has(key)?"🎙 말씀 녹음 완료!":"🎙 말씀 녹음"}
+                🎙 말씀 녹음
               </button>
             </div>
 
-            {(done.has(key) || voiceDone.has(key)) && (
+            {done.has(key) && (
               <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
-                {done.has(key) && (
-                  <div style={{marginBottom: voiceDone.has(key)?14:0}}>
-                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                      <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 통독 진행률</span>
-                      <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{doneDays} / {totalDays}일</span>
-                    </div>
-                    <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
-                      <div style={{width:`${prog}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}66,${theme.color})`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
-                    </div>
+                <div>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 통독 진행률</span>
+                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{doneDays} / {totalDays}일</span>
                   </div>
-                )}
-                {voiceDone.has(key) && (()=>{
-                  const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-                  const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
-                  return (
-                    <div>
-                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                        <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
-                        <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
-                      </div>
-                      <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
-                        <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
-                      </div>
-                    </div>
-                  );
-                })()}
+                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
+                    <div style={{width:`${prog}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}66,${theme.color})`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
+                  </div>
+                </div>
               </div>
             )}
-            {!done.has(key) && !voiceDone.has(key) && <div style={{marginBottom:36}}/>}
+            {!done.has(key) && <div style={{marginBottom:36}}/>}
           </div>
         )}
 
@@ -779,6 +770,30 @@ export default function App() {
               </div>
               <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
             </div>
+
+            {/* 수동 녹음 완료 체크 버튼 추가 */}
+            <div style={{display:"flex",gap:10,marginBottom:14}}>
+              <button onClick={toggleVoiceDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:voiceDone.has(key)?"#08090F":theme.color,boxShadow:voiceDone.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
+                {voiceDone.has(key)?"✓ 말씀 녹음 완료!":"말씀 녹음 수동 체크"}
+              </button>
+            </div>
+
+            {/* 말씀 녹음 진행률 바 (묵상 탭에서 이동) */}
+            {voiceDone.has(key) && (()=>{
+              const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
+              const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
+              return (
+                <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:14}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
+                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
+                  </div>
+                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
+                    <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
+                  </div>
+                </div>
+              );
+            })()}
 
             <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
               <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 가이드</div>
