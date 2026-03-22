@@ -187,50 +187,7 @@ const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60)
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
 const MAX_SEC = 300;
 
-// ─── SHARE HANDLER ────────────────────────────────────────────────────────────
-async function handleShareSuccess(dateKey, passageRaw) {
-  const dateStr = dateKey.replace("-", "월 ") + "일";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw || ""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
-
-  // 1. 네이티브 공유 시도 (카카오톡 포함 모바일 공유창)
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: '2026 BASIC 성경통독 🙏',
-        text: shareText,
-        url: window.location.href
-      });
-      return;
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-    }
-  }
-
-  // 2. 클립보드 복사 fallback
-  const fullText = shareText + "\n" + window.location.href;
-  const fallbackCopy = (text) => {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
-    document.body.appendChild(ta);
-    ta.focus(); ta.select();
-    try {
-      document.execCommand("copy");
-      alert("✅ 복사 완료!\n카카오톡 대화창에 붙여넣기 해주세요 😊");
-    } catch {
-      alert("브라우저 설정으로 복사할 수 없습니다.\n우측 상단 메뉴(⋮)에서 '다른 브라우저로 열기'를 선택해주세요.");
-    }
-    document.body.removeChild(ta);
-  };
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(fullText)
-      .then(() => alert("✅ 복사 완료!\n카카오톡 대화창에 붙여넣기 해주세요 😊"))
-      .catch(() => fallbackCopy(fullText));
-  } else {
-    fallbackCopy(fullText);
-  }
-}
+// ─── (share logic moved inside VoiceRecorder) ────────────────────────────────
 
 // ─── VOICE RECORDER COMPONENT ────────────────────────────────────────────────
 function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
@@ -240,6 +197,52 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
   const [savedMeta, setSavedMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [shareToast, setShareToast] = useState(""); // "" | "success" | "copied"
+  const toastTimerRef = useRef(null);
+
+  const showToast = (type) => {
+    setShareToast(type);
+    clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setShareToast(""), 3000);
+  };
+
+  const handleShare = async () => {
+    const dateStr = dateKey.replace("-", "월 ") + "일";
+    const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw || ""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
+    const fullText = shareText + "\n" + window.location.href;
+
+    // 모바일에서만 네이티브 공유 시도
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && navigator.share) {
+      try {
+        await navigator.share({ title: '2026 BASIC 성경통독 🙏', text: shareText, url: window.location.href });
+        showToast("success");
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+    }
+
+    // 데스크탑 / fallback: 클립보드 복사
+    const fallbackCopy = (text) => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0;";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try { document.execCommand("copy"); showToast("copied"); }
+      catch { showToast("fail"); }
+      document.body.removeChild(ta);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(fullText)
+        .then(() => showToast("copied"))
+        .catch(() => fallbackCopy(fullText));
+    } else {
+      fallbackCopy(fullText);
+    }
+  };
   const mediaRef = useRef(null);
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
@@ -394,9 +397,9 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
               </div>
             </div>
 
-            {/* 공유 버튼 — 녹음완료 바로 옆 */}
+            {/* 공유 버튼 */}
             <button
-              onClick={() => handleShareSuccess(dateKey, passageRaw)}
+              onClick={handleShare}
               style={{
                 flexShrink:0,
                 background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,
@@ -418,10 +421,17 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
                 gap:2,
                 whiteSpace:"nowrap"
               }}>
-              <span style={{fontSize:18}}>📤</span>
-              <span style={{fontSize:11}}>공유하기</span>
+              <span style={{fontSize:18}}>{shareToast==="copied"?"✅":shareToast==="success"?"✅":"📤"}</span>
+              <span style={{fontSize:11}}>{shareToast==="copied"?"복사 완료!":shareToast==="success"?"공유 완료!":"공유하기"}</span>
             </button>
           </div>
+
+          {/* 토스트 안내 */}
+          {shareToast==="copied" && (
+            <div style={{background:`${theme.color}15`,border:`1px solid ${theme.border}`,borderRadius:12,padding:"10px 16px",marginBottom:12,fontSize:12,color:theme.color,textAlign:"center",animation:"fadeUp .3s ease"}}>
+              📋 클립보드에 복사됐어요! 카카오톡 대화창에 붙여넣기 해주세요 😊
+            </div>
+          )}
 
           {/* 재생 + 삭제/저장 */}
           <div style={{background:"rgba(255,255,255,.025)",border:`1px solid ${theme.border}`,borderRadius:16,padding:"16px 18px"}}>
