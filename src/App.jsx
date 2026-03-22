@@ -820,7 +820,7 @@ export default function App() {
             <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
               <div style={{fontSize:11,letterSpacing:".18em",color:"#777777",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10}}>말씀 녹음 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
+                {[["✦","찬양","오늘 본문에 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
                   <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                     <span style={{color:theme.color,fontSize:13,marginTop:2,flexShrink:0}}>{sym}</span>
                     <div><span style={{fontSize:13,color:theme.color,fontWeight:600,marginRight:8}}>{title}</span><span style={{fontSize:13,color:"#666666",fontWeight:400}}>{desc}</span></div>
