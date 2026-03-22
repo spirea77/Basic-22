@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── 미리 준비된 묵상 데이터 (3/22 ~ 4/30) ───────────────────────────────────
 const DEVOTIONALS = {
