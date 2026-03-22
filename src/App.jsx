@@ -164,6 +164,7 @@ function detectTheme(raw) {
 const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
 const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
+const fmtLong = d => d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
 const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
 const MAX_SEC = 300;
@@ -489,15 +490,15 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
       {recState==="saved" && audioUrl && (
         <div>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-            <button onClick={onToggleVoiceDone} style={{flex:1,minWidth:150,background:isVoiceDone?`linear-gradient(135deg,${theme.color}18,${theme.color}08)`:"#FFFFFF",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid #EAEAEA",borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10,cursor:"pointer",textAlign:"left",transition:"all .2s"}}>
-              <div style={{width:34,height:34,borderRadius:17,background:isVoiceDone?`${theme.color}22`:"#F5F5F5",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid #EAEAEA",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s"}}>
-                <span style={{fontSize:16,opacity:isVoiceDone?1:0.4}}>🎙</span>
+            {/* 완료 상태일 때 공유하기 버튼과 디자인(그라데이션 및 그림자) 완벽히 일치시키기 */}
+            <button onClick={onToggleVoiceDone} style={{flex:1,minWidth:150,height:60,background:isVoiceDone?`linear-gradient(135deg,${theme.color},${theme.color}BB)`:"#FFFFFF",border:isVoiceDone?"none":"1px solid #EAEAEA",borderRadius:14,padding:"0 14px",display:"flex",alignItems:"center",gap:10,cursor:"pointer",textAlign:"left",transition:"all .2s",boxShadow:isVoiceDone?`0 4px 18px ${theme.glow}55`:"none"}}>
+              <div style={{width:34,height:34,borderRadius:17,background:isVoiceDone?"rgba(0,0,0,.1)":"#F5F5F5",border:isVoiceDone?"none":"1px solid #EAEAEA",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s"}}>
+                <span style={{fontSize:16,opacity:isVoiceDone?0.9:0.4}}>🎙</span>
               </div>
               <div>
-                <div style={{fontSize:13,color:isVoiceDone?theme.color:"#666666",fontWeight:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
-                {/* 녹음 시간 표시 영역 수정 (시간 데이터가 있을 때만 표시, 빈 대시(-)는 출력 안 함) */}
+                <div style={{fontSize:13,color:isVoiceDone?"#08090F":"#666666",fontWeight:isVoiceDone?700:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
                 {savedMeta?.duration ? (
-                  <div style={{fontSize:11,color:"#888888"}}>{fmtTime(savedMeta.duration)}</div>
+                  <div style={{fontSize:11,color:isVoiceDone?"rgba(8,9,15,0.6)":"#888888"}}>{fmtTime(savedMeta.duration)}</div>
                 ) : null}
               </div>
             </button>
@@ -664,7 +665,7 @@ export default function App() {
 
       <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
 
-        {/* 헤더 수정 (성경통독 단어 제거, 날짜만 표시) */}
+        {/* 헤더 */}
         <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"22px 0 0",gap:12}}>
           <div>
             <div style={{fontSize:16,fontWeight:700,color:"#111111",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.02em"}}>
@@ -820,7 +821,7 @@ export default function App() {
             <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
               <div style={{fontSize:11,letterSpacing:".18em",color:"#777777",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10}}>말씀 녹음 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                {[["✦","찬양","오늘 본문에 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
+                {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
                   <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                     <span style={{color:theme.color,fontSize:13,marginTop:2,flexShrink:0}}>{sym}</span>
                     <div><span style={{fontSize:13,color:theme.color,fontWeight:600,marginRight:8}}>{title}</span><span style={{fontSize:13,color:"#666666",fontWeight:400}}>{desc}</span></div>
