@@ -285,6 +285,25 @@ function VoiceRecorder({ dateKey, theme, onSave, onDelete }) {
     if (onDelete) onDelete();
   };
 
+  // ✅ 카카오톡 공유 기능 (Web Share API 사용)
+  const handleShare = async () => {
+    const shareData = {
+      title: '2026 BASIC 성경통독',
+      text: '오늘도 성공! 🙏 묵상과 기도를 모두 완료했어요.',
+      url: window.location.href // 현재 웹사이트 주소 공유
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        alert("현재 브라우저에서는 공유하기 기능이 지원되지 않습니다. 링크를 복사해서 공유해주세요!");
+      }
+    } catch (err) {
+      console.log('공유 취소 또는 실패:', err);
+    }
+  };
+
   const pct = Math.min((elapsed / MAX_SEC) * 100, 100);
   const remaining = MAX_SEC - elapsed;
 
@@ -342,10 +361,18 @@ function VoiceRecorder({ dateKey, theme, onSave, onDelete }) {
         <div>
           {savedMeta && (
             <div style={{background:"rgba(255,255,255,.03)",border:`1px solid ${theme.border}`,borderRadius:14,padding:"14px 18px",marginBottom:16,display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,flexWrap:"wrap"}}>
-              <div>
-                <div style={{fontSize:12,color:theme.color,marginBottom:3}}>🎙 {savedMeta.duration ? fmtTime(savedMeta.duration) : "녹음 완료"}</div>
-                <div style={{fontSize:11,color:"#4A4038"}}>{savedMeta.savedAt} · {savedMeta.size}KB</div>
+              
+              <div style={{display:"flex",alignItems:"center",gap:8}}>
+                <div>
+                  <div style={{fontSize:12,color:theme.color,marginBottom:3}}>🎙 {savedMeta.duration ? fmtTime(savedMeta.duration) : "녹음 완료"}</div>
+                  <div style={{fontSize:11,color:"#4A4038"}}>{savedMeta.savedAt}</div>
+                </div>
+                {/* 카카오톡 공유 버튼 추가 */}
+                <button onClick={handleShare} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:20,padding:"6px 12px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:11,fontWeight:600,cursor:"pointer",marginLeft:8}}>
+                  📤 공유
+                </button>
               </div>
+              
               <div style={{display:"flex",gap:8,flexShrink:0}}>
                 <button onClick={() => {
                   if (!blobRef.current) return;
@@ -577,8 +604,8 @@ export default function App() {
                 <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
               </div>
               
+              {/* 수정됨: [녹음하기] 버튼과 [묵상 완료] 버튼을 나란히 우측에 배치 */}
               <div style={{display:"flex",gap:8,alignItems:"center"}}>
-                {/* 기존 '녹음 완료' 텍스트를 누를 수 있는 버튼으로 변경 */}
                 <button onClick={() => setTab("voice")}
                   style={{border:`1px solid ${theme.color}44`,borderRadius:100,padding:"11px 20px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,letterSpacing:".05em",background:"rgba(255,255,255,.05)",color:theme.color,transition:"all .2s"}}>
                   🎙 녹음 하기
@@ -645,7 +672,7 @@ export default function App() {
               <VoiceRecorder dateKey={key} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted} />
             </div>
 
-            <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"16px 20px",marginBottom:36}}>
+            <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"16px 20px",marginBottom:20}}>
               <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>기도 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품을 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
@@ -658,6 +685,14 @@ export default function App() {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* 수정됨: 기도 가이드 아래에 달력으로 가는 큼지막한 버튼 추가 */}
+            <div style={{textAlign:"center", marginBottom:36}}>
+              <button onClick={() => setTab("calendar")}
+                style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"14px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:500,cursor:"pointer",letterSpacing:".05em",transition:"all .2s"}}>
+                📅 달력 보러가기
+              </button>
             </div>
           </div>
         )}
@@ -696,7 +731,7 @@ export default function App() {
               })}
             </div>
             
-            {/* 달력 하단 범례: 하나님,예수님,성령님 삭제됨 */}
+            {/* 수정됨: 달력 하단 범례에서 하나님/예수님/성령님 제거 */}
             <div style={{display:"flex",gap:14,justifyContent:"center",margin:"14px 0 8px",flexWrap:"wrap"}}>
               <div style={{display:"flex",alignItems:"center",gap:4}}>
                 <span style={{fontSize:10,color:"#C9A84C"}}>✓</span>
