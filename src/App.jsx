@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── 미리 준비된 묵상 데이터 (3/22 ~ 4/30) ───────────────────────────────────
 const DEVOTIONALS = {
@@ -210,14 +210,18 @@ function VoiceRecorder({ dateKey, theme }) {
     setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
     (async () => {
       try {
-        const metaR = await window.storage.get(metaKey);
-        const audioR = await window.storage.get(storageKey);
-        if (metaR?.value && audioR?.value) {
-          setSavedMeta(JSON.parse(metaR.value));
-          setAudioUrl(audioR.value); // base64 data URL
-          setRecState("saved");
+        if (window.storage) {
+          const metaR = await window.storage.get(metaKey);
+          const audioR = await window.storage.get(storageKey);
+          if (metaR?.value && audioR?.value) {
+            setSavedMeta(JSON.parse(metaR.value));
+            setAudioUrl(audioR.value); // base64 data URL
+            setRecState("saved");
+          } else {
+            setRecState("idle");
+          }
         } else {
-          setRecState("idle");
+            setRecState("idle");
         }
       } catch { setRecState("idle"); }
       setLoading(false);
@@ -246,8 +250,10 @@ function VoiceRecorder({ dateKey, theme }) {
           setAudioUrl(dataUrl);
           setSavedMeta({ duration: dur, savedAt: new Date().toLocaleString("ko-KR"), size: Math.round(blob.size/1024) });
           try {
-            await window.storage.set(storageKey, dataUrl);
-            await window.storage.set(metaKey, JSON.stringify({ duration: dur, savedAt: new Date().toLocaleString("ko-KR"), size: Math.round(blob.size/1024) }));
+            if (window.storage) {
+              await window.storage.set(storageKey, dataUrl);
+              await window.storage.set(metaKey, JSON.stringify({ duration: dur, savedAt: new Date().toLocaleString("ko-KR"), size: Math.round(blob.size/1024) }));
+            }
             setRecState("saved");
           } catch {
             setError("저장 실패: 파일이 너무 큽니다 (5MB 제한). 더 짧게 녹음해주세요.");
@@ -280,7 +286,12 @@ function VoiceRecorder({ dateKey, theme }) {
 
   const deleteAudio = async () => {
     if (!confirm("이 날의 녹음을 삭제할까요?")) return;
-    try { await window.storage.delete(storageKey); await window.storage.delete(metaKey); } catch {}
+    try { 
+      if (window.storage) {
+        await window.storage.delete(storageKey); 
+        await window.storage.delete(metaKey); 
+      }
+    } catch {}
     setAudioUrl(null); setSavedMeta(null); setRecState("idle"); setElapsed(0);
   };
 
@@ -393,28 +404,41 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      try { const r = await window.storage.get("bc365v2"); if(r?.value) setDone(new Set(JSON.parse(r.value))); } catch {}
+      try { 
+        if (window.storage) {
+          const r = await window.storage.get("bc365v2"); 
+          if(r?.value) setDone(new Set(JSON.parse(r.value))); 
+        }
+      } catch {}
     })();
   }, []);
 
-  const generate = useCallback(() => {
-    if (isPersonal) { setDevotional("PERSONAL"); return; }
-    if (!raw) { setDevotional(""); return; }
+  useEffect(() => {
+    if (isPersonal) { 
+      setDevotional("PERSONAL"); 
+      return; 
+    }
+    if (!raw) { 
+      setDevotional(""); 
+      return; 
+    }
     const d = DEVOTIONALS[key];
     if (d) {
       setDevotional(`[본문의 핵심]\n${d.핵심}\n\n[${theme.name}의 성품]\n${d.성품}\n\n[오늘의 묵상]\n${d.묵상}\n\n[오늘의 기도]\n${d.기도}`);
     } else {
       setDevotional("[본문의 핵심]\n이 날의 묵상은 다음 업데이트에서 추가됩니다.\n\n[오늘의 기도]\n주님, 오늘도 말씀 앞에 서게 하소서.");
     }
-  }, [key]);
-
-  useEffect(() => { generate(); }, [key]);
+  }, [key, isPersonal, raw, theme.name]);
 
   const toggleDone = async () => {
     const next = new Set(done);
     next.has(key) ? next.delete(key) : next.add(key);
     setDone(next);
-    try { await window.storage.set("bc365v2", JSON.stringify([...next])); } catch {}
+    try { 
+      if (window.storage) {
+        await window.storage.set("bc365v2", JSON.stringify([...next])); 
+      }
+    } catch {}
   };
 
   const parseSections = (text) => {
