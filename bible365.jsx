@@ -197,50 +197,31 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
   const [savedMeta, setSavedMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [shareToast, setShareToast] = useState(""); // "" | "success" | "copied"
-  const toastTimerRef = useRef(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const shareTextRef = useRef(null);
 
-  const showToast = (type) => {
-    setShareToast(type);
-    clearTimeout(toastTimerRef.current);
-    toastTimerRef.current = setTimeout(() => setShareToast(""), 3000);
-  };
+  const dateStr = dateKey.replace("-", "월 ") + "일";
+  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw || ""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
 
   const handleShare = async () => {
-    const dateStr = dateKey.replace("-", "월 ") + "일";
-    const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw || ""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
-    const fullText = shareText + "\n" + window.location.href;
-
-    // 모바일에서만 네이티브 공유 시도
+    // 모바일: 네이티브 공유 시도
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile && navigator.share) {
       try {
         await navigator.share({ title: '2026 BASIC 성경통독 🙏', text: shareText, url: window.location.href });
-        showToast("success");
         return;
       } catch (err) {
         if (err.name === 'AbortError') return;
       }
     }
+    // 모달로 텍스트 보여주기 (모든 환경에서 작동)
+    setShowShareModal(true);
+  };
 
-    // 데스크탑 / fallback: 클립보드 복사
-    const fallbackCopy = (text) => {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0;";
-      document.body.appendChild(ta);
-      ta.focus(); ta.select();
-      try { document.execCommand("copy"); showToast("copied"); }
-      catch { showToast("fail"); }
-      document.body.removeChild(ta);
-    };
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(fullText)
-        .then(() => showToast("copied"))
-        .catch(() => fallbackCopy(fullText));
-    } else {
-      fallbackCopy(fullText);
+  const handleSelectAll = () => {
+    if (shareTextRef.current) {
+      shareTextRef.current.select();
+      shareTextRef.current.setSelectionRange(0, 99999);
     }
   };
   const mediaRef = useRef(null);
@@ -384,6 +365,59 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
       {/* saved */}
       {recState === "saved" && audioUrl && (
         <div>
+          {/* ── 공유 모달 ── */}
+          {showShareModal && (
+            <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.75)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}}
+              onClick={()=>setShowShareModal(false)}>
+              <div style={{background:"#12151F",border:`1px solid ${theme.border}`,borderRadius:20,padding:"24px",maxWidth:420,width:"100%",boxShadow:`0 20px 60px rgba(0,0,0,.6)`}}
+                onClick={e=>e.stopPropagation()}>
+                <div style={{fontSize:10,letterSpacing:".22em",color:theme.color+"88",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>공유할 내용</div>
+                <div style={{fontSize:12,color:"#6A5E50",marginBottom:12,lineHeight:1.5}}>
+                  아래 텍스트를 <strong style={{color:theme.color}}>길게 눌러 전체 선택</strong> 후 카카오톡에 붙여넣기 하세요
+                </div>
+                <textarea
+                  ref={shareTextRef}
+                  readOnly
+                  onClick={handleSelectAll}
+                  onFocus={handleSelectAll}
+                  value={shareText}
+                  style={{
+                    width:"100%",
+                    background:"rgba(255,255,255,.04)",
+                    border:`1px solid ${theme.border}`,
+                    borderRadius:12,
+                    padding:"14px",
+                    color:"#EDE5D5",
+                    fontFamily:"'Noto Serif KR',serif",
+                    fontSize:13,
+                    lineHeight:1.8,
+                    resize:"none",
+                    outline:"none",
+                    height:180,
+                    cursor:"text"
+                  }}
+                />
+                <div style={{display:"flex",gap:8,marginTop:14}}>
+                  <button
+                    onClick={()=>{
+                      if(shareTextRef.current){
+                        shareTextRef.current.select();
+                        shareTextRef.current.setSelectionRange(0,99999);
+                        try{ document.execCommand("copy"); }catch{}
+                      }
+                    }}
+                    style={{flex:1,background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+                    📋 전체 선택 & 복사
+                  </button>
+                  <button onClick={()=>setShowShareModal(false)}
+                    style={{background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.1)",borderRadius:12,padding:"12px 18px",color:"#6A5E50",fontFamily:"'Noto Serif KR',serif",fontSize:13,cursor:"pointer"}}>
+                    닫기
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ── 녹음완료 + 공유버튼 나란히 ── */}
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14,flexWrap:"wrap"}}>
             {/* 녹음완료 배지 */}
@@ -421,17 +455,10 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
                 gap:2,
                 whiteSpace:"nowrap"
               }}>
-              <span style={{fontSize:18}}>{shareToast==="copied"?"✅":shareToast==="success"?"✅":"📤"}</span>
-              <span style={{fontSize:11}}>{shareToast==="copied"?"복사 완료!":shareToast==="success"?"공유 완료!":"공유하기"}</span>
+              <span style={{fontSize:18}}>📤</span>
+              <span style={{fontSize:11}}>공유하기</span>
             </button>
           </div>
-
-          {/* 토스트 안내 */}
-          {shareToast==="copied" && (
-            <div style={{background:`${theme.color}15`,border:`1px solid ${theme.border}`,borderRadius:12,padding:"10px 16px",marginBottom:12,fontSize:12,color:theme.color,textAlign:"center",animation:"fadeUp .3s ease"}}>
-              📋 클립보드에 복사됐어요! 카카오톡 대화창에 붙여넣기 해주세요 😊
-            </div>
-          )}
 
           {/* 재생 + 삭제/저장 */}
           <div style={{background:"rgba(255,255,255,.025)",border:`1px solid ${theme.border}`,borderRadius:16,padding:"16px 18px"}}>
