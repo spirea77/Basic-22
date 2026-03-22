@@ -56,7 +56,7 @@ const DEVOTIONALS = {
 "3-27":{핵심:"룻기는 사사 시대의 혼란 속에서 피어난 신실함의 이야기입니다. 룻의 고백과 보아스의 기업 무를 자로서의 사랑이 아름답게 펼쳐집니다.",성품:"하나님은 이방인도 품으시는 분입니다. 룻은 모압 여인이었지만 하나님의 언약 백성 안으로 들어왔고, 다윗 왕의 조상이 되었습니다.",묵상:"어디를 가든 함께하겠다는 룻의 고백처럼, 오늘 하나님께 그런 신실함으로 나아갈 수 있나요?",기도:"신실하신 하나님, 룻처럼 어떤 상황에서도 주님을 따르는 믿음을 허락하시고, 내 삶에서도 당신의 선한 섭리를 경험하게 하소서.",구절:"어머니의 백성이 나의 백성이 되고 어머니의 하나님이 나의 하나님이 되시리니 (룻기 1:16)"},
 "3-28":{핵심:"한나의 간절한 기도와 사무엘의 탄생은 하나님이 기도를 들으시는 분임을 보여줍니다. 어린 사무엘은 '말씀하옵소서, 주의 종이 듣겠나이다'라고 응답합니다.",성품:"하나님은 고통 중에 부르짖는 기도를 들으시는 분입니다. 한나가 울며 기도할 때 하나님은 그 기도를 기억하셨습니다.",묵상:"오래 기도했지만 아직 응답이 없는 것이 있나요? 한나의 기도는 응답될 때까지 멈추지 않았습니다.",기도:"기도를 들으시는 하나님, 한나처럼 포기하지 않고 당신 앞에 내 마음을 쏟아내게 하소서.",구절:"여호와는 죽이기도 하시고 살리기도 하시며 스올에 내리게도 하시고 거기에서 올리기도 하시는도다 (사무엘상 2:6)"},
 "3-29":{핵심:"언약궤를 빼앗기고 엘리와 그 아들들이 죽는 비극이 일어납니다. 그러나 하나님은 블레셋의 다곤 신전에서 스스로 당신의 영광을 지키십니다.",성품:"하나님은 스스로 당신의 영광을 지키시는 분입니다. 다곤 신상이 엎드러진 것은 하나님의 주권이 모든 우상보다 높음을 선포합니다.",묵상:"때로 상황이 마치 하나님이 패배하신 것처럼 보일 때가 있습니다. 하지만 하나님은 스스로의 영광을 지키십니다.",기도:"영광의 하나님, 어떤 상황에서도 당신의 이름이 높임 받으며, 내 삶이 그 영광을 드러내는 통로가 되게 하소서.",구절:"여호와의 손이 아스돗 사람에게 엄중히 더하사 (사무엘상 5:6)"},
-"3-30":{핵심:"사무엘이 마지막 사사로 이스라엘을 이끄는 동안 백성은 왕을 요구합니다. 하나님은 이를 허락하시지만 왕의 폐단을 미리 경고하십니다.",성품:"하나님은 인간의 자유를 존중하시되 그 선택의 결과도 경험하게 하시는 분입니다.",묵상:"내가 원하는 것이 반드시 내게 필요한 것은 아닐 수 있습니다. 오늘 내 소원을 하나님의 뜻 앞에 다시 놓으며 '당신의 뜻이 이루어지이다'를 고백할 수 있나요?",기도:"지혜로우신 하나님, 내 원함보다 당신의 뜻이 더 선함을 믿으며, 오늘 내 계획을 당신께 맡기게 하소서.",구절:"여호와의께서는 그의 크신 이름을 위해서라도 자기 백성을 버리지 아니하실 것이요 (사무엘상 12:22)"},
+"3-30":{핵심:"사무엘이 마지막 사사로 이스라엘을 이끄는 동안 백성은 왕을 요구합니다. 하나님은 이를 허락하시지만 왕의 폐단을 미리 경고하십니다.",성품:"하나님은 인간의 자유를 존중하시되 그 선택의 결과도 경험하게 하시는 분입니다.",묵상:"내가 원하는 것이 반드시 내게 필요한 것은 아닐 수 있습니다. 오늘 내 소원을 하나님의 뜻 앞에 다시 놓으며 '당신의 뜻이 이루어지이다'를 고백할 수 있나요?",기도:"지혜로우신 하나님, 내 원함보다 당신의 뜻이 더 선함을 믿으며, 오늘 내 계획을 당신께 맡기게 하소서.",구절:"여호와께서 그의 크신 이름을 위해서라도 자기 백성을 버리지 아니하실 것이요 (사무엘상 12:22)"},
 "3-31":{핵심:"사울의 불순종에 사무엘은 '순종이 제사보다 낫고 듣는 것이 수양의 기름보다 낫다'고 선포합니다.",성품:"하나님은 외적인 종교 행위보다 마음의 순종을 기뻐하시는 분입니다.",묵상:"오늘 내 신앙이 형식에 머물고 있지는 않나요? 하나님은 오늘 나의 진심 어린 순종을 원하십니다.",기도:"마음을 보시는 하나님, 형식이 아닌 진심으로 당신께 나아가며, 오늘 하루 말씀에 순종하는 삶을 살게 하소서.",구절:"여호와의 구원은 사람이 많고 적음에 달리지 아니하였느니라 (사무엘상 14:6)"},
 "4-1":{핵심:"사울은 아말렉을 완전히 진멸하지 않습니다. 결국 하나님은 사울을 왕으로 삼은 것을 후회하시고 다윗을 예비하십니다.",성품:"하나님은 완전한 순종을 원하시는 분입니다. 사울은 90% 순종했지만 그것은 불순종이었습니다.",묵상:"거의 다 순종했는데라고 생각하는 영역이 있나요? 오늘 완전히 내어드리지 못한 것이 무엇인지 물어보세요.",기도:"전능하신 하나님, 부분적인 순종이 아닌 온전한 헌신으로 당신을 따르게 하소서.",구절:"순종이 제사보다 낫고 듣는 것이 숫양의 기름보다 나으니 (사무엘상 15:22)"},
 "4-2":{핵심:"다윗이 기름부음을 받습니다. 하나님은 사무엘에게 '외모를 보지 말라, 나는 중심을 보느니라'고 하십니다.",성품:"하나님은 중심을 보시는 분입니다. 세상은 외모와 조건을 보지만 하나님은 마음의 중심을 보십니다.",묵상:"아무도 알아주지 않는 곳에서도 하나님은 내 중심을 보고 계십니다.",기도:"중심을 보시는 하나님, 사람의 시선이 아니라 하나님의 시선 앞에서 살아가는 오늘이 되게 하소서.",구절:"사람은 외모를 보거니와 나 여호와는 중심을 보느니라 (사무엘상 16:7)"},
@@ -195,17 +195,17 @@ function LoginScreen() {
   };
 
   return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E,#060818)",display:"flex",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"'Noto Serif KR',serif"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap');`}</style>
+    <div style={{minHeight:"100vh",background:"#F8F9FA",display:"flex",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"'Noto Sans KR',sans-serif"}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');`}</style>
       <div style={{textAlign:"center",maxWidth:340,width:"100%"}}>
-        <div style={{fontSize:52,marginBottom:16,color:"#C9A84C"}}>✦</div>
-        <div style={{fontSize:10,letterSpacing:".25em",color:"#3A3028",textTransform:"uppercase",marginBottom:8,fontFamily:"'Cormorant Garamond',serif"}}>BASIC Community Church</div>
-        <h1 style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",color:"#C9A84C",marginBottom:8,fontWeight:600}}>2026 성경통독</h1>
-        <p style={{fontSize:13,color:"#6A5E50",marginBottom:36,lineHeight:1.8,fontWeight:300}}>구글 계정으로 로그인하면<br/>통독 기록이 자동으로 저장되고<br/>멤버들과 함께 나눌 수 있어요</p>
+        <div style={{fontSize:53,marginBottom:16,color:"#C9A84C"}}>✦</div>
+        <div style={{fontSize:11,letterSpacing:".25em",color:"#888888",textTransform:"uppercase",marginBottom:8,fontFamily:"'Noto Sans KR',sans-serif"}}>BASIC Community Church</div>
+        <h1 style={{fontSize:35,fontFamily:"'Noto Sans KR',sans-serif",color:"#C9A84C",marginBottom:8,fontWeight:600}}>2026 성경통독</h1>
+        <p style={{fontSize:14,color:"#555555",marginBottom:36,lineHeight:1.8,fontWeight:400}}>구글 계정으로 로그인하면<br/>통독 기록이 자동으로 저장되고<br/>멤버들과 함께 나눌 수 있어요</p>
         
         {inAppMode && (
-          <div style={{background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.3)",borderRadius:12,padding:"16px",marginBottom:24,color:"#E08080",fontSize:13,lineHeight:1.6,wordBreak:"keep-all"}}>
-            <strong style={{display:"block",marginBottom:6,fontSize:14}}>⚠️ 인앱 브라우저 로그인 제한</strong>
+          <div style={{background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.3)",borderRadius:12,padding:"16px",marginBottom:24,color:"#E08080",fontSize:14,lineHeight:1.6,wordBreak:"keep-all"}}>
+            <strong style={{display:"block",marginBottom:6,fontSize:15}}>⚠️ 인앱 브라우저 로그인 제한</strong>
             {inAppMode === "kakao"
               ? "카카오톡에서는 구글 로그인이 차단됩니다. 화면 우측 하단의 [ ⋮ ] 버튼을 눌러 '다른 브라우저로 열기'를 선택해주세요."
               : "현재 화면에서는 구글 로그인이 차단됩니다. 화면 메뉴에서 '기본 브라우저(크롬/사파리)로 열기'를 선택해주세요."}
@@ -213,11 +213,11 @@ function LoginScreen() {
         )}
 
         <button onClick={handleLogin} disabled={loading}
-          style={{background:"#fff",border:"none",borderRadius:14,padding:"15px 32px",cursor:"pointer",fontSize:14,fontWeight:600,color:"#333",display:"flex",alignItems:"center",gap:10,margin:"0 auto",boxShadow:"0 4px 24px rgba(0,0,0,.4)",transition:"all .2s",opacity:loading?0.7:1}}>
+          style={{background:"#FFFFFF",border:"1px solid #E0E0E0",borderRadius:14,padding:"15px 32px",cursor:"pointer",fontSize:15,fontWeight:600,color:"#111111",display:"flex",alignItems:"center",gap:10,margin:"0 auto",boxShadow:"0 4px 16px rgba(0,0,0,.08)",transition:"all .2s",opacity:loading?0.7:1}}>
           <img src="https://www.google.com/favicon.ico" width={18} height={18} alt="G" onError={e=>e.target.style.display="none"}/>
           {loading ? "로그인 중..." : "Google로 로그인"}
         </button>
-        {error && <div style={{marginTop:16,fontSize:12,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
+        {error && <div style={{marginTop:16,fontSize:13,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
       </div>
     </div>
   );
@@ -246,7 +246,7 @@ function LeaderDashboard({ theme }) {
     if (m.done && m.voiceDone) return "#4CAF81";
     if (m.done) return "#C9A84C";
     if (m.voiceDone) return "#6EA8D4";
-    return "#444";
+    return "#AAAAAA"; // 미완료 어두운 색상 밝게 조절
   };
   const getLabel = m => {
     if (m.done && m.voiceDone) return "통독 + 기도 ✓";
@@ -265,8 +265,8 @@ function LeaderDashboard({ theme }) {
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
         <div style={{textAlign:"center"}}>
-          <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{selDate.getMonth()+1}월 {selDate.getDate()}일 현황</div>
-          <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw || "—"}</div>
+          <div style={{fontSize:15,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:"#111111"}}>{selDate.getMonth()+1}월 {selDate.getDate()}일 현황</div>
+          <div style={{fontSize:12,color:theme.color,marginTop:2}}>{raw || "—"}</div>
         </div>
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
       </div>
@@ -274,52 +274,52 @@ function LeaderDashboard({ theme }) {
       {!loading && (
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
           {[
-            ["전체",members.length,"#6A5E50"],
+            ["전체",members.length,"#666666"],
             ["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],
             ["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],
-            ["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"],
+            ["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#888888"],
           ].map(([label,count,color])=>(
-            <div key={label} style={{background:"rgba(255,255,255,.03)",border:`1px solid ${color}33`,borderRadius:12,padding:"10px 4px",textAlign:"center"}}>
-              <div style={{fontSize:20,fontFamily:"'Cormorant Garamond',serif",color,fontWeight:600}}>{count}</div>
-              <div style={{fontSize:9,color:"#5A5040",letterSpacing:".05em",marginTop:2}}>{label}</div>
+            <div key={label} style={{background:"#FAFAFA",border:`1px solid #EAEAEA`,borderRadius:12,padding:"10px 4px",textAlign:"center"}}>
+              <div style={{fontSize:21,fontFamily:"'Noto Sans KR',sans-serif",color,fontWeight:600}}>{count}</div>
+              <div style={{fontSize:10,color:"#777777",letterSpacing:".05em",marginTop:2}}>{label}</div>
             </div>
           ))}
         </div>
       )}
 
       <div style={{display:"flex",gap:12,marginBottom:14,flexWrap:"wrap"}}>
-        {[["#4CAF81","통독 + 기도"],["#C9A84C","통독만"],["#6EA8D4","기도만"],["#444","미완료"]].map(([c,l])=>(
+        {[["#4CAF81","통독 + 기도"],["#C9A84C","통독만"],["#6EA8D4","기도만"],["#AAAAAA","미완료"]].map(([c,l])=>(
           <div key={l} style={{display:"flex",alignItems:"center",gap:5}}>
             <div style={{width:10,height:10,borderRadius:5,background:c,boxShadow:`0 0 6px ${c}`}}/>
-            <span style={{fontSize:11,color:"#6A5E50"}}>{l}</span>
+            <span style={{fontSize:12,color:"#666666"}}>{l}</span>
           </div>
         ))}
       </div>
 
       {loading ? (
-        <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>불러오는 중...</div>
+        <div style={{textAlign:"center",padding:"40px 0",color:"#888888",fontSize:14}}>불러오는 중...</div>
       ) : sorted.length === 0 ? (
-        <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>이 날 아직 참여한 멤버가 없어요</div>
+        <div style={{textAlign:"center",padding:"40px 0",color:"#888888",fontSize:14}}>이 날 아직 참여한 멤버가 없어요</div>
       ) : (
         <div style={{display:"flex",flexDirection:"column",gap:8}}>
           {sorted.map(m => (
-            <div key={m.uid} style={{background:"rgba(255,255,255,.03)",border:`2px solid ${getColor(m)}44`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:12,transition:"all .2s"}}>
+            <div key={m.uid} style={{background:"#FFFFFF",border:`1px solid #EAEAEA`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:12,transition:"all .2s"}}>
               {m.photoURL ? (
                 <img src={m.photoURL} width={38} height={38} style={{borderRadius:19,border:`2px solid ${getColor(m)}`,flexShrink:0}} alt=""/>
               ) : (
-                <div style={{width:38,height:38,borderRadius:19,background:`${getColor(m)}22`,border:`2px solid ${getColor(m)}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0,color:getColor(m)}}>
+                <div style={{width:38,height:38,borderRadius:19,background:`${getColor(m)}22`,border:`2px solid ${getColor(m)}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:17,flexShrink:0,color:getColor(m)}}>
                   {(m.displayName||"?")[0]}
                 </div>
               )}
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontSize:14,color:"#EDE5D5",fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{m.displayName || m.email}</div>
-                <div style={{fontSize:11,color:getColor(m),marginTop:2}}>{getLabel(m)}</div>
+                <div style={{fontSize:15,color:"#111111",fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{m.displayName || m.email}</div>
+                <div style={{fontSize:12,color:getColor(m),marginTop:2}}>{getLabel(m)}</div>
               </div>
               <div style={{display:"flex",gap:6,flexShrink:0}}>
-                <div style={{width:22,height:22,borderRadius:11,background:m.done?"#C9A84C22":"rgba(255,255,255,.03)",border:`1px solid ${m.done?"#C9A84C":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.done?"#C9A84C":"#444"}}>
+                <div style={{width:22,height:22,borderRadius:11,background:m.done?"#C9A84C22":"#FAFAFA",border:`1px solid ${m.done?"#C9A84C":"#E0E0E0"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:m.done?"#C9A84C":"#AAAAAA"}}>
                   {m.done?"✓":"—"}
                 </div>
-                <div style={{width:22,height:22,borderRadius:11,background:m.voiceDone?"#4CAF8122":"rgba(255,255,255,.03)",border:`1px solid ${m.voiceDone?"#4CAF81":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.voiceDone?"#4CAF81":"#444"}}>
+                <div style={{width:22,height:22,borderRadius:11,background:m.voiceDone?"#4CAF8122":"#FAFAFA",border:`1px solid ${m.voiceDone?"#4CAF81":"#E0E0E0"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:m.voiceDone?"#4CAF81":"#AAAAAA"}}>
                   {m.voiceDone?"🎙":"—"}
                 </div>
               </div>
@@ -334,7 +334,7 @@ function LeaderDashboard({ theme }) {
 }
 
 // ─── 음성 녹음 컴포넌트 ───────────────────────────────────────────────────────
-function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDone, onToggleVoiceDone, devotionalData }) {
+function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDone, onToggleVoiceDone, devotionalData, dailyVerse }) {
   const [recState, setRecState] = useState("idle");
   const [elapsed, setElapsed] = useState(0);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -352,9 +352,10 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
   const metaKey = `bc365_audio_meta_${dateKey}`;
   const dateStr = dateKey.replace("-","월 ")+"일";
   
-  // 공유하기 텍스트 설정 (URL 및 광고성 문구 제거, 성품 데이터 포함)
+  // 공유하기 텍스트 설정 (본래 본문 구절 반영)
   const godCharacter = devotionalData?.성품 ? `🎙 ${devotionalData.성품}\n이러한 하나님을 의지합니다.` : "🎙 하나님을 의지합니다.";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n\n${godCharacter}`;
+  const versePart = dailyVerse ? `\n📖 묵상 구절: ${dailyVerse}` : "";
+  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}${versePart}\n\n${godCharacter}`;
 
   useEffect(() => {
     setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
@@ -415,8 +416,7 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if(isMobile&&navigator.share){
       try{
-        // url을 삭제하고 text만 공유하도록 수정
-        await navigator.share({text:shareText}); 
+        await navigator.share({text:shareText});
         return;
       }
       catch(e){if(e.name==="AbortError")return;}
@@ -426,24 +426,24 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
 
   const pct = Math.min((elapsed/MAX_SEC)*100,100);
 
-  if(loading) return <div style={{padding:"24px 0",textAlign:"center",color:"#3A3028",fontSize:12}}>불러오는 중…</div>;
+  if(loading) return <div style={{padding:"24px 0",textAlign:"center",color:"#888888",fontSize:13}}>불러오는 중…</div>;
 
   return (
     <div>
       {showShareModal && (
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.8)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setShowShareModal(false)}>
-          <div style={{background:"#12151F",border:`1px solid ${theme.border}`,borderRadius:20,padding:"24px",maxWidth:400,width:"100%"}} onClick={e=>e.stopPropagation()}>
-            <div style={{fontSize:10,letterSpacing:".2em",color:theme.color+"88",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>공유할 내용</div>
-            <div style={{fontSize:12,color:"#6A5E50",marginBottom:12}}>아래 텍스트를 <strong style={{color:theme.color}}>눌러서 전체 선택</strong> 후 카카오톡에 붙여넣기 하세요</div>
+          <div style={{background:"#FFFFFF",border:`1px solid #EAEAEA`,borderRadius:20,padding:"24px",maxWidth:400,width:"100%"}} onClick={e=>e.stopPropagation()}>
+            <div style={{fontSize:11,letterSpacing:".2em",color:theme.color,textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:8}}>공유할 내용</div>
+            <div style={{fontSize:13,color:"#666666",marginBottom:12}}>아래 텍스트를 <strong style={{color:theme.color}}>눌러서 전체 선택</strong> 후 카카오톡에 붙여넣기 하세요</div>
             <textarea ref={shareTextRef} readOnly value={shareText}
               onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);}}}
-              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontFamily:"'Noto Serif KR',serif",fontSize:13,lineHeight:1.8,resize:"none",outline:"none",height:180,cursor:"text"}}/>
+              style={{width:"100%",background:"#F5F5F5",border:`1px solid #E0E0E0`,borderRadius:12,padding:"14px",color:"#111111",fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,lineHeight:1.8,resize:"none",outline:"none",height:180,cursor:"text"}}/>
             <div style={{display:"flex",gap:8,marginTop:12}}>
               <button onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);try{document.execCommand("copy");}catch{}}}}
-                style={{flex:1,background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+                style={{flex:1,background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,fontWeight:700,cursor:"pointer"}}>
                 📋 전체 선택 & 복사
               </button>
-              <button onClick={()=>setShowShareModal(false)} style={{background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.1)",borderRadius:12,padding:"12px 16px",color:"#6A5E50",fontFamily:"'Noto Serif KR',serif",fontSize:13,cursor:"pointer"}}>닫기</button>
+              <button onClick={()=>setShowShareModal(false)} style={{background:"rgba(0,0,0,.05)",border:"1px solid rgba(0,0,0,.1)",borderRadius:12,padding:"12px 16px",color:"#555555",fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,cursor:"pointer"}}>닫기</button>
             </div>
           </div>
         </div>
@@ -451,14 +451,14 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
 
       {recState==="idle" && (
         <div style={{textAlign:"center",padding:"8px 0"}}>
-          <div style={{width:80,height:80,borderRadius:40,background:"rgba(255,255,255,.04)",border:`2px solid ${theme.border}`,margin:"0 auto 16px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}} onClick={startRecording}>
-            <span style={{fontSize:28}}>🎙</span>
+          <div style={{width:80,height:80,borderRadius:40,background:"rgba(0,0,0,.04)",border:`2px solid ${theme.border}`,margin:"0 auto 16px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}} onClick={startRecording}>
+            <span style={{fontSize:29}}>🎙</span>
           </div>
-          <button onClick={startRecording} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:100,padding:"12px 28px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:600,cursor:"pointer",boxShadow:`0 4px 20px ${theme.glow}50`}}>
+          <button onClick={startRecording} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:100,padding:"12px 28px",color:"#08090F",fontFamily:"'Noto Sans KR',sans-serif",fontSize:15,fontWeight:600,cursor:"pointer",boxShadow:`0 4px 20px ${theme.glow}50`}}>
             🎙 녹음 시작
           </button>
-          <div style={{fontSize:11,color:"#3A3028",marginTop:12}}>최대 5분</div>
-          {error && <div style={{marginTop:12,fontSize:12,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
+          <div style={{fontSize:12,color:"#888888",marginTop:12}}>최대 5분</div>
+          {error && <div style={{marginTop:12,fontSize:13,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
         </div>
       )}
 
@@ -468,15 +468,15 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
             <div style={{position:"absolute",inset:0,borderRadius:40,background:`${theme.color}18`,animation:"ripple 1.2s ease infinite",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:8,borderRadius:32,background:`${theme.color}25`,animation:"ripple 1.2s ease .3s infinite",pointerEvents:"none"}}/>
             <div style={{position:"absolute",inset:16,borderRadius:24,background:`linear-gradient(135deg,${theme.color}55,${theme.color}33)`,border:`2px solid ${theme.color}`,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none"}}>
-              <span style={{fontSize:22}}>🎙</span>
+              <span style={{fontSize:23}}>🎙</span>
             </div>
           </div>
-          <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color,marginBottom:4}}>{fmtTime(elapsed)}</div>
-          <div style={{fontSize:12,color:"#5A5040",marginBottom:16}}>남은 시간 {fmtTime(MAX_SEC-elapsed)}</div>
-          <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden",maxWidth:260,margin:"0 auto 20px"}}>
+          <div style={{fontSize:35,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:theme.color,marginBottom:4}}>{fmtTime(elapsed)}</div>
+          <div style={{fontSize:13,color:"#777777",marginBottom:16}}>남은 시간 {fmtTime(MAX_SEC-elapsed)}</div>
+          <div style={{background:"rgba(0,0,0,.06)",borderRadius:100,height:4,overflow:"hidden",maxWidth:260,margin:"0 auto 20px"}}>
             <div style={{width:`${pct}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}88,${theme.color})`,borderRadius:100,transition:"width .9s linear"}}/>
           </div>
-          <button onClick={stopRecording} style={{background:"rgba(224,100,100,.15)",border:"1px solid rgba(224,100,100,.3)",borderRadius:100,padding:"11px 28px",color:"#E08080",fontFamily:"'Noto Serif KR',serif",fontSize:14,cursor:"pointer",position:"relative",zIndex:10}}>
+          <button onClick={stopRecording} style={{background:"rgba(224,100,100,.15)",border:"1px solid rgba(224,100,100,.3)",borderRadius:100,padding:"11px 28px",color:"#E08080",fontFamily:"'Noto Sans KR',sans-serif",fontSize:15,cursor:"pointer",position:"relative",zIndex:10}}>
             ■ 녹음 완료
           </button>
         </div>
@@ -485,30 +485,30 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDo
       {recState==="saved" && audioUrl && (
         <div>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-            <button onClick={onToggleVoiceDone} style={{flex:1,minWidth:150,background:isVoiceDone?`linear-gradient(135deg,${theme.color}18,${theme.color}08)`:"rgba(255,255,255,.05)",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid rgba(255,255,255,.1)",borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10,cursor:"pointer",textAlign:"left",transition:"all .2s"}}>
-              <div style={{width:34,height:34,borderRadius:17,background:isVoiceDone?`${theme.color}22`:"rgba(255,255,255,.05)",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid rgba(255,255,255,.1)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s"}}>
-                <span style={{fontSize:15,opacity:isVoiceDone?1:0.4}}>🎙</span>
+            <button onClick={onToggleVoiceDone} style={{flex:1,minWidth:150,background:isVoiceDone?`linear-gradient(135deg,${theme.color}18,${theme.color}08)`:"#FFFFFF",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid #EAEAEA",borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10,cursor:"pointer",textAlign:"left",transition:"all .2s"}}>
+              <div style={{width:34,height:34,borderRadius:17,background:isVoiceDone?`${theme.color}22`:"#F5F5F5",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid #EAEAEA",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s"}}>
+                <span style={{fontSize:16,opacity:isVoiceDone?1:0.4}}>🎙</span>
               </div>
               <div>
-                <div style={{fontSize:12,color:isVoiceDone?theme.color:"#9A8E7A",fontWeight:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
-                <div style={{fontSize:10,color:"#4A4038"}}>{savedMeta?.duration?fmtTime(savedMeta.duration):"—"}</div>
+                <div style={{fontSize:13,color:isVoiceDone?theme.color:"#666666",fontWeight:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
+                <div style={{fontSize:11,color:"#888888"}}>{savedMeta?.duration?fmtTime(savedMeta.duration):"—"}</div>
               </div>
             </button>
-            <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:60,color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:12,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
-              <span style={{fontSize:16}}>📤</span>
+            <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:60,color:"#08090F",fontFamily:"'Noto Sans KR',sans-serif",fontSize:13,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
+              <span style={{fontSize:17}}>📤</span>
               <span>공유하기</span>
             </button>
           </div>
-          <div style={{background:"rgba(255,255,255,.025)",border:`1px solid ${theme.border}`,borderRadius:16,padding:"14px 16px"}}>
-            <div style={{fontSize:10,letterSpacing:".18em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 재생</div>
+          <div style={{background:"#FFFFFF",border:`1px solid #EAEAEA`,borderRadius:16,padding:"14px 16px"}}>
+            <div style={{fontSize:11,letterSpacing:".18em",color:theme.color,textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10}}>말씀 녹음 재생</div>
             <audio controls src={audioUrl} style={{width:"100%",height:40,borderRadius:20,outline:"none",accentColor:theme.color}}/>
             <div style={{display:"flex",gap:8,marginTop:10,justifyContent:"flex-end"}}>
               <button onClick={()=>{if(!blobRef.current)return;const url=URL.createObjectURL(blobRef.current);const a=document.createElement("a");a.href=url;a.download=`기도_${dateKey}.webm`;a.click();URL.revokeObjectURL(url);}}
-                style={{background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:11,cursor:"pointer"}}>↓ 저장</button>
-              <button onClick={deleteAudio} style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"5px 12px",color:"#E08080",fontFamily:"'Noto Serif KR',serif",fontSize:11,cursor:"pointer"}}>삭제</button>
+                style={{background:"rgba(0,0,0,.04)",border:`1px solid rgba(0,0,0,.05)`,borderRadius:20,padding:"5px 12px",color:theme.color,fontFamily:"'Noto Sans KR',sans-serif",fontSize:12,cursor:"pointer"}}>↓ 저장</button>
+              <button onClick={deleteAudio} style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"5px 12px",color:"#E08080",fontFamily:"'Noto Sans KR',sans-serif",fontSize:12,cursor:"pointer"}}>삭제</button>
             </div>
           </div>
-          {error && <div style={{marginTop:8,fontSize:12,color:"#E07070"}}>{error}</div>}
+          {error && <div style={{marginTop:8,fontSize:13,color:"#E07070"}}>{error}</div>}
         </div>
       )}
     </div>
@@ -625,10 +625,10 @@ export default function App() {
   const hasNext = R[dk(addDays(viewDate,1))]!==undefined;
 
   if (user === undefined) return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    <div style={{minHeight:"100vh",background:"#FFFFFF",display:"flex",alignItems:"center",justifyContent:"center"}}>
       <div style={{textAlign:"center"}}>
-        <div style={{fontSize:40,color:"#C9A84C",marginBottom:16}}>✦</div>
-        <div style={{fontSize:12,color:"#3A3028",fontFamily:"sans-serif"}}>로딩 중...</div>
+        <div style={{fontSize:41,color:"#C9A84C",marginBottom:16}}>✦</div>
+        <div style={{fontSize:13,color:"#888888",fontFamily:"sans-serif"}}>로딩 중...</div>
       </div>
     </div>
   );
@@ -638,21 +638,21 @@ export default function App() {
   const TABS = [["main","📖 묵상"],["voice","🎙 말씀 녹음"],["calendar","📅 달력"],["leader","👑 현황판"]];
 
   return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 55%,#060818 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR','Georgia',serif",overflowX:"hidden"}}>
+    <div style={{minHeight:"100vh",background:"#FFFFFF",color:"#111111",fontFamily:"'Noto Sans KR',sans-serif",overflowX:"hidden"}}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}
         .fade{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) both}
         @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
         .hero-anim{animation:heroIn .9s cubic-bezier(.16,1,.3,1) both}
         @keyframes heroIn{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:scale(1)}}
         @keyframes ripple{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
-        .btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#9A8E7A;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:13px;transition:all .2s}
-        .btn:hover:not(:disabled){background:rgba(255,255,255,.09);color:#E8E0D0}
+        .btn{background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.1);color:#555555;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:14px;transition:all .2s}
+        .btn:hover:not(:disabled){background:rgba(0,0,0,.08);color:#222222}
         .btn:disabled{opacity:.25;cursor:not-allowed}
-        .tab-btn{background:none;border:none;padding:7px 12px;border-radius:20px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.04em;transition:all .25s;white-space:nowrap}
+        .tab-btn{background:none;border:none;padding:7px 12px;border-radius:20px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:12px;letter-spacing:.04em;transition:all .25s;white-space:nowrap}
         .cal-cell:hover{opacity:.8;transform:scale(1.04)}
-        ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
+        ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:3px}
       `}</style>
 
       <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
@@ -660,33 +660,33 @@ export default function App() {
         {/* 헤더 */}
         <header style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"22px 0 0",gap:12}}>
           <div>
-            <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028",textTransform:"uppercase",marginBottom:3,fontFamily:"'Cormorant Garamond',serif"}}>BASIC Community Church · 2026 성경통독</div>
-            <div style={{fontSize:12,color:"#6A5E50"}}>{fmtLong(viewDate)}</div>
+            <div style={{fontSize:11,letterSpacing:".2em",color:"#888888",textTransform:"uppercase",marginBottom:3,fontFamily:"'Noto Sans KR',sans-serif"}}>BASIC Community Church · 2026 성경통독</div>
+            <div style={{fontSize:13,color:"#666666"}}>{fmtLong(viewDate)}</div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
-            <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:10,color:theme.color,letterSpacing:".08em",fontFamily:"'Cormorant Garamond',serif"}}>{theme.badge}</div>
+            <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:11,color:theme.color,letterSpacing:".08em",fontFamily:"'Noto Sans KR',sans-serif"}}>{theme.badge}</div>
             <button onClick={()=>signOut(auth)} title="로그아웃"
-              style={{background:"none",border:"1px solid rgba(255,255,255,.08)",borderRadius:20,padding:"4px 10px",cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
+              style={{background:"none",border:"1px solid rgba(0,0,0,.08)",borderRadius:20,padding:"4px 10px",cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
               {user.photoURL
                 ? <img src={user.photoURL} width={22} height={22} style={{borderRadius:11}} alt=""/>
-                : <div style={{width:22,height:22,borderRadius:11,background:"#C9A84C33",color:"#C9A84C",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>{(user.displayName||"?")[0]}</div>
+                : <div style={{width:22,height:22,borderRadius:11,background:"#C9A84C33",color:"#C9A84C",fontSize:12,display:"flex",alignItems:"center",justifyContent:"center"}}>{(user.displayName||"?")[0]}</div>
               }
-              <span style={{fontSize:10,color:"#5A5040"}}>로그아웃</span>
+              <span style={{fontSize:11,color:"#666666"}}>로그아웃</span>
             </button>
           </div>
         </header>
 
         <div style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
-          <div style={{flex:1,height:1,background:`linear-gradient(to right,transparent,${theme.color}28)`}}/>
-          <span style={{color:theme.color+"66",fontSize:13}}>{theme.symbol}</span>
-          <div style={{flex:1,height:1,background:`linear-gradient(to left,transparent,${theme.color}28)`}}/>
+          <div style={{flex:1,height:1,background:`linear-gradient(to right,transparent,rgba(0,0,0,0.1))`}}/>
+          <span style={{color:theme.color,fontSize:14}}>{theme.symbol}</span>
+          <div style={{flex:1,height:1,background:`linear-gradient(to left,transparent,rgba(0,0,0,0.1))`}}/>
         </div>
 
         {/* 탭 */}
         <div style={{display:"flex",gap:3,justifyContent:"center",margin:"14px 0 0",overflowX:"auto",paddingBottom:2}}>
           {TABS.map(([t,l]) => (
             <button key={t} className="tab-btn" onClick={()=>setTab(t)}
-              style={{color:tab===t?theme.color:"#5A5242",background:tab===t?theme.bg:"none",border:tab===t?`1px solid ${theme.border}`:"1px solid transparent",fontWeight:tab===t?600:400}}>
+              style={{color:tab===t?theme.color:"#777777",background:tab===t?theme.bg:"none",border:tab===t?`1px solid ${theme.border}`:"1px solid transparent",fontWeight:tab===t?600:400}}>
               {l}
             </button>
           ))}
@@ -696,38 +696,41 @@ export default function App() {
         {tab==="main" && (
           <div key={key} className="fade">
             <section style={{textAlign:"center",padding:"24px 0 18px",position:"relative"}}>
-              <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:240,height:240,background:`radial-gradient(ellipse,${theme.glow}18 0%,transparent 68%)`,pointerEvents:"none"}}/>
-              <div style={{fontSize:10,letterSpacing:".28em",color:theme.color+"66",textTransform:"uppercase",marginBottom:8,fontFamily:"'Cormorant Garamond',serif"}}>{theme.subtitle}</div>
-              <h1 className="hero-anim" style={{fontSize:"clamp(52px,11vw,76px)",fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color,letterSpacing:"-.02em",lineHeight:1,marginBottom:6,textShadow:`0 0 55px ${theme.glow}`}}>{theme.name}</h1>
-              <div style={{fontSize:11,color:"#352E25",letterSpacing:".14em",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{theme.en}</div>
+              <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:240,height:240,background:`radial-gradient(ellipse,${theme.glow} 0%,transparent 68%)`,pointerEvents:"none"}}/>
+              <div style={{fontSize:11,letterSpacing:".28em",color:theme.color,textTransform:"uppercase",marginBottom:8,fontFamily:"'Noto Sans KR',sans-serif"}}>{theme.subtitle}</div>
+              <h1 className="hero-anim" style={{fontSize:"clamp(53px,11vw,77px)",fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:theme.color,letterSpacing:"-.02em",lineHeight:1,marginBottom:6}}>{theme.name}</h1>
+              <div style={{fontSize:12,color:"#888888",letterSpacing:".14em",fontFamily:"'Noto Sans KR',sans-serif",fontStyle:"italic"}}>{theme.en}</div>
             </section>
 
-            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
-              <div style={{fontSize:10,letterSpacing:".22em",color:theme.color+"66",textTransform:"uppercase",marginBottom:10,fontFamily:"'Cormorant Garamond',serif"}}>오늘의 통독 본문</div>
+            <div style={{background:`linear-gradient(135deg,${theme.bg},#F8F9FA)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
+              <div style={{fontSize:11,letterSpacing:".22em",color:theme.color,textTransform:"uppercase",marginBottom:10,fontFamily:"'Noto Sans KR',sans-serif"}}>오늘의 통독 본문</div>
               {isPersonal ? (
                 <div>
-                  <div style={{fontSize:20,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:8}}>개별 통독의 날 ✦</div>
-                  <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.85,fontWeight:300}}>오늘은 자유롭게 원하는 성경 본문을 읽는 날입니다.</div>
+                  <div style={{fontSize:21,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:"#111111",marginBottom:8}}>개별 통독의 날 ✦</div>
+                  <div style={{fontSize:14,color:"#555555",lineHeight:1.85,fontWeight:300}}>오늘은 자유롭게 원하는 성경 본문을 읽는 날입니다.</div>
                 </div>
               ) : (
                 <div>
-                  <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4,lineHeight:1.3}}>{raw}</div>
-                  <div style={{fontSize:13,color:theme.color+"88",marginBottom:12,letterSpacing:".04em"}}>{expanded}</div>
-                  <div style={{borderLeft:`3px solid ${theme.color}40`,paddingLeft:16,fontSize:13,color:"#7A6E5A",lineHeight:1.75,fontWeight:300}}>오늘 이 본문을 통해 <strong style={{color:theme.color+"BB",fontWeight:500}}>{theme.name}</strong>이 어떤 분이신지 묵상해보세요.</div>
+                  <div style={{fontSize:27,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:"#111111",marginBottom:4,lineHeight:1.3}}>{raw}</div>
+                  <div style={{fontSize:14,color:theme.color,marginBottom:12,letterSpacing:".04em"}}>{expanded}</div>
+                  <div style={{borderLeft:`3px solid ${theme.color}40`,paddingLeft:16,fontSize:14,color:"#555555",lineHeight:1.75,fontWeight:400}}>
+                    오늘 이 본문을 통해<br/>
+                    <strong style={{color:theme.color,fontWeight:600}}>{theme.name}</strong>이 어떤 분이신지 묵상해보세요.
+                  </div>
                 </div>
               )}
             </div>
 
             {!isPersonal && sections.length>0 && (
-              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
-                <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:14}}>오늘의 묵상</div>
+              <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",boxShadow:"0 2px 10px rgba(0,0,0,0.02)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
+                <div style={{fontSize:11,letterSpacing:".2em",color:"#777777",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:14}}>오늘의 묵상</div>
                 {sections.map(s=>(
-                  <div key={s.label} style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:14,padding:"14px 16px",marginBottom:8}}>
+                  <div key={s.label} style={{background:"#FAFAFA",border:"1px solid #F0F0F0",borderRadius:14,padding:"14px 16px",marginBottom:8}}>
                     <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
-                      <span style={{color:theme.color,fontSize:12}}>{s.icon}</span>
-                      <span style={{fontSize:10,letterSpacing:".16em",color:theme.color+"BB",fontFamily:"'Cormorant Garamond',serif",textTransform:"uppercase",fontWeight:500}}>{s.label}</span>
+                      <span style={{color:theme.color,fontSize:13}}>{s.icon}</span>
+                      <span style={{fontSize:11,letterSpacing:".16em",color:theme.color,fontFamily:"'Noto Sans KR',sans-serif",textTransform:"uppercase",fontWeight:600}}>{s.label}</span>
                     </div>
-                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.95,fontWeight:300}}>{s.content}</p>
+                    <p style={{fontSize:15,color:"#444444",lineHeight:1.95,fontWeight:400}}>{s.content}</p>
                   </div>
                 ))}
               </div>
@@ -740,22 +743,22 @@ export default function App() {
             </div>
 
             <div style={{display:"flex",gap:10,marginBottom:12}}>
-              <button onClick={toggleDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:done.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,boxShadow:done.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
+              <button onClick={toggleDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:done.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(0,0,0,.05)",color:done.has(key)?"#08090F":theme.color,boxShadow:done.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
                 {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
               </button>
-              <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
+              <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"#FFFFFF",border:voiceDone.has(key)?"none":"1px solid #EAEAEA",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
                 🎙 말씀 녹음
               </button>
             </div>
 
             {done.has(key) && (
-              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
+              <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
                 <div>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 통독 진행률</span>
-                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{doneDays} / {totalDays}일</span>
+                    <span style={{fontSize:11,letterSpacing:".18em",color:"#888888",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif"}}>2026 통독 진행률</span>
+                    <span style={{fontSize:14,color:theme.color,fontFamily:"'Noto Sans KR',sans-serif"}}>{doneDays} / {totalDays}일</span>
                   </div>
-                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
+                  <div style={{background:"#EEEEEE",borderRadius:100,height:4,overflow:"hidden"}}>
                     <div style={{width:`${prog}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}66,${theme.color})`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
                   </div>
                 </div>
@@ -771,23 +774,26 @@ export default function App() {
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",margin:"14px 0 18px",gap:8}}>
               <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
               <div style={{textAlign:"center"}}>
-                <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{viewDate.getMonth()+1}월 {viewDate.getDate()}일</div>
-                <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw||"—"}</div>
+                <div style={{fontSize:15,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:"#111111"}}>{viewDate.getMonth()+1}월 {viewDate.getDate()}일</div>
+                <div style={{fontSize:12,color:theme.color,marginTop:2}}>{raw||"—"}</div>
               </div>
               <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
             </div>
 
-            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
+            <div style={{background:`linear-gradient(135deg,${theme.bg},#F5F7F9)`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
-                {d?.구절 ? (
-                  <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
-                    <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.65,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>"{d.구절}"</div>
-                    <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
+                <div style={{fontSize:11,letterSpacing:".25em",color:theme.color,textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
+                
+                {/* 1주일 고정: 히브리서 4:2 */}
+                <div style={{background:"#FFFFFF",border:`1px solid rgba(0,0,0,.1)`,borderRadius:14,padding:"18px",marginBottom:14}}>
+                  <div style={{fontSize:16,color:"#222222",lineHeight:1.65,fontWeight:600,fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10,wordBreak:"keep-all"}}>
+                    "그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라 (히브리서 4:2)"
                   </div>
-                ) : (
-                  <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.7,fontWeight:300}}>오늘 묵상한 본문 중 말씀을 먼저 소리 내어 선포하고 기도해 보세요.</div>
-                )}
+                  <div style={{fontSize:13,color:theme.color,lineHeight:1.6}}>
+                    이 구절을 소리 내어 선포한 후,<br/>기도를 이어가 보세요.
+                  </div>
+                </div>
+
               </div>
               
               <VoiceRecorder 
@@ -799,37 +805,36 @@ export default function App() {
                 isVoiceDone={voiceDone.has(key)}
                 onToggleVoiceDone={toggleVoiceDone}
                 devotionalData={d}
+                dailyVerse={d?.구절}
               />
             </div>
 
-            <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
-              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 가이드</div>
+            <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
+              <div style={{fontSize:11,letterSpacing:".18em",color:"#777777",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif",marginBottom:10}}>말씀 녹음 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
                   <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
-                    <span style={{color:theme.color,fontSize:12,marginTop:2,flexShrink:0}}>{sym}</span>
-                    <div><span style={{fontSize:12,color:theme.color+"CC",fontWeight:500,marginRight:8}}>{title}</span><span style={{fontSize:12,color:"#6A5E50",fontWeight:300}}>{desc}</span></div>
+                    <span style={{color:theme.color,fontSize:13,marginTop:2,flexShrink:0}}>{sym}</span>
+                    <div><span style={{fontSize:13,color:theme.color,fontWeight:600,marginRight:8}}>{title}</span><span style={{fontSize:13,color:"#666666",fontWeight:400}}>{desc}</span></div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* 달력 보기 버튼 */}
-            <button onClick={()=>setTab("calendar")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom: voiceDone.has(key) ? 14 : 36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <button onClick={()=>setTab("calendar")} style={{width:"100%",background:"#FFFFFF",border:`1px solid ${theme.border}`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,fontWeight:600,cursor:"pointer",marginBottom: voiceDone.has(key) ? 14 : 36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
               <span>📅</span><span>달력 보기</span>
             </button>
 
-            {/* 달력 보기 버튼 아래에 위치한 진행률 바 */}
             {voiceDone.has(key) && (()=>{
               const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
               const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
               return (
-                <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
+                <div style={{background:"#FFFFFF",border:"1px solid #EAEAEA",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
-                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
+                    <span style={{fontSize:11,letterSpacing:".18em",color:"#888888",textTransform:"uppercase",fontFamily:"'Noto Sans KR',sans-serif"}}>2026 말씀 녹음 진행률</span>
+                    <span style={{fontSize:14,color:theme.color,fontFamily:"'Noto Sans KR',sans-serif"}}>{voiceDoneDays} / {totalDays}일</span>
                   </div>
-                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
+                  <div style={{background:"#EEEEEE",borderRadius:100,height:4,overflow:"hidden"}}>
                     <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
                   </div>
                 </div>
@@ -844,12 +849,12 @@ export default function App() {
           <div className="fade" style={{paddingTop:18}}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
               <button className="btn" onClick={()=>setCalMonth(m=>Math.max(0,m-1))} disabled={calMonth<=0}>←</button>
-              <div style={{fontSize:18,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>2026년 {MONTH_NAMES[calMonth]}</div>
+              <div style={{fontSize:19,fontFamily:"'Noto Sans KR',sans-serif",fontWeight:600,color:"#111111"}}>2026년 {MONTH_NAMES[calMonth]}</div>
               <button className="btn" onClick={()=>setCalMonth(m=>Math.min(11,m+1))} disabled={calMonth>=11}>→</button>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2,marginBottom:4}}>
               {["일","월","화","수","목","금","토"].map((dn,i)=>(
-                <div key={dn} style={{textAlign:"center",fontSize:10,letterSpacing:".1em",color:i===0?"#D48C6E77":i===6?"#6EA8D477":"#3A3028",padding:"5px 0",fontFamily:"'Cormorant Garamond',serif"}}>{dn}</div>
+                <div key={dn} style={{textAlign:"center",fontSize:11,letterSpacing:".1em",color:i===0?"#D48C6E":i===6?"#6EA8D4":"#888888",padding:"5px 0",fontFamily:"'Noto Sans KR',sans-serif"}}>{dn}</div>
               ))}
             </div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2}}>
@@ -858,13 +863,13 @@ export default function App() {
                 const t2=cell.theme,isV=cell.isView;
                 return (
                   <div key={cell.k} className="cal-cell" onClick={()=>{setViewDate(cell.dt);setTab("main");}}
-                    style={{background:isV?t2.bg:cell.done?"rgba(255,255,255,.04)":"rgba(255,255,255,.02)",border:`1px solid ${isV?t2.border:cell.done?"rgba(255,255,255,.08)":"rgba(255,255,255,.04)"}`,borderRadius:10,padding:"6px 3px 5px",cursor:"pointer",transition:"all .18s",minHeight:56,display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
-                    <div style={{fontSize:11,fontWeight:cell.isToday?700:400,color:cell.isToday?t2.color:isV?t2.color+"CC":"#6A5E50",fontFamily:"'Cormorant Garamond',serif"}}>{cell.d}</div>
-                    {cell.r2&&cell.r2!=="개별통독"&&<div style={{fontSize:8,color:t2.color+"99",textAlign:"center",lineHeight:1.3,maxWidth:42,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{cell.r2}</div>}
-                    {cell.r2==="개별통독"&&<div style={{fontSize:8,color:"#3A3028"}}>자유</div>}
+                    style={{background:isV?t2.bg:cell.done?"#F0F0F0":"#FFFFFF",border:`1px solid ${isV?t2.border:cell.done?"rgba(0,0,0,.05)":"rgba(0,0,0,.05)"}`,borderRadius:10,padding:"6px 3px 5px",cursor:"pointer",transition:"all .18s",minHeight:56,display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
+                    <div style={{fontSize:12,fontWeight:cell.isToday?700:400,color:cell.isToday?t2.color:isV?t2.color+"CC":"#555555",fontFamily:"'Noto Sans KR',sans-serif"}}>{cell.d}</div>
+                    {cell.r2&&cell.r2!=="개별통독"&&<div style={{fontSize:9,color:t2.color,textAlign:"center",lineHeight:1.3,maxWidth:42,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{cell.r2}</div>}
+                    {cell.r2==="개별통독"&&<div style={{fontSize:9,color:"#888888"}}>자유</div>}
                     <div style={{display:"flex",gap:3,marginTop:1,minHeight:11,alignItems:"center"}}>
-                      {cell.done && <span style={{fontSize:9,color:t2.color}}>✓</span>}
-                      {cell.voiceDone && <span style={{fontSize:9,color:t2.color}}>🎙</span>}
+                      {cell.done && <span style={{fontSize:10,color:t2.color}}>✓</span>}
+                      {cell.voiceDone && <span style={{fontSize:10,color:t2.color}}>🎙</span>}
                       {cell.isToday&&!cell.done&&!cell.voiceDone&&<div style={{width:4,height:4,borderRadius:2,background:t2.color}}/>}
                     </div>
                   </div>
@@ -874,12 +879,12 @@ export default function App() {
             <div style={{display:"flex",gap:12,justifyContent:"center",margin:"12px 0 14px",flexWrap:"wrap"}}>
               {[["✓","묵상 완료"],["🎙","말씀 녹음 완료"]].map(([s,l])=>(
                 <div key={l} style={{display:"flex",alignItems:"center",gap:4}}>
-                  <span style={{fontSize:10,color:"#C9A84C"}}>{s}</span>
-                  <span style={{fontSize:11,color:"#6A5E50"}}>{l}</span>
+                  <span style={{fontSize:11,color:"#C9A84C"}}>{s}</span>
+                  <span style={{fontSize:12,color:"#666666"}}>{l}</span>
                 </div>
               ))}
             </div>
-            <button onClick={()=>setTab("leader")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <button onClick={()=>setTab("leader")} style={{width:"100%",background:"#FFFFFF",border:`1px solid ${theme.border}`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Sans KR',sans-serif",fontSize:14,fontWeight:600,cursor:"pointer",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
               <span>👑</span><span>현황판 보기</span>
             </button>
           </div>
