@@ -64,7 +64,7 @@ const DEVOTIONALS = {
 "4-4":{핵심:"다윗과 요나단의 우정은 성경에서 가장 아름다운 관계 중 하나입니다. 요나단은 왕위 계승자임에도 다윗을 위해 자신을 내어줍니다.",성품:"하나님은 우정과 사랑을 통해 당신의 백성을 보호하시는 분입니다.",묵상:"내 삶에서 요나단 같은 사람이 있나요? 오늘 내 주변에서 희생적 사랑을 실천할 기회를 찾아보세요.",기도:"사랑의 하나님, 신실한 관계를 허락하시고 내가 먼저 다른 이를 위해 나를 낮추는 삶을 살게 하소서.",구절:"요나단은 다윗을 사랑하므로 그와 더불어 언약을 맺었으며 (사무엘상 18:3)"},
 "4-5":{핵심:"사울의 마지막은 비참합니다. 하나님을 떠난 왕의 끝을 사무엘상은 냉정하게 기록합니다.",성품:"하나님은 끝까지 기다리시는 분이지만 떠난 자의 결말을 막지는 않으십니다.",묵상:"오늘 하나님의 음성에 마음을 여세요.",기도:"신실하신 하나님, 사울처럼 하나님을 떠나지 않게 하시고, 끝까지 주님의 손을 붙잡는 삶을 허락하소서.",구절:"여호와께서 너를 떠나 네 대적이 되셨거늘 (사무엘상 28:16)"},
 "4-6":{핵심:"다윗은 헤브론에서 유다의 왕이 되고 긴 내전이 이어지지만 다윗의 집은 점점 강해집니다.",성품:"하나님은 인내하며 기다리는 자와 함께하시는 분입니다.",묵상:"내가 기다리고 있는 하나님의 약속이 있나요? 하나님의 때는 결코 늦지 않습니다.",기도:"때를 아시는 하나님, 내 성급함을 내려놓고 당신의 때를 기다리는 믿음을 허락하소서.",구절:"만군의 하나님 여호와께서 함께 계시니 다윗이 점점 강성하여 가니라 (사무엘하 5:10)"},
-"4-7":{핵심:"다윗이 예루살렘을 정복합니다. 언약궤를 옮기는 과정에서 웃사의 사건이 일어나고 다윗은 하나님의 거룩함을 새롭게 배웁니다.",성품:"하나님은 거룩하신 분입니다. 하나님의 임재는 거룩하심에 대한 경외에서 시작됩니다.",묵상:"신앙이 너무 익숙해져서 하나님의 거룩하심을 잊어버리고 있지는 않나요?",기도:"거룩하신 하나님, 당신의 임재 앞에 경외함으로 나아가며, 오늘 하루 거룩하신 주를 예배하게 하소서.",구절:"여호와의 궤가 어찌 내게로 오리요 (사무엘하 6:9)"},
+"4-7":{핵심:"다윗이 예루살렘 정복합니다. 언약궤를 옮기는 과정에서 웃사의 사건이 일어나고 다윗은 하나님의 거룩함을 새롭게 배웁니다.",성품:"하나님은 거룩하신 분입니다. 하나님의 임재는 거룩하심에 대한 경외에서 시작됩니다.",묵상:"신앙이 너무 익숙해져서 하나님의 거룩하심을 잊어버리고 있지는 않나요?",기도:"거룩하신 하나님, 당신의 임재 앞에 경외함으로 나아가며, 오늘 하루 거룩하신 주를 예배하게 하소서.",구절:"여호와의 궤가 어찌 내게로 오리요 (사무엘하 6:9)"},
 "4-8":{핵심:"다윗이 밧세바 사건으로 큰 죄를 범하고 나단의 책망을 받습니다.",성품:"하나님은 약속을 지키시는 분이며 동시에 죄를 직면하게 하시는 분입니다.",묵상:"나단이 '당신이 그 사람이라'고 했을 때 다윗은 즉시 인정했습니다. 즉시 인정하고 돌이킬 수 있나요?",기도:"진실하신 하나님, 내 삶의 숨겨진 죄를 직면할 용기를 주시고, 즉시 회개하며 돌아오게 하소서.",구절:"여호와께서도 당신의 죄를 사하셨나니 (사무엘하 12:13)"},
 "4-9":{핵심:"다윗 가정의 비극이 시작됩니다. 그러나 다윗은 도망치면서도 하나님께 예배하기를 멈추지 않습니다.",성품:"하나님은 죄의 결과 가운데에서도 함께하시는 분입니다.",묵상:"고난 중에도 하나님을 향한 예배를 멈추지 마세요.",기도:"신실하신 하나님, 어떤 상황에서도 예배를 드리는 하루가 되게 하소서.",구절:"만일 내가 여호와 앞에서 은혜를 입으면 도로 나를 인도하시리라 (사무엘하 15:25)"},
 "4-10":{핵심:"압살롬의 반란으로 다윗은 예루살렘을 떠납니다. 시므이의 저주를 받을 때 다윗은 겸손히 받아들입니다.",성품:"하나님은 겸손한 자를 회복시키시는 분입니다.",묵상:"누군가의 비난이나 어려운 상황이 찾아올 때, 다윗처럼 그 안에서 하나님의 손길을 볼 수 있나요?",기도:"겸손을 사랑하시는 하나님, 내가 낮아지는 순간에 당신의 손길을 신뢰하게 하소서.",구절:"여호와께서 그에게 다윗을 저주하라 하심이니 (사무엘하 16:10)"},
@@ -74,7 +74,7 @@ const DEVOTIONALS = {
 "4-14":{핵심:"솔로몬이 기브온에서 하나님께 일천 번제를 드릴 때 하나님이 나타나십니다. 솔로몬은 재물이나 장수가 아닌 지혜를 구합니다.",성품:"하나님은 바른 것을 구하는 자에게 넘치도록 주시는 분입니다.",묵상:"지금 내가 하나님께 구하는 것은 무엇인가요?",기도:"지혜를 주시는 하나님, 솔로몬처럼 하나님의 뜻을 이루기 위한 지혜를 구하게 하소서.",구절:"듣는 마음을 종에게 주사 주의 백성을 재판하여 선악을 분별하게 하옵소서 (열왕기상 3:9)"},
 "4-15":{핵심:"솔로몬이 7년에 걸쳐 성전을 건축합니다. 봉헌식 날 하나님의 영광이 성전에 가득 찼습니다.",성품:"하나님은 당신의 백성 가운데 임재하기를 원하시는 분입니다.",묵상:"내 삶이 하나님의 임재로 가득 찬 성전이 될 수 있습니다.",기도:"임재하시는 하나님, 내 삶이 당신의 영광으로 가득 찬 성전이 되게 하소서.",구절:"여호와의 영광이 여호와의 성전에 가득함이었더라 (열왕기상 8:10-11)"},
 "4-16":{핵심:"솔로몬의 성전 봉헌 기도는 성경에서 가장 위대한 기도 중 하나입니다.",성품:"하나님은 기도를 들으시는 하나님이십니다.",묵상:"내 기도가 하나님의 위대하심으로 시작되고 있나요?",기도:"기도를 들으시는 하나님, 당신의 위대하심 앞에 겸손히 나아가며 중보하게 하소서.",구절:"하늘과 하늘들의 하늘이라도 주를 용납하지 못하겠거든 (열왕기상 8:27)"},
-"4-17":{핵심:"솔로몬의 영광이 절정에 달하지만 이방 여인들을 따라 신들을 섬기기 시작합니다.",성품:"하나님은 지혜를 주시지만 그 지혜를 어떻게 사용할지는 인간의 선택에 달려 있습니다.",묵상:"하나님이 내게 주신 재능과 은사를 어디에 쓰고 있나요?",기도:"은사를 주시는 하나님, 당신의 영광을 위해 사용하는 청지기가 되게 하소서.",구절:"솔로몬이 마음을 돌려 이스라엘의 하나님 여호와를 떠나므로 (열왕기상 11:9)"},
+"4-17":{핵심:"솔로몬의 영광이 절정에 달하지만 이방 여인들을 따라 신들을 섬기기 시작합니다.",성품:"하나님은 지혜를 주시지만 그 지혜를 어떻게 사용할지는 인간의 선택에 달려 있습니다.",묵상:"하나님이 내게 주신 재능과 은사를 어디에 쓰고 있나요?",기도:"은사를 주시는 하나님, 당신의 영광을 위해 사용하는 청지기가 되게 하소서.",구절:"솔로몬이 마음 돌려 이스라엘의 하나님 여호와를 떠나므로 (열왕기상 11:9)"},
 "4-18":{핵심:"르호보암이 노인들의 조언을 무시하고 결국 이스라엘은 남북으로 분열됩니다.",성품:"하나님은 교만한 자를 낮추시는 분입니다.",묵상:"연륜 있는 사람들의 조언에 귀를 기울여보세요. 겸손은 지혜의 시작입니다.",기도:"지혜의 하나님, 나의 교만을 내려놓고 겸손히 당신의 뜻에 귀 기울이게 하소서.",구절:"이 일은 여호와께로 말미암아 난 것이라 (열왕기상 12:15)"},
 "4-19":{핵심:"엘리야 선지자가 등장합니다. 그릿 시냇가에서 까마귀가 먹을 것을 가져오는 장면은 하나님의 놀라운 돌보심을 보여줍니다.",성품:"하나님은 홀로 서 있는 자를 먹이시고 돌보시는 분입니다.",묵상:"혼자라고 느껴지는 순간이 있나요? 오늘 하나님이 예상치 못한 방법으로 돌보시는 흔적들을 찾아보세요.",기도:"공급하시는 하나님, 내가 광야에 있을 때도 당신이 돌보심을 믿으며 감사하게 하소서.",구절:"내가 까마귀들에게 명령하여 거기서 너를 먹이게 하리라 (열왕기상 17:2-4)"},
 "4-20":{핵심:"갈멜산의 대결에서 엘리야가 450명의 바알 선지자들과 맞섭니다. 하늘에서 불이 내려와 번제물을 태웁니다.",성품:"하나님은 당신만이 참 하나님이심을 증명하시는 분입니다.",묵상:"오늘 내 삶에서 하나님만이 나의 유일한 하나님이심을 다시 고백하는 시간을 가지세요.",기도:"유일하신 하나님, 오직 당신만이 나의 하나님이심을 고백하게 하소서.",구절:"주 여호와는 하나님이신 것을 알게 하옵소서 (열왕기상 18:37)"},
@@ -173,6 +173,17 @@ const MAX_SEC = 300;
 function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [inAppMode, setInAppMode] = useState("");
+
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes("kakaotalk")) {
+      setInAppMode("kakao");
+    } else if (ua.includes("instagram") || ua.includes("naver") || ua.includes("line")) {
+      setInAppMode("other");
+    }
+  }, []);
+
   const handleLogin = async () => {
     setLoading(true); setError("");
     try {
@@ -182,6 +193,7 @@ function LoginScreen() {
       setLoading(false);
     }
   };
+
   return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E,#060818)",display:"flex",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"'Noto Serif KR',serif"}}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap');`}</style>
@@ -189,7 +201,17 @@ function LoginScreen() {
         <div style={{fontSize:52,marginBottom:16,color:"#C9A84C"}}>✦</div>
         <div style={{fontSize:10,letterSpacing:".25em",color:"#3A3028",textTransform:"uppercase",marginBottom:8,fontFamily:"'Cormorant Garamond',serif"}}>BASIC Community Church</div>
         <h1 style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",color:"#C9A84C",marginBottom:8,fontWeight:600}}>2026 성경통독</h1>
-        <p style={{fontSize:13,color:"#6A5E50",marginBottom:40,lineHeight:1.8,fontWeight:300}}>구글 계정으로 로그인하면<br/>통독 기록이 자동으로 저장되고<br/>멤버들과 함께 나눌 수 있어요</p>
+        <p style={{fontSize:13,color:"#6A5E50",marginBottom:36,lineHeight:1.8,fontWeight:300}}>구글 계정으로 로그인하면<br/>통독 기록이 자동으로 저장되고<br/>멤버들과 함께 나눌 수 있어요</p>
+        
+        {inAppMode && (
+          <div style={{background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.3)",borderRadius:12,padding:"16px",marginBottom:24,color:"#E08080",fontSize:13,lineHeight:1.6,wordBreak:"keep-all"}}>
+            <strong style={{display:"block",marginBottom:6,fontSize:14}}>⚠️ 인앱 브라우저 로그인 제한</strong>
+            {inAppMode === "kakao"
+              ? "카카오톡에서는 구글 로그인이 차단됩니다. 화면 우측 하단의 [ ⋮ ] 버튼을 눌러 '다른 브라우저로 열기'를 선택해주세요."
+              : "현재 화면에서는 구글 로그인이 차단됩니다. 화면 메뉴에서 '기본 브라우저(크롬/사파리)로 열기'를 선택해주세요."}
+          </div>
+        )}
+
         <button onClick={handleLogin} disabled={loading}
           style={{background:"#fff",border:"none",borderRadius:14,padding:"15px 32px",cursor:"pointer",fontSize:14,fontWeight:600,color:"#333",display:"flex",alignItems:"center",gap:10,margin:"0 auto",boxShadow:"0 4px 24px rgba(0,0,0,.4)",transition:"all .2s",opacity:loading?0.7:1}}>
           <img src="https://www.google.com/favicon.ico" width={18} height={18} alt="G" onError={e=>e.target.style.display="none"}/>
@@ -240,7 +262,6 @@ function LeaderDashboard({ theme }) {
 
   return (
     <div className="fade" style={{paddingTop:8}}>
-      {/* 날짜 네비 */}
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
         <div style={{textAlign:"center"}}>
@@ -250,7 +271,6 @@ function LeaderDashboard({ theme }) {
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
       </div>
 
-      {/* 통계 카드 */}
       {!loading && (
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
           {[
@@ -267,7 +287,6 @@ function LeaderDashboard({ theme }) {
         </div>
       )}
 
-      {/* 색상 범례 */}
       <div style={{display:"flex",gap:12,marginBottom:14,flexWrap:"wrap"}}>
         {[["#4CAF81","통독 + 기도"],["#C9A84C","통독만"],["#6EA8D4","기도만"],["#444","미완료"]].map(([c,l])=>(
           <div key={l} style={{display:"flex",alignItems:"center",gap:5}}>
@@ -277,7 +296,6 @@ function LeaderDashboard({ theme }) {
         ))}
       </div>
 
-      {/* 멤버 리스트 */}
       {loading ? (
         <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>불러오는 중...</div>
       ) : sorted.length === 0 ? (
@@ -316,7 +334,7 @@ function LeaderDashboard({ theme }) {
 }
 
 // ─── 음성 녹음 컴포넌트 ───────────────────────────────────────────────────────
-function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
+function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete, isVoiceDone, onToggleVoiceDone, devotionalData }) {
   const [recState, setRecState] = useState("idle");
   const [elapsed, setElapsed] = useState(0);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -333,7 +351,10 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
   const storageKey = `bc365_audio_${dateKey}`;
   const metaKey = `bc365_audio_meta_${dateKey}`;
   const dateStr = dateKey.replace("-","월 ")+"일";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
+  
+  // 공유하기 텍스트 설정 (URL 및 광고성 문구 제거, 성품 데이터 포함)
+  const godCharacter = devotionalData?.성품 ? `🎙 ${devotionalData.성품}\n이러한 하나님을 의지합니다.` : "🎙 하나님을 의지합니다.";
+  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n\n${godCharacter}`;
 
   useEffect(() => {
     setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
@@ -393,7 +414,11 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
   const handleShare = async () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if(isMobile&&navigator.share){
-      try{await navigator.share({title:"2026 BASIC 성경통독 🙏",text:shareText,url:window.location.href});return;}
+      try{
+        // url을 삭제하고 text만 공유하도록 수정
+        await navigator.share({text:shareText}); 
+        return;
+      }
       catch(e){if(e.name==="AbortError")return;}
     }
     setShowShareModal(true);
@@ -412,7 +437,7 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
             <div style={{fontSize:12,color:"#6A5E50",marginBottom:12}}>아래 텍스트를 <strong style={{color:theme.color}}>눌러서 전체 선택</strong> 후 카카오톡에 붙여넣기 하세요</div>
             <textarea ref={shareTextRef} readOnly value={shareText}
               onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);}}}
-              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontFamily:"'Noto Serif KR',serif",fontSize:13,lineHeight:1.8,resize:"none",outline:"none",height:160,cursor:"text"}}/>
+              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontFamily:"'Noto Serif KR',serif",fontSize:13,lineHeight:1.8,resize:"none",outline:"none",height:180,cursor:"text"}}/>
             <div style={{display:"flex",gap:8,marginTop:12}}>
               <button onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);try{document.execCommand("copy");}catch{}}}}
                 style={{flex:1,background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer"}}>
@@ -460,16 +485,16 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
       {recState==="saved" && audioUrl && (
         <div>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-            <div style={{flex:1,minWidth:150,background:`linear-gradient(135deg,${theme.color}18,${theme.color}08)`,border:`1px solid ${theme.border}`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10}}>
-              <div style={{width:34,height:34,borderRadius:17,background:`${theme.color}22`,border:`1px solid ${theme.border}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <span style={{fontSize:15}}>🎙</span>
+            <button onClick={onToggleVoiceDone} style={{flex:1,minWidth:150,background:isVoiceDone?`linear-gradient(135deg,${theme.color}18,${theme.color}08)`:"rgba(255,255,255,.05)",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid rgba(255,255,255,.1)",borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10,cursor:"pointer",textAlign:"left",transition:"all .2s"}}>
+              <div style={{width:34,height:34,borderRadius:17,background:isVoiceDone?`${theme.color}22`:"rgba(255,255,255,.05)",border:isVoiceDone?`1px solid ${theme.border}`:"1px solid rgba(255,255,255,.1)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s"}}>
+                <span style={{fontSize:15,opacity:isVoiceDone?1:0.4}}>🎙</span>
               </div>
               <div>
-                <div style={{fontSize:12,color:theme.color,fontWeight:600,marginBottom:2}}>말씀 녹음 완료 ✓</div>
+                <div style={{fontSize:12,color:isVoiceDone?theme.color:"#9A8E7A",fontWeight:600,marginBottom:2,transition:"color .2s"}}>{isVoiceDone ? "말씀 녹음 완료 ✓" : "말씀 녹음 체크"}</div>
                 <div style={{fontSize:10,color:"#4A4038"}}>{savedMeta?.duration?fmtTime(savedMeta.duration):"—"}</div>
               </div>
-            </div>
-            <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:58,color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:12,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
+            </button>
+            <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:60,color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:12,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
               <span style={{fontSize:16}}>📤</span>
               <span>공유하기</span>
             </button>
@@ -599,7 +624,6 @@ export default function App() {
   const hasPrev = R[dk(addDays(viewDate,-1))]!==undefined;
   const hasNext = R[dk(addDays(viewDate,1))]!==undefined;
 
-  // 로딩 중
   if (user === undefined) return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E)",display:"flex",alignItems:"center",justifyContent:"center"}}>
       <div style={{textAlign:"center"}}>
@@ -609,7 +633,6 @@ export default function App() {
     </div>
   );
 
-  // 비로그인
   if (!user) return <LoginScreen />;
 
   const TABS = [["main","📖 묵상"],["voice","🎙 말씀 녹음"],["calendar","📅 달력"],["leader","👑 현황판"]];
@@ -642,7 +665,6 @@ export default function App() {
           </div>
           <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
             <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:10,color:theme.color,letterSpacing:".08em",fontFamily:"'Cormorant Garamond',serif"}}>{theme.badge}</div>
-            {/* 사용자 프로필 + 로그아웃 */}
             <button onClick={()=>signOut(auth)} title="로그아웃"
               style={{background:"none",border:"1px solid rgba(255,255,255,.08)",borderRadius:20,padding:"4px 10px",cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
               {user.photoURL
@@ -721,7 +743,6 @@ export default function App() {
               <button onClick={toggleDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:done.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,boxShadow:done.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
                 {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
               </button>
-              {/* 버튼 텍스트 '말씀 녹음'으로 고정 */}
               <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
                 🎙 말씀 녹음
               </button>
@@ -768,32 +789,18 @@ export default function App() {
                   <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.7,fontWeight:300}}>오늘 묵상한 본문 중 말씀을 먼저 소리 내어 선포하고 기도해 보세요.</div>
                 )}
               </div>
-              <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
+              
+              <VoiceRecorder 
+                dateKey={key} 
+                passageRaw={raw} 
+                theme={theme} 
+                onSave={handleVoiceSaved} 
+                onDelete={handleVoiceDeleted}
+                isVoiceDone={voiceDone.has(key)}
+                onToggleVoiceDone={toggleVoiceDone}
+                devotionalData={d}
+              />
             </div>
-
-            {/* 수동 녹음 완료 체크 버튼 추가 */}
-            <div style={{display:"flex",gap:10,marginBottom:14}}>
-              <button onClick={toggleVoiceDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:voiceDone.has(key)?"#08090F":theme.color,boxShadow:voiceDone.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
-                {voiceDone.has(key)?"✓ 말씀 녹음 완료!":"말씀 녹음 수동 체크"}
-              </button>
-            </div>
-
-            {/* 말씀 녹음 진행률 바 (묵상 탭에서 이동) */}
-            {voiceDone.has(key) && (()=>{
-              const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-              const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
-              return (
-                <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:14}}>
-                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
-                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
-                  </div>
-                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
-                    <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
-                  </div>
-                </div>
-              );
-            })()}
 
             <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
               <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 가이드</div>
@@ -807,9 +814,28 @@ export default function App() {
               </div>
             </div>
 
-            <button onClick={()=>setTab("calendar")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            {/* 달력 보기 버튼 */}
+            <button onClick={()=>setTab("calendar")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom: voiceDone.has(key) ? 14 : 36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
               <span>📅</span><span>달력 보기</span>
             </button>
+
+            {/* 달력 보기 버튼 아래에 위치한 진행률 바 */}
+            {voiceDone.has(key) && (()=>{
+              const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
+              const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
+              return (
+                <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+                    <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
+                    <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
+                  </div>
+                  <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
+                    <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
+                  </div>
+                </div>
+              );
+            })()}
+
           </div>
         )}
 
