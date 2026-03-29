@@ -315,180 +315,118 @@ function LeaderDashboard({ theme }) {
   );
 }
 
-// ─── 음성 녹음 컴포넌트 ───────────────────────────────────────────────────────
-function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
-  const [recState, setRecState] = useState("idle");
+// ─── 기도 타이머 컴포넌트 ─────────────────────────────────────────────────────
+function PrayerTimer({ dateKey, theme, onComplete }) {
+  const [status, setStatus] = useState("idle"); // idle | running | done
   const [elapsed, setElapsed] = useState(0);
-  const [audioUrl, setAudioUrl] = useState(null);
-  const [savedMeta, setSavedMeta] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [showShareModal, setShowShareModal] = useState(false);
-  const shareTextRef = useRef(null);
-  const mediaRef = useRef(null);
-  const chunksRef = useRef([]);
+  const [showVictory, setShowVictory] = useState(false);
   const timerRef = useRef(null);
-  const blobRef = useRef(null);
-
-  const storageKey = `bc365_audio_${dateKey}`;
-  const metaKey = `bc365_audio_meta_${dateKey}`;
-  const dateStr = dateKey.replace("-","월 ")+"일";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
+  const TOTAL = 300;
 
   useEffect(() => {
-    setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
-    try {
-      const metaR = localStorage.getItem(metaKey);
-      const audioR = localStorage.getItem(storageKey);
-      if (metaR && audioR) { setSavedMeta(JSON.parse(metaR)); setAudioUrl(audioR); setRecState("saved"); }
-      else setRecState("idle");
-    } catch { setRecState("idle"); }
-    setLoading(false);
+    clearInterval(timerRef.current);
+    setStatus("idle");
+    setElapsed(0);
+    setShowVictory(false);
   }, [dateKey]);
 
-  const startRecording = async () => {
-    setError("");
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":"audio/ogg";
-      const mr = new MediaRecorder(stream,{mimeType,audioBitsPerSecond:32000});
-      chunksRef.current = [];
-      mr.ondataavailable = e => { if(e.data.size>0) chunksRef.current.push(e.data); };
-      mr.onstop = () => {
-        stream.getTracks().forEach(t=>t.stop());
-        const blob = new Blob(chunksRef.current,{type:mimeType});
-        blobRef.current = blob;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const dataUrl = reader.result;
-          const dur = elapsed;
-          const meta = {duration:dur,savedAt:new Date().toLocaleString("ko-KR"),size:Math.round(blob.size/1024)};
-          setAudioUrl(dataUrl); setSavedMeta(meta);
-          try {
-            localStorage.setItem(storageKey,dataUrl);
-            localStorage.setItem(metaKey,JSON.stringify(meta));
-            setRecState("saved");
-            if(onSave) onSave();
-          } catch { setError("저장 실패: 파일이 너무 큽니다."); setRecState("idle"); }
-        };
-        reader.readAsDataURL(blob);
-      };
-      mr.start(1000); mediaRef.current = mr; setElapsed(0); setRecState("recording");
-      timerRef.current = setInterval(()=>setElapsed(prev=>{if(prev+1>=MAX_SEC){stopRecording();return prev+1;}return prev+1;}),1000);
-    } catch { setError("마이크 접근이 거부되었습니다."); }
+  useEffect(() => () => clearInterval(timerRef.current), []);
+
+  const start = () => {
+    if (status === "running") return;
+    setStatus("running");
+    timerRef.current = setInterval(() => {
+      setElapsed(prev => {
+        if (prev >= TOTAL - 1) {
+          clearInterval(timerRef.current);
+          setStatus("done");
+          setShowVictory(true);
+          if (onComplete) onComplete();
+          setTimeout(() => setShowVictory(false), 4000);
+          return TOTAL;
+        }
+        return prev + 1;
+      });
+    }, 1000);
   };
 
-  const stopRecording = () => {
+  const reset = () => {
     clearInterval(timerRef.current);
-    if(mediaRef.current&&mediaRef.current.state!=="inactive") mediaRef.current.stop();
+    setStatus("idle");
+    setElapsed(0);
   };
 
-  const deleteAudio = () => {
-    if(!confirm("이 날의 녹음을 삭제할까요?")) return;
-    try{localStorage.removeItem(storageKey);localStorage.removeItem(metaKey);}catch{}
-    setAudioUrl(null);setSavedMeta(null);setRecState("idle");setElapsed(0);
-    if(onDelete) onDelete();
-  };
-
-  const handleShare = async () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if(isMobile&&navigator.share){
-      try{await navigator.share({title:"2026 BASIC 성경통독 🙏",text:shareText,url:window.location.href});return;}
-      catch(e){if(e.name==="AbortError")return;}
-    }
-    setShowShareModal(true);
-  };
-
-  const pct = Math.min((elapsed/MAX_SEC)*100,100);
-
-  if(loading) return <div style={{padding:"24px 0",textAlign:"center",color:"#3A3028",fontSize:12}}>불러오는 중…</div>;
+  const remaining = TOTAL - elapsed;
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
+  const progress = elapsed / TOTAL;
+  const circumference = 2 * Math.PI * 70;
 
   return (
-    <div>
-      {showShareModal && (
-        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.8)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setShowShareModal(false)}>
-          <div style={{background:"#12151F",border:`1px solid ${theme.border}`,borderRadius:20,padding:"24px",maxWidth:400,width:"100%"}} onClick={e=>e.stopPropagation()}>
-            <div style={{fontSize:10,letterSpacing:".2em",color:theme.color+"88",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>공유할 내용</div>
-            <div style={{fontSize:12,color:"#6A5E50",marginBottom:12}}>아래 텍스트를 <strong style={{color:theme.color}}>눌러서 전체 선택</strong> 후 카카오톡에 붙여넣기 하세요</div>
-            <textarea ref={shareTextRef} readOnly value={shareText}
-              onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);}}}
-              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontFamily:"'Noto Serif KR',serif",fontSize:13,lineHeight:1.8,resize:"none",outline:"none",height:160,cursor:"text"}}/>
-            <div style={{display:"flex",gap:8,marginTop:12}}>
-              <button onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();shareTextRef.current.setSelectionRange(0,99999);try{document.execCommand("copy");}catch{}}}}
-                style={{flex:1,background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer"}}>
-                📋 전체 선택 & 복사
-              </button>
-              <button onClick={()=>setShowShareModal(false)} style={{background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.1)",borderRadius:12,padding:"12px 16px",color:"#6A5E50",fontFamily:"'Noto Serif KR',serif",fontSize:13,cursor:"pointer"}}>닫기</button>
-            </div>
-          </div>
+    <div style={{textAlign:"center",padding:"8px 0"}}>
+      {/* 원형 타이머 */}
+      <div style={{position:"relative",width:170,height:170,margin:"0 auto 24px"}}>
+        <svg viewBox="0 0 160 160" style={{transform:"rotate(-90deg)",width:"100%",height:"100%",position:"absolute",inset:0}}>
+          <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="8"/>
+          <circle cx="80" cy="80" r="70" fill="none" stroke={theme.color} strokeWidth="8"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference * (1 - progress)}
+            strokeLinecap="round"
+            style={{transition:"stroke-dashoffset 1s linear"}}/>
+        </svg>
+        <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+          {status === "done" ? (
+            <>
+              <div style={{fontSize:30,marginBottom:4}}>✦</div>
+              <div style={{fontSize:14,color:theme.color,fontFamily:"'Noto Serif KR',serif",fontWeight:600}}>완료!</div>
+            </>
+          ) : (
+            <>
+              <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",letterSpacing:".04em"}}>{mm}:{ss}</div>
+              <div style={{fontSize:10,color:theme.color+"88",letterSpacing:".15em",marginTop:4}}>
+                {status === "running" ? "기도 중..." : "5분 기도"}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {status === "idle" && (
+        <button onClick={start}
+          style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:100,padding:"14px 44px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 24px ${theme.glow}55`,letterSpacing:".05em"}}>
+          🙏 기도 시작
+        </button>
+      )}
+      {status === "running" && (
+        <div style={{fontSize:13,color:theme.color+"88",letterSpacing:".06em",lineHeight:2}}>
+          기도하고 있습니다<br/>
+          <span style={{fontSize:11,color:"#4A4038"}}>5분이 끝나면 자동으로 완료됩니다</span>
         </div>
       )}
-
-      {recState==="idle" && (
-        <div style={{textAlign:"center",padding:"8px 0"}}>
-          <div style={{width:80,height:80,borderRadius:40,background:"rgba(255,255,255,.04)",border:`2px solid ${theme.border}`,margin:"0 auto 16px",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}} onClick={startRecording}>
-            <span style={{fontSize:28}}>🎙</span>
-          </div>
-          <button onClick={startRecording} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:100,padding:"12px 28px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:600,cursor:"pointer",boxShadow:`0 4px 20px ${theme.glow}50`}}>
-            🎙 녹음 시작
-          </button>
-          <div style={{fontSize:11,color:"#3A3028",marginTop:12}}>최대 5분</div>
-          {error && <div style={{marginTop:12,fontSize:12,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
-        </div>
-      )}
-
-      {recState==="recording" && (
-        <div style={{textAlign:"center",padding:"8px 0"}}>
-          <div style={{position:"relative",width:80,height:80,margin:"0 auto 16px"}}>
-            <div style={{position:"absolute",inset:0,borderRadius:40,background:`${theme.color}18`,animation:"ripple 1.2s ease infinite"}}/>
-            <div style={{position:"absolute",inset:8,borderRadius:32,background:`${theme.color}25`,animation:"ripple 1.2s ease .3s infinite"}}/>
-            <div style={{position:"absolute",inset:16,borderRadius:24,background:`linear-gradient(135deg,${theme.color}55,${theme.color}33)`,border:`2px solid ${theme.color}`,display:"flex",alignItems:"center",justifyContent:"center"}}>
-              <span style={{fontSize:22}}>🎙</span>
-            </div>
-          </div>
-          <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color,marginBottom:4}}>{fmtTime(elapsed)}</div>
-          <div style={{fontSize:12,color:"#5A5040",marginBottom:16}}>남은 시간 {fmtTime(MAX_SEC-elapsed)}</div>
-          <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden",maxWidth:260,margin:"0 auto 20px"}}>
-            <div style={{width:`${pct}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}88,${theme.color})`,borderRadius:100,transition:"width .9s linear"}}/>
-          </div>
-          <button onClick={stopRecording} style={{background:"rgba(224,100,100,.15)",border:"1px solid rgba(224,100,100,.3)",borderRadius:100,padding:"11px 28px",color:"#E08080",fontFamily:"'Noto Serif KR',serif",fontSize:14,cursor:"pointer",position:"relative",zIndex:10}}>
-            ■ 녹음 완료
-          </button>
-        </div>
-      )}
-
-      {recState==="saved" && audioUrl && (
+      {status === "done" && (
         <div>
-          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-            <div style={{flex:1,minWidth:150,background:`linear-gradient(135deg,${theme.color}18,${theme.color}08)`,border:`1px solid ${theme.border}`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:10}}>
-              <div style={{width:34,height:34,borderRadius:17,background:`${theme.color}22`,border:`1px solid ${theme.border}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                <span style={{fontSize:15}}>🎙</span>
-              </div>
-              <div>
-                <div style={{fontSize:12,color:theme.color,fontWeight:600,marginBottom:2}}>말씀 녹음 완료 ✓</div>
-                <div style={{fontSize:10,color:"#4A4038"}}>{savedMeta?.duration?fmtTime(savedMeta.duration):"—"}</div>
-              </div>
-            </div>
-            <button onClick={handleShare} style={{flexShrink:0,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:14,padding:"0 18px",height:58,color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:12,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 18px ${theme.glow}55`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:1}}>
-              <span style={{fontSize:16}}>📤</span>
-              <span>공유하기</span>
-            </button>
+          <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 기도를 마쳤습니다</div>
+          <button onClick={reset}
+            style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"8px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
+            다시 시작
+          </button>
+        </div>
+      )}
+
+      {/* 승리 팝업 */}
+      {showVictory && (
+        <div style={{position:"fixed",inset:0,display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,background:"rgba(0,0,0,.55)"}}>
+          <div style={{background:"linear-gradient(145deg,rgba(14,12,22,.98),rgba(8,9,15,.98))",border:`1px solid ${theme.color}55`,borderRadius:28,padding:"44px 56px",textAlign:"center",boxShadow:`0 20px 80px ${theme.glow}, 0 0 0 1px rgba(255,255,255,.04)`,animation:"popIn .45s cubic-bezier(.16,1,.3,1)"}}>
+            <div style={{fontSize:52,marginBottom:18}}>🎉</div>
+            <div style={{fontSize:26,fontFamily:"'Noto Serif KR',serif",color:theme.color,fontWeight:700,marginBottom:12,letterSpacing:".02em"}}>오늘도 승리했습니다!</div>
+            <div style={{fontSize:13,color:"#8A7E6E",fontWeight:300,lineHeight:1.8}}>5분 기도를 완주했어요</div>
           </div>
-          <div style={{background:"rgba(255,255,255,.025)",border:`1px solid ${theme.border}`,borderRadius:16,padding:"14px 16px"}}>
-            <div style={{fontSize:10,letterSpacing:".18em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 재생</div>
-            <audio controls src={audioUrl} style={{width:"100%",height:40,borderRadius:20,outline:"none",accentColor:theme.color}}/>
-            <div style={{display:"flex",gap:8,marginTop:10,justifyContent:"flex-end"}}>
-              <button onClick={()=>{if(!blobRef.current)return;const url=URL.createObjectURL(blobRef.current);const a=document.createElement("a");a.href=url;a.download=`기도_${dateKey}.webm`;a.click();URL.revokeObjectURL(url);}}
-                style={{background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:11,cursor:"pointer"}}>↓ 저장</button>
-              <button onClick={deleteAudio} style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"5px 12px",color:"#E08080",fontFamily:"'Noto Serif KR',serif",fontSize:11,cursor:"pointer"}}>삭제</button>
-            </div>
-          </div>
-          {error && <div style={{marginTop:8,fontSize:12,color:"#E07070"}}>{error}</div>}
         </div>
       )}
     </div>
   );
 }
+
 
 // ─── 메인 앱 ─────────────────────────────────────────────────────────────────
 export default function App() {
@@ -605,7 +543,7 @@ export default function App() {
   // 비로그인
   if (!user) return <LoginScreen />;
 
-  const TABS = [["main","📖 묵상"],["voice","🎙 말씀 녹음"],["calendar","📅 달력"],["leader","👑 현황판"]];
+  const TABS = [["main","📖 묵상"],["voice","🙏 기도 타이머"],["calendar","📅 달력"],["leader","👑 현황판"]];
 
   return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 55%,#060818 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR','Georgia',serif",overflowX:"hidden"}}>
@@ -622,6 +560,7 @@ export default function App() {
         .btn:disabled{opacity:.25;cursor:not-allowed}
         .tab-btn{background:none;border:none;padding:7px 12px;border-radius:20px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.04em;transition:all .25s;white-space:nowrap}
         .cal-cell:hover{opacity:.8;transform:scale(1.04)}
+        @keyframes popIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
         ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
       `}</style>
 
@@ -715,7 +654,7 @@ export default function App() {
                 {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
               </button>
               <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
-                {voiceDone.has(key)?"🎙 말씀 녹음 완료!":"🎙 말씀 녹음"}
+                {voiceDone.has(key)?"🙏 기도 완료!":"🙏 기도 타이머"}
               </button>
             </div>
 
@@ -738,7 +677,7 @@ export default function App() {
                   return (
                     <div>
                       <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                        <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 말씀 녹음 진행률</span>
+                        <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 기도 완료 진행률</span>
                         <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
                       </div>
                       <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
@@ -767,7 +706,7 @@ export default function App() {
 
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
+                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 기도</div>
                 {d?.구절 ? (
                   <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
                     <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.65,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>"{d.구절}"</div>
@@ -777,11 +716,11 @@ export default function App() {
                   <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.7,fontWeight:300}}>오늘 묵상한 본문 중 말씀을 먼저 소리 내어 선포하고 기도해 보세요.</div>
                 )}
               </div>
-              <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
+              <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved}/>
             </div>
 
             <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
-              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>말씀 녹음 가이드</div>
+              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>기도 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
                   <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
