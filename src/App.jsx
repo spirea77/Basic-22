@@ -317,7 +317,7 @@ function LeaderDashboard({ theme }) {
 
 // ─── 말씀 선포 타이머 컴포넌트 ─────────────────────────────────────────────────────
 function PrayerTimer({ dateKey, theme, onComplete }) {
-  const [status, setStatus] = useState("idle"); // idle | running | done
+  const [status, setStatus] = useState("idle"); // idle | running | paused | done
   const [elapsed, setElapsed] = useState(0);
   const [showVictory, setShowVictory] = useState(false);
   const timerRef = useRef(null);
@@ -332,9 +332,7 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
 
   useEffect(() => () => clearInterval(timerRef.current), []);
 
-  const start = () => {
-    if (status === "running") return;
-    setStatus("running");
+  const startTimer = () => {
     timerRef.current = setInterval(() => {
       setElapsed(prev => {
         if (prev >= TOTAL - 1) {
@@ -350,6 +348,22 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
     }, 1000);
   };
 
+  const start = () => {
+    if (status === "running") return;
+    setStatus("running");
+    startTimer();
+  };
+
+  const pause = () => {
+    clearInterval(timerRef.current);
+    setStatus("paused");
+  };
+
+  const resume = () => {
+    setStatus("running");
+    startTimer();
+  };
+
   const reset = () => {
     clearInterval(timerRef.current);
     setStatus("idle");
@@ -362,17 +376,31 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
   const progress = elapsed / TOTAL;
   const circumference = 2 * Math.PI * 70;
 
+  const shareKakao = () => {
+    const text = `📣 오늘도 말씀 선포 완료!\n\n히브리서 4:2\n"그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"\n\n2026 BASIC 성경통독 함께해요 🙏`;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile && navigator.share) {
+      navigator.share({ title: "2026 BASIC 성경통독", text }).catch(() => {});
+    } else {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() =>
+          alert("📋 클립보드에 복사됐어요!\n카카오톡에 붙여넣기 하세요")
+        );
+      }
+    }
+  };
+
   return (
     <div style={{textAlign:"center",padding:"8px 0"}}>
       {/* 원형 타이머 */}
-      <div style={{position:"relative",width:170,height:170,margin:"0 auto 24px"}}>
+      <div style={{position:"relative",width:170,height:170,margin:"0 auto 28px"}}>
         <svg viewBox="0 0 160 160" style={{transform:"rotate(-90deg)",width:"100%",height:"100%",position:"absolute",inset:0}}>
           <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="8"/>
           <circle cx="80" cy="80" r="70" fill="none" stroke={theme.color} strokeWidth="8"
             strokeDasharray={circumference}
             strokeDashoffset={circumference * (1 - progress)}
             strokeLinecap="round"
-            style={{transition:"stroke-dashoffset 1s linear"}}/>
+            style={{transition: status === "running" ? "stroke-dashoffset 1s linear" : "none"}}/>
         </svg>
         <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
           {status === "done" ? (
@@ -383,49 +411,62 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
           ) : (
             <>
               <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",letterSpacing:".04em"}}>{mm}:{ss}</div>
-              <div style={{fontSize:10,color:theme.color+"88",letterSpacing:".15em",marginTop:4}}>
-                {status === "running" ? "주님만 의지합니다." : "5분 선포"}
+              <div style={{fontSize:10,letterSpacing:".12em",marginTop:4,color:
+                status === "paused" ? "#E08080" :
+                status === "running" ? theme.color+"BB" :
+                theme.color+"66"}}>
+                {status === "running" ? "주님만 의지합니다" :
+                 status === "paused" ? "일시정지 중" : "5분 선포"}
               </div>
             </>
           )}
         </div>
       </div>
 
+      {/* 버튼 영역 */}
       {status === "idle" && (
         <button onClick={start}
           style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:100,padding:"14px 44px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 24px ${theme.glow}55`,letterSpacing:".05em"}}>
-          📣 선포 시작
+          ▶ 선포 시작
         </button>
       )}
-      {status === "running" && (
-        <div style={{fontSize:13,color:theme.color+"88",letterSpacing:".06em",lineHeight:2}}>
-          주님만 의지합니다<br/>
-          <span style={{fontSize:11,color:"#4A4038"}}>5분이 끝나면 자동으로 완료됩니다</span>
+
+      {(status === "running" || status === "paused") && (
+        <div style={{display:"flex",gap:12,justifyContent:"center",alignItems:"center"}}>
+          {status === "running" ? (
+            <button onClick={pause}
+              style={{width:56,height:56,borderRadius:28,background:`${theme.color}22`,border:`2px solid ${theme.color}55`,color:theme.color,fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}>
+              ⏸
+            </button>
+          ) : (
+            <button onClick={resume}
+              style={{width:56,height:56,borderRadius:28,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",color:"#08090F",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 18px ${theme.glow}55`,transition:"all .2s"}}>
+              ▶
+            </button>
+          )}
+          <button onClick={reset}
+            style={{width:40,height:40,borderRadius:20,background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",color:"#6A5E50",fontSize:14,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            ↺
+          </button>
         </div>
       )}
+
+      {(status === "running" || status === "paused") && (
+        <div style={{marginTop:14,fontSize:11,color:"#4A4038"}}>
+          {status === "paused" ? "일시정지 — ▶ 를 눌러 재개하세요" : "5분이 끝나면 자동으로 완료됩니다"}
+        </div>
+      )}
+
       {status === "done" && (
         <div>
           <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 말씀 선포를 마쳤습니다</div>
           <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:8}}>
-            <button onClick={()=>{
-              const text = `📣 오늘도 말씀 선포 완료!\n\n2026 BASIC 성경통독 함께해요 🙏\n${window.location.href}`;
-              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-              if(isMobile && navigator.share){
-                navigator.share({title:"2026 BASIC 성경통독",text:text}).catch(()=>{});
-              } else {
-                const kakaoUrl = `https://sharer.kakao.com/talk/friends/picker/easylink?app_key=KAKAO_JS_KEY&template_id=TEMPLATE_ID`;
-                try {
-                  if(navigator.clipboard) {
-                    navigator.clipboard.writeText(text).then(()=>alert("📋 클립보드에 복사됐어요!\n카카오톡에 붙여넣기 하세요"));
-                  }
-                } catch { alert("카카오톡으로 공유해보세요!"); }
-              }
-            }}
-              style={{background:"#FEE500",border:"none",borderRadius:20,padding:"10px 24px",color:"#3C1E1E",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
-              <span style={{fontSize:16}}>💬</span> 카카오톡 공유
+            <button onClick={shareKakao}
+              style={{background:"#FEE500",border:"none",borderRadius:20,padding:"11px 26px",color:"#3C1E1E",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6,boxShadow:"0 4px 16px rgba(254,229,0,.35)"}}>
+              <span style={{fontSize:18}}>💬</span> 카카오톡 공유
             </button>
             <button onClick={reset}
-              style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"10px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
+              style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"11px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
               다시 시작
             </button>
           </div>
@@ -726,14 +767,13 @@ export default function App() {
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 선포</div>
-                {d?.구절 ? (
-                  <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
-                    <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.65,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>"{d.구절}"</div>
-                    <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
+                <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"20px",marginBottom:14}}>
+                  <div style={{fontSize:10,letterSpacing:".18em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:12}}>히브리서 4:2</div>
+                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.8,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:12,wordBreak:"keep-all",textAlign:"left"}}>
+                    "그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"
                   </div>
-                ) : (
-                  <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.7,fontWeight:300}}>오늘 묵상한 본문 중 말씀을 먼저 소리 내어 선포하고 기도해 보세요.</div>
-                )}
+                  <div style={{fontSize:12,color:theme.color+"AA",textAlign:"right"}}>이 말씀을 소리 내어 선포한 후, 5분 타이머를 시작하세요.</div>
+                </div>
               </div>
               <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved}/>
             </div>
