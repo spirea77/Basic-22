@@ -165,9 +165,11 @@ const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
 const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
 const fmtLong = d => {
-  const base = d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric"});
+  const yy = String(d.getFullYear()).slice(2);
+  const mm = d.getMonth() + 1;
+  const dd = d.getDate();
   const wd = ["일","월","화","수","목","금","토"][d.getDay()];
-  return `${base} (${wd})`;
+  return `${yy}년 ${mm}월 ${dd}일 (${wd})`;
 };
 const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
@@ -769,10 +771,10 @@ export default function App() {
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 선포</div>
                 <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"20px",marginBottom:14}}>
                   <div style={{fontSize:10,letterSpacing:".18em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:12}}>히브리서 4:2</div>
-                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.8,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:12,wordBreak:"keep-all",textAlign:"left"}}>
+                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.8,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:12,wordBreak:"keep-all",textAlign:"center"}}>
                     "그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"
                   </div>
-                  <div style={{fontSize:12,color:theme.color+"AA",textAlign:"right"}}>이 말씀을 소리 내어 선포한 후, 5분 타이머를 시작하세요.</div>
+                  <div style={{fontSize:12,color:theme.color+"AA",textAlign:"center"}}>이 말씀을 소리 내어 선포한 후, 5분 타이머를 시작하세요.</div>
                 </div>
               </div>
               <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved} alreadyDone={voiceDone.has(key)}/>
