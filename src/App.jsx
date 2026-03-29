@@ -315,7 +315,7 @@ function LeaderDashboard({ theme }) {
   );
 }
 
-// ─── 기도 타이머 컴포넌트 ─────────────────────────────────────────────────────
+// ─── 말씀 선포 타이머 컴포넌트 ─────────────────────────────────────────────────────
 function PrayerTimer({ dateKey, theme, onComplete }) {
   const [status, setStatus] = useState("idle"); // idle | running | done
   const [elapsed, setElapsed] = useState(0);
@@ -384,7 +384,7 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
             <>
               <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",letterSpacing:".04em"}}>{mm}:{ss}</div>
               <div style={{fontSize:10,color:theme.color+"88",letterSpacing:".15em",marginTop:4}}>
-                {status === "running" ? "기도 중..." : "5분 기도"}
+                {status === "running" ? "주님만 의지합니다." : "5분 선포"}
               </div>
             </>
           )}
@@ -394,22 +394,41 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
       {status === "idle" && (
         <button onClick={start}
           style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:100,padding:"14px 44px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 24px ${theme.glow}55`,letterSpacing:".05em"}}>
-          🙏 기도 시작
+          📣 선포 시작
         </button>
       )}
       {status === "running" && (
         <div style={{fontSize:13,color:theme.color+"88",letterSpacing:".06em",lineHeight:2}}>
-          기도하고 있습니다<br/>
+          주님만 의지합니다<br/>
           <span style={{fontSize:11,color:"#4A4038"}}>5분이 끝나면 자동으로 완료됩니다</span>
         </div>
       )}
       {status === "done" && (
         <div>
-          <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 기도를 마쳤습니다</div>
-          <button onClick={reset}
-            style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"8px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
-            다시 시작
-          </button>
+          <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 말씀 선포를 마쳤습니다</div>
+          <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:8}}>
+            <button onClick={()=>{
+              const text = `📣 오늘도 말씀 선포 완료!\n\n2026 BASIC 성경통독 함께해요 🙏\n${window.location.href}`;
+              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              if(isMobile && navigator.share){
+                navigator.share({title:"2026 BASIC 성경통독",text:text}).catch(()=>{});
+              } else {
+                const kakaoUrl = `https://sharer.kakao.com/talk/friends/picker/easylink?app_key=KAKAO_JS_KEY&template_id=TEMPLATE_ID`;
+                try {
+                  if(navigator.clipboard) {
+                    navigator.clipboard.writeText(text).then(()=>alert("📋 클립보드에 복사됐어요!\n카카오톡에 붙여넣기 하세요"));
+                  }
+                } catch { alert("카카오톡으로 공유해보세요!"); }
+              }
+            }}
+              style={{background:"#FEE500",border:"none",borderRadius:20,padding:"10px 24px",color:"#3C1E1E",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
+              <span style={{fontSize:16}}>💬</span> 카카오톡 공유
+            </button>
+            <button onClick={reset}
+              style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"10px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
+              다시 시작
+            </button>
+          </div>
         </div>
       )}
 
@@ -419,7 +438,7 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
           <div style={{background:"linear-gradient(145deg,rgba(14,12,22,.98),rgba(8,9,15,.98))",border:`1px solid ${theme.color}55`,borderRadius:28,padding:"44px 56px",textAlign:"center",boxShadow:`0 20px 80px ${theme.glow}, 0 0 0 1px rgba(255,255,255,.04)`,animation:"popIn .45s cubic-bezier(.16,1,.3,1)"}}>
             <div style={{fontSize:52,marginBottom:18}}>🎉</div>
             <div style={{fontSize:26,fontFamily:"'Noto Serif KR',serif",color:theme.color,fontWeight:700,marginBottom:12,letterSpacing:".02em"}}>오늘도 승리했습니다!</div>
-            <div style={{fontSize:13,color:"#8A7E6E",fontWeight:300,lineHeight:1.8}}>5분 기도를 완주했어요</div>
+            <div style={{fontSize:13,color:"#8A7E6E",fontWeight:300,lineHeight:1.8}}>5분 말씀 선포를 완주했어요!</div>
           </div>
         </div>
       )}
@@ -543,7 +562,7 @@ export default function App() {
   // 비로그인
   if (!user) return <LoginScreen />;
 
-  const TABS = [["main","📖 묵상"],["voice","🙏 기도 타이머"],["calendar","📅 달력"],["leader","👑 현황판"]];
+  const TABS = [["main","📖 묵상"],["voice","📣 말씀 선포"],["calendar","📅 달력"],["leader","👑 현황판"]];
 
   return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 55%,#060818 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR','Georgia',serif",overflowX:"hidden"}}>
@@ -654,7 +673,7 @@ export default function App() {
                 {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
               </button>
               <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
-                {voiceDone.has(key)?"🙏 기도 완료!":"🙏 기도 타이머"}
+                {voiceDone.has(key)?"📣 말씀 선포 완료!":"📣 말씀 선포"}
               </button>
             </div>
 
@@ -706,7 +725,7 @@ export default function App() {
 
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 기도</div>
+                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 선포</div>
                 {d?.구절 ? (
                   <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
                     <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.65,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>"{d.구절}"</div>
@@ -720,7 +739,7 @@ export default function App() {
             </div>
 
             <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
-              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>기도 가이드</div>
+              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>선포 가이드</div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
                   <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
