@@ -164,7 +164,11 @@ function detectTheme(raw) {
 const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
 const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmtLong = d => d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
+const fmtLong = d => {
+  const base = d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric"});
+  const wd = ["일","월","화","수","목","금","토"][d.getDay()];
+  return `${base} (${wd})`;
+};
 const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
 const MAX_SEC = 300;
@@ -316,19 +320,19 @@ function LeaderDashboard({ theme }) {
 }
 
 // ─── 말씀 선포 타이머 컴포넌트 ─────────────────────────────────────────────────────
-function PrayerTimer({ dateKey, theme, onComplete }) {
-  const [status, setStatus] = useState("idle"); // idle | running | paused | done
-  const [elapsed, setElapsed] = useState(0);
+function PrayerTimer({ dateKey, theme, onComplete, alreadyDone }) {
+  const [status, setStatus] = useState(alreadyDone ? "done" : "idle"); // idle | running | paused | done
+  const [elapsed, setElapsed] = useState(alreadyDone ? 300 : 0);
   const [showVictory, setShowVictory] = useState(false);
   const timerRef = useRef(null);
   const TOTAL = 300;
 
   useEffect(() => {
     clearInterval(timerRef.current);
-    setStatus("idle");
-    setElapsed(0);
+    setStatus(alreadyDone ? "done" : "idle");
+    setElapsed(alreadyDone ? 300 : 0);
     setShowVictory(false);
-  }, [dateKey]);
+  }, [dateKey, alreadyDone]);
 
   useEffect(() => () => clearInterval(timerRef.current), []);
 
@@ -626,8 +630,7 @@ export default function App() {
         {/* 헤더 */}
         <header style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"22px 0 0",gap:12}}>
           <div>
-            <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028",textTransform:"uppercase",marginBottom:3,fontFamily:"'Cormorant Garamond',serif"}}>BASIC Community Church · 2026 성경통독</div>
-            <div style={{fontSize:12,color:"#6A5E50"}}>{fmtLong(viewDate)}</div>
+            <div style={{fontSize:13,color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontWeight:300}}>{fmtLong(viewDate)}</div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
             <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:10,color:theme.color,letterSpacing:".08em",fontFamily:"'Cormorant Garamond',serif"}}>{theme.badge}</div>
@@ -772,7 +775,7 @@ export default function App() {
                   <div style={{fontSize:12,color:theme.color+"AA",textAlign:"right"}}>이 말씀을 소리 내어 선포한 후, 5분 타이머를 시작하세요.</div>
                 </div>
               </div>
-              <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved}/>
+              <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved} alreadyDone={voiceDone.has(key)}/>
             </div>
 
             <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
