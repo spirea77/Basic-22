@@ -376,17 +376,14 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
   const progress = elapsed / TOTAL;
   const circumference = 2 * Math.PI * 70;
 
-  const shareKakao = () => {
+  const handleShare = () => {
     const text = `📣 오늘도 말씀 선포 완료!\n\n히브리서 4:2\n"그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"\n\n2026 BASIC 성경통독 함께해요 🙏`;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile && navigator.share) {
+    if (navigator.share) {
       navigator.share({ title: "2026 BASIC 성경통독", text }).catch(() => {});
-    } else {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(() =>
-          alert("📋 클립보드에 복사됐어요!\n카카오톡에 붙여넣기 하세요")
-        );
-      }
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() =>
+        alert("📋 클립보드에 복사됐어요!")
+      );
     }
   };
 
@@ -461,9 +458,9 @@ function PrayerTimer({ dateKey, theme, onComplete }) {
         <div>
           <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 말씀 선포를 마쳤습니다</div>
           <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:8}}>
-            <button onClick={shareKakao}
-              style={{background:"#FEE500",border:"none",borderRadius:20,padding:"11px 26px",color:"#3C1E1E",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6,boxShadow:"0 4px 16px rgba(254,229,0,.35)"}}>
-              <span style={{fontSize:18}}>💬</span> 카카오톡 공유
+            <button onClick={handleShare}
+              style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:20,padding:"11px 26px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6,boxShadow:`0 4px 16px ${theme.glow}55`}}>
+              <span style={{fontSize:18}}>📤</span> 공유
             </button>
             <button onClick={reset}
               style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"11px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
