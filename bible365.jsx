@@ -749,14 +749,13 @@ export default function App() {
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
-                {d?.구절 ? (
-                  <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
-                    <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.65,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>"{d.구절}"</div>
-                    <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
-                  </div>
-                ) : (
-                  <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.7,fontWeight:300}}>오늘 묵상한 본문 중 말씀을 먼저 소리 내어 선포하고 기도해 보세요.</div>
-                )}
+               <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
+  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>
+    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
+  </div>
+  <div style={{fontSize:12,color:theme.color+"88",marginBottom:8,fontFamily:"'Cormorant Garamond',serif",letterSpacing:".06em"}}>갈라디아서 2:20</div>
+  <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
+</div>
               </div>
               <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
             </div>
