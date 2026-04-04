@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc, collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 
-// ─── FIREBASE 설정 ─────────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyALaJMUPnc9Ik8JDUWMhWp8_O-Xk00jlv8",
   authDomain: "basie-22.firebaseapp.com",
@@ -17,12 +16,11 @@ const auth = getAuth(fbApp);
 const db = getFirestore(fbApp);
 const gProvider = new GoogleAuthProvider();
 
-// ─── FIRESTORE 헬퍼 ───────────────────────────────────────────────────────────
 async function saveCompletion(user, dateKey, done, voiceDone, passage) {
   try {
     await setDoc(doc(db, "completions", `${user.uid}_${dateKey}`), {
       uid: user.uid,
-      displayName: user.displayName || "이름없음",
+      displayName: user.displayName || "\uc774\ub984\uc5c6\uc74c",
       email: user.email || "",
       photoURL: user.photoURL || "",
       done: !!done,
@@ -31,7 +29,7 @@ async function saveCompletion(user, dateKey, done, voiceDone, passage) {
       passage: passage || "",
       updatedAt: new Date().toISOString()
     }, { merge: true });
-  } catch(e) { console.error("저장 실패", e); }
+  } catch(e) { console.error("\uc800\uc7a5 \uc2e4\ud328", e); }
 }
 
 async function loadUserCompletions(uid) {
@@ -46,642 +44,91 @@ async function loadUserCompletions(uid) {
   } catch(e) { return { done: new Set(), voiceDone: new Set() }; }
 }
 
-// ─── 묵상 데이터 ──────────────────────────────────────────────────────────────
 const DEVOTIONALS = {
-"3-22":{핵심:"하나님은 기드온에게 군사의 수를 300명으로 줄이게 하십니다. 이는 전쟁의 승리가 인간의 숫자가 아닌 오직 하나님의 능력에 있음을 깨닫게 하시기 위함입니다.",성품:"하나님은 우리의 약함과 부족함을 통해 당신의 크신 능력을 온전히 드러내시는 전능하신 구원자이십니다.",묵상:"가진 것이 적어 두려우신가요? 하나님은 300명으로도 대군을 이기십니다. 내 약함이 오히려 하나님의 능력이 임하는 통로가 됨을 믿으세요.",기도:"전능하신 하나님, 내 능력과 상황을 의지하려는 마음을 내려놓고, 오직 주님의 크신 손길만을 신뢰하며 나아가게 하소서.",구절:"그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라 (히브리서 4:2)"},
-"3-23":{핵심:"아비멜렉이 맷돌에 맞아 죽는 장면은 하나님의 심판이 반드시 임한다는 것을 보여줍니다. 이후에도 이스라엘은 또다시 바알과 아스다롯을 섬기며 하나님을 떠나는 반복적인 패턴을 보입니다.",성품:"하나님은 오래 참으시는 분이지만 결코 죄를 영원히 간과하지 않으십니다. 이스라엘이 반복적으로 죄를 지어도 부르짖을 때 다시 돌아보시는 것은 하나님의 인내와 언약에 대한 신실하심 때문입니다.",묵상:"내 삶에도 반복되는 패턴이 있나요? 결심하고 돌아서다가 또 넘어지는 그 자리에서, 하나님은 여전히 나의 부르짖음을 들으십니다. 하나님의 오래 참으심이 나를 회개로 이끕니다.",기도:"인내하시는 하나님, 반복되는 나의 연약함에도 포기하지 않으시는 사랑에 감사하며, 오늘 더 깊이 주께로 돌아가게 하소서.",구절:"이스라엘 자손이 여호와께 부르짖어 이르되 우리가 우리 하나님을 버리고 바알들을 섬김으로 주께 범죄하였나이다 하니 (사사기 10:10)"},
-"3-24":{핵심:"입다는 기생의 아들로 쫓겨났지만 위기 앞에 다시 부름을 받습니다. 하나님은 연약한 자를 들어 쓰시지만, 입다의 경솔한 서원으로 인해 딸을 잃는 비극이 찾아옵니다. 순종과 지혜가 함께 필요함을 보여줍니다.",성품:"하나님은 버려진 자, 소외된 자를 부르시는 분입니다. 입다처럼 세상이 버린 사람을 하나님은 당신의 도구로 사용하십니다. 하나님의 은혜는 인간의 조건을 초월합니다.",묵상:"혹시 스스로 쓸모없다고 느낀 적이 있나요? 하나님은 세상이 버린 입다를 부르셨습니다. 오늘 내가 어떤 상태에 있든, 하나님은 나를 부르시고 사용하기 원하십니다.",기도:"소외된 자를 부르시는 하나님, 나의 부족함에도 불구하고 당신의 손에 쓰임받는 그릇으로 만들어 주소서.",구절:"이에 여호와의 영이 입다에게 임하시니 (사사기 11:29)"},
-"3-25":{핵심:"삼손은 하나님의 신이 임한 나실인이었지만, 욕망으로 인해 반복적으로 하나님의 부르심과 갈등합니다. 들릴라의 유혹에 넘어가 눈이 뽑히는 비극을 맞지만, 마지막 순간 하나님께 부르짖어 다시 힘을 회복합니다.",성품:"하나님은 실패한 자에게도 다시 기회를 주시는 분입니다. 삼손이 마지막 기도를 드릴 때 하나님은 응답하셨습니다. 하나님의 자비는 우리의 가장 낮은 순간에도 닿습니다.",묵상:"내 삶에서 가장 낮고 수치스러운 순간에도 하나님은 들으십니다. 삼손의 마지막 기도처럼, 지금 내가 어디에 있든 주님께 부르짖을 수 있습니다.",기도:"자비로우신 하나님, 내 실패와 수치 속에서도 나의 부르짖음을 들으시고, 다시 일어설 힘을 주소서.",구절:"삼손이 여호와께 부르짖어 이르되 주 여호와여 구하옵나니 나를 생각하옵소서 (사사기 16:28)"},
-"3-26":{핵심:"사사기 후반부는 이스라엘의 영적 혼란을 보여줍니다. '그 때에 이스라엘에 왕이 없으므로 사람이 각기 자기 소견에 옳은 대로 행하였더라'는 말씀이 이 시대의 핵심입니다.",성품:"하나님은 우리 삶의 왕이 되기를 원하시는 분입니다. 이스라엘의 혼란은 하나님을 왕으로 인정하지 않은 결과였습니다.",묵상:"오늘 내 삶에서 각기 자기 소견에 옳은 대로 행하는 영역은 어디인가요? 하나님을 나의 왕으로, 내 삶의 기준으로 삼을 때 진정한 방향이 생깁니다.",기도:"나의 왕이신 하나님, 내 생각과 판단보다 당신의 말씀이 내 삶의 기준이 되게 하소서.",구절:"그 때에 이스라엘에 왕이 없으므로 사람이 각기 자기의 소견에 옳은 대로 행하였더라 (사사기 21:25)"},
-"3-27":{핵심:"룻기는 사사 시대의 혼란 속에서 피어난 신실함의 이야기입니다. 룻의 고백과 보아스의 기업 무를 자로서의 사랑이 아름답게 펼쳐집니다.",성품:"하나님은 이방인도 품으시는 분입니다. 룻은 모압 여인이었지만 하나님의 언약 백성 안으로 들어왔고, 다윗 왕의 조상이 되었습니다.",묵상:"어디를 가든 함께하겠다는 룻의 고백처럼, 오늘 하나님께 그런 신실함으로 나아갈 수 있나요?",기도:"신실하신 하나님, 룻처럼 어떤 상황에서도 주님을 따르는 믿음을 허락하시고, 내 삶에서도 당신의 선한 섭리를 경험하게 하소서.",구절:"어머니의 백성이 나의 백성이 되고 어머니의 하나님이 나의 하나님이 되시리니 (룻기 1:16)"},
-"3-28":{핵심:"한나의 간절한 기도와 사무엘의 탄생은 하나님이 기도를 들으시는 분임을 보여줍니다. 어린 사무엘은 '말씀하옵소서, 주의 종이 듣겠나이다'라고 응답합니다.",성품:"하나님은 고통 중에 부르짖는 기도를 들으시는 분입니다. 한나가 울며 기도할 때 하나님은 그 기도를 기억하셨습니다.",묵상:"오래 기도했지만 아직 응답이 없는 것이 있나요? 한나의 기도는 응답될 때까지 멈추지 않았습니다.",기도:"기도를 들으시는 하나님, 한나처럼 포기하지 않고 당신 앞에 내 마음을 쏟아내게 하소서.",구절:"여호와는 죽이기도 하시고 살리기도 하시며 스올에 내리게도 하시고 거기에서 올리기도 하시는도다 (사무엘상 2:6)"},
-"3-29":{핵심:"언약궤를 빼앗기고 엘리와 그 아들들이 죽는 비극이 일어납니다. 그러나 하나님은 블레셋의 다곤 신전에서 스스로 당신의 영광을 지키십니다.",성품:"하나님은 스스로 당신의 영광을 지키시는 분입니다. 다곤 신상이 엎드러진 것은 하나님의 주권이 모든 우상보다 높음을 선포합니다.",묵상:"때로 상황이 마치 하나님이 패배하신 것처럼 보일 때가 있습니다. 하지만 하나님은 스스로의 영광을 지키십니다.",기도:"영광의 하나님, 어떤 상황에서도 당신의 이름이 높임 받으며, 내 삶이 그 영광을 드러내는 통로가 되게 하소서.",구절:"여호와의 손이 아스돗 사람에게 엄중히 더하사 (사무엘상 5:6)"},
-"3-30":{핵심:"사무엘이 마지막 사사로 이스라엘을 이끄는 동안 백성은 왕을 요구합니다. 하나님은 이를 허락하시지만 왕의 폐단을 미리 경고하십니다.",성품:"하나님은 인간의 자유를 존중하시되 그 선택의 결과도 경험하게 하시는 분입니다.",묵상:"내가 원하는 것이 반드시 내게 필요한 것은 아닐 수 있습니다. 오늘 내 소원을 하나님의 뜻 앞에 다시 놓으며 '당신의 뜻이 이루어지이다'를 고백할 수 있나요?",기도:"지혜로우신 하나님, 내 원함보다 당신의 뜻이 더 선함을 믿으며, 오늘 내 계획을 당신께 맡기게 하소서.",구절:"여호와께서는 그의 크신 이름을 위해서라도 자기 백성을 버리지 아니하실 것이요 (사무엘상 12:22)"},
-"3-31":{핵심:"사울의 불순종에 사무엘은 '순종이 제사보다 낫고 듣는 것이 수양의 기름보다 낫다'고 선포합니다.",성품:"하나님은 외적인 종교 행위보다 마음의 순종을 기뻐하시는 분입니다.",묵상:"오늘 내 신앙이 형식에 머물고 있지는 않나요? 하나님은 오늘 나의 진심 어린 순종을 원하십니다.",기도:"마음을 보시는 하나님, 형식이 아닌 진심으로 당신께 나아가며, 오늘 하루 말씀에 순종하는 삶을 살게 하소서.",구절:"여호와의 구원은 사람이 많고 적음에 달리지 아니하였느니라 (사무엘상 14:6)"},
-"4-1":{핵심:"사울은 아말렉을 완전히 진멸하지 않습니다. 결국 하나님은 사울을 왕으로 삼은 것을 후회하시고 다윗을 예비하십니다.",성품:"하나님은 완전한 순종을 원하시는 분입니다. 사울은 90% 순종했지만 그것은 불순종이었습니다.",묵상:"거의 다 순종했는데라고 생각하는 영역이 있나요? 오늘 완전히 내어드리지 못한 것이 무엇인지 물어보세요.",기도:"전능하신 하나님, 부분적인 순종이 아닌 온전한 헌신으로 당신을 따르게 하소서.",구절:"순종이 제사보다 낫고 듣는 것이 숫양의 기름보다 나으니 (사무엘상 15:22)"},
-"4-2":{핵심:"다윗이 기름부음을 받습니다. 하나님은 사무엘에게 '외모를 보지 말라, 나는 중심을 보느니라'고 하십니다.",성품:"하나님은 중심을 보시는 분입니다. 세상은 외모와 조건을 보지만 하나님은 마음의 중심을 보십니다.",묵상:"아무도 알아주지 않는 곳에서도 하나님은 내 중심을 보고 계십니다.",기도:"중심을 보시는 하나님, 사람의 시선이 아니라 하나님의 시선 앞에서 살아가는 오늘이 되게 하소서.",구절:"사람은 외모를 보거니와 나 여호와는 중심을 보느니라 (사무엘상 16:7)"},
-"4-3":{핵심:"다윗은 골리앗 앞에 나아가 돌 다섯 개와 물매로 거인을 쓰러뜨립니다. '전쟁은 여호와께 속한 것이라'는 다윗의 고백이 핵심입니다.",성품:"하나님은 약한 자를 통해 강한 자를 이기시는 분입니다.",묵상:"내 삶에서 골리앗 같은 두려움이 있나요? 오늘 '전쟁은 여호와께 속한 것'이라고 담대히 고백해보세요.",기도:"전능하신 하나님, 내 앞의 두려운 것보다 당신이 더 크심을 믿으며, 담대하게 나아가는 하루가 되게 하소서.",구절:"전쟁은 여호와께 속한 것인즉 그가 너희를 우리 손에 넘기시리라 (사무엘상 17:47)"},
-"4-4":{핵심:"다윗과 요나단의 우정은 성경에서 가장 아름다운 관계 중 하나입니다. 요나단은 왕위 계승자임에도 다윗을 위해 자신을 내어줍니다.",성품:"하나님은 우정과 사랑을 통해 당신의 백성을 보호하시는 분입니다.",묵상:"내 삶에서 요나단 같은 사람이 있나요? 오늘 내 주변에서 희생적 사랑을 실천할 기회를 찾아보세요.",기도:"사랑의 하나님, 신실한 관계를 허락하시고 내가 먼저 다른 이를 위해 나를 낮추는 삶을 살게 하소서.",구절:"요나단은 다윗을 사랑하므로 그와 더불어 언약을 맺었으며 (사무엘상 18:3)"},
-"4-5":{핵심:"사울의 마지막은 비참합니다. 하나님을 떠난 왕의 끝을 사무엘상은 냉정하게 기록합니다.",성품:"하나님은 끝까지 기다리시는 분이지만 떠난 자의 결말을 막지는 않으십니다.",묵상:"오늘 하나님의 음성에 마음을 여세요.",기도:"신실하신 하나님, 사울처럼 하나님을 떠나지 않게 하시고, 끝까지 주님의 손을 붙잡는 삶을 허락하소서.",구절:"여호와께서 너를 떠나 네 대적이 되셨거늘 (사무엘상 28:16)"},
-"4-6":{핵심:"다윗은 헤브론에서 유다의 왕이 되고 긴 내전이 이어지지만 다윗의 집은 점점 강해집니다.",성품:"하나님은 인내하며 기다리는 자와 함께하시는 분입니다.",묵상:"내가 기다리고 있는 하나님의 약속이 있나요? 하나님의 때는 결코 늦지 않습니다.",기도:"때를 아시는 하나님, 내 성급함을 내려놓고 당신의 때를 기다리는 믿음을 허락하소서.",구절:"만군의 하나님 여호와께서 함께 계시니 다윗이 점점 강성하여 가니라 (사무엘하 5:10)"},
-"4-7":{핵심:"다윗이 예루살렘을 정복합니다. 언약궤를 옮기는 과정에서 웃사의 사건이 일어나고 다윗은 하나님의 거룩함을 새롭게 배웁니다.",성품:"하나님은 거룩하신 분입니다. 하나님의 임재는 거룩하심에 대한 경외에서 시작됩니다.",묵상:"신앙이 너무 익숙해져서 하나님의 거룩하심을 잊어버리고 있지는 않나요?",기도:"거룩하신 하나님, 당신의 임재 앞에 경외함으로 나아가며, 오늘 하루 거룩하신 주를 예배하게 하소서.",구절:"여호와의 궤가 어찌 내게로 오리요 (사무엘하 6:9)"},
-"4-8":{핵심:"다윗이 밧세바 사건으로 큰 죄를 범하고 나단의 책망을 받습니다.",성품:"하나님은 약속을 지키시는 분이며 동시에 죄를 직면하게 하시는 분입니다.",묵상:"나단이 '당신이 그 사람이라'고 했을 때 다윗은 즉시 인정했습니다. 즉시 인정하고 돌이킬 수 있나요?",기도:"진실하신 하나님, 내 삶의 숨겨진 죄를 직면할 용기를 주시고, 즉시 회개하며 돌아오게 하소서.",구절:"여호와께서도 당신의 죄를 사하셨나니 (사무엘하 12:13)"},
-"4-9":{핵심:"다윗 가정의 비극이 시작됩니다. 그러나 다윗은 도망치면서도 하나님께 예배하기를 멈추지 않습니다.",성품:"하나님은 죄의 결과 가운데에서도 함께하시는 분입니다.",묵상:"고난 중에도 하나님을 향한 예배를 멈추지 마세요.",기도:"신실하신 하나님, 어떤 상황에서도 예배를 드리는 하루가 되게 하소서.",구절:"만일 내가 여호와 앞에서 은혜를 입으면 도로 나를 인도하시리라 (사무엘하 15:25)"},
-"4-10":{핵심:"압살롬의 반란으로 다윗은 예루살렘을 떠납니다. 시므이의 저주를 받을 때 다윗은 겸손히 받아들입니다.",성품:"하나님은 겸손한 자를 회복시키시는 분입니다.",묵상:"누군가의 비난이나 어려운 상황이 찾아올 때, 다윗처럼 그 안에서 하나님의 손길을 볼 수 있나요?",기도:"겸손을 사랑하시는 하나님, 내가 낮아지는 순간에 당신의 손길을 신뢰하게 하소서.",구절:"여호와께서 그에게 다윗을 저주하라 하심이니 (사무엘하 16:10)"},
-"4-11":{핵심:"다윗의 말년에도 반란이 계속됩니다. 하지만 다윗의 용사들의 이야기는 충성스러운 공동체가 얼마나 소중한지를 보여줍니다.",성품:"하나님은 충성스러운 공동체를 통해 역사하시는 분입니다.",묵상:"내 삶에서 함께 신앙의 길을 걷는 공동체가 있나요?",기도:"공동체의 하나님, 나도 신실한 동반자가 되게 하소서.",구절:"여호와께서 큰 구원으로 구원하시니라 (사무엘하 23:12)"},
-"4-12":{핵심:"다윗의 마지막 노래 '여호와는 나의 반석이시요'는 온 생애를 통한 신앙의 결론입니다.",성품:"하나님은 회개하는 자를 받으시는 분입니다.",묵상:"다윗의 일생은 완벽하지 않았지만 하나님을 향한 마음은 한결같았습니다.",기도:"긍휼이 많으신 하나님, 다윗처럼 실패해도 즉시 돌아오는 마음을 허락하소서.",구절:"여호와는 나의 반석이시요 나의 요새시요 나를 위하여 나를 건지시는 자시요 (사무엘하 22:2)"},
-"4-13":{핵심:"다윗이 죽기 전 솔로몬에게 '하나님의 도를 지키라'고 당부합니다.",성품:"하나님은 세대를 넘어 언약을 이어가시는 분입니다.",묵상:"내 신앙이 다음 세대에게 전해지고 있나요?",기도:"영원하신 하나님, 나를 통해 당신의 언약이 다음 세대로 이어지게 하소서.",구절:"네가 무엇을 하든지 어디로 가든지 형통할지라 (열왕기상 2:3)"},
-"4-14":{핵심:"솔로몬이 기브온에서 하나님께 일천 번제를 드릴 때 하나님이 나타나십니다. 솔로몬은 재물이나 장수가 아닌 지혜를 구합니다.",성품:"하나님은 바른 것을 구하는 자에게 넘치도록 주시는 분입니다.",묵상:"지금 내가 하나님께 구하는 것은 무엇인가요?",기도:"지혜를 주시는 하나님, 솔로몬처럼 하나님의 뜻을 이루기 위한 지혜를 구하게 하소서.",구절:"듣는 마음을 종에게 주사 주의 백성을 재판하여 선악을 분별하게 하옵소서 (열왕기상 3:9)"},
-"4-15":{핵심:"솔로몬이 7년에 걸쳐 성전을 건축합니다. 봉헌식 날 하나님의 영광이 성전에 가득 찼습니다.",성품:"하나님은 당신의 백성 가운데 임재하기를 원하시는 분입니다.",묵상:"내 삶이 하나님의 임재로 가득 찬 성전이 될 수 있습니다.",기도:"임재하시는 하나님, 내 삶이 당신의 영광으로 가득 찬 성전이 되게 하소서.",구절:"여호와의 영광이 여호와의 성전에 가득함이었더라 (열왕기상 8:10-11)"},
-"4-16":{핵심:"솔로몬의 성전 봉헌 기도는 성경에서 가장 위대한 기도 중 하나입니다.",성품:"하나님은 기도를 들으시는 하나님이십니다.",묵상:"내 기도가 하나님의 위대하심으로 시작되고 있나요?",기도:"기도를 들으시는 하나님, 당신의 위대하심 앞에 겸손히 나아가며 중보하게 하소서.",구절:"하늘과 하늘들의 하늘이라도 주를 용납하지 못하겠거든 (열왕기상 8:27)"},
-"4-17":{핵심:"솔로몬의 영광이 절정에 달하지만 이방 여인들을 따라 신들을 섬기기 시작합니다.",성품:"하나님은 지혜를 주시지만 그 지혜를 어떻게 사용할지는 인간의 선택에 달려 있습니다.",묵상:"하나님이 내게 주신 재능과 은사를 어디에 쓰고 있나요?",기도:"은사를 주시는 하나님, 당신의 영광을 위해 사용하는 청지기가 되게 하소서.",구절:"솔로몬이 마음을 돌려 이스라엘의 하나님 여호와를 떠나므로 (열왕기상 11:9)"},
-"4-18":{핵심:"르호보암이 노인들의 조언을 무시하고 결국 이스라엘은 남북으로 분열됩니다.",성품:"하나님은 교만한 자를 낮추시는 분입니다.",묵상:"연륜 있는 사람들의 조언에 귀를 기울여보세요. 겸손은 지혜의 시작입니다.",기도:"지혜의 하나님, 나의 교만을 내려놓고 겸손히 당신의 뜻에 귀 기울이게 하소서.",구절:"이 일은 여호와께로 말미암아 난 것이라 (열왕기상 12:15)"},
-"4-19":{핵심:"엘리야 선지자가 등장합니다. 그릿 시냇가에서 까마귀가 먹을 것을 가져오는 장면은 하나님의 놀라운 돌보심을 보여줍니다.",성품:"하나님은 홀로 서 있는 자를 먹이시고 돌보시는 분입니다.",묵상:"혼자라고 느껴지는 순간이 있나요? 오늘 하나님이 예상치 못한 방법으로 돌보시는 흔적들을 찾아보세요.",기도:"공급하시는 하나님, 내가 광야에 있을 때도 당신이 돌보심을 믿으며 감사하게 하소서.",구절:"내가 까마귀들에게 명령하여 거기서 너를 먹이게 하리라 (열왕기상 17:2-4)"},
-"4-20":{핵심:"갈멜산의 대결에서 엘리야가 450명의 바알 선지자들과 맞섭니다. 하늘에서 불이 내려와 번제물을 태웁니다.",성품:"하나님은 당신만이 참 하나님이심을 증명하시는 분입니다.",묵상:"오늘 내 삶에서 하나님만이 나의 유일한 하나님이심을 다시 고백하는 시간을 가지세요.",기도:"유일하신 하나님, 오직 당신만이 나의 하나님이심을 고백하게 하소서.",구절:"주 여호와는 하나님이신 것을 알게 하옵소서 (열왕기상 18:37)"},
-"4-21":{핵심:"아합이 나봇의 포도원을 빼앗습니다. 그러나 아합이 겸손히 회개하자 하나님은 재앙을 늦추십니다.",성품:"하나님은 약자의 억울함을 듣고 심판하시는 분입니다.",묵상:"오늘 정의를 위해 내가 할 수 있는 작은 행동을 생각해보세요.",기도:"공의로우신 하나님, 약자의 편에 서시는 당신을 따라 정의를 실천하는 용기를 허락하소서.",구절:"그가 내 앞에서 겸비하므로 내가 재앙을 저의 시대에는 내리지 아니하고... (열왕기상 21:29)"},
-"4-22":{핵심:"엘리야가 회오리바람 속에 하늘로 올라가고 엘리사가 그 사역을 이어받습니다.",성품:"하나님은 당신의 종의 끝을 영광스럽게 하시는 분입니다.",묵상:"엘리사가 갑절의 영감을 구한 것처럼, 오늘 내가 하나님께 대담하게 구하고 싶은 것이 있나요?",기도:"능력의 하나님, 당신의 영이 내 삶에 강하게 역사하시기를 구하며, 더 큰 믿음으로 나아가게 하소서.",구절:"네가 어려운 일을 구하는도다 (열왕기하 2:10)"},
-"4-23":{핵심:"나아만 장군의 문둥병이 치유됩니다. '이스라엘 외에는 온 천하에 하나님이 없는 줄을 알았나이다'라는 나아만의 고백이 핵심입니다.",성품:"하나님은 이방인에게도 은혜를 베푸시는 분입니다.",묵상:"요단강에서 일곱 번 씻으라는 단순한 명령에 순종한 나아만처럼, 하나님의 단순한 말씀에 순종할 수 있나요?",기도:"모든 민족의 하나님, 내 자존심을 내려놓고 당신의 말씀에 순종하는 겸손을 허락하소서.",구절:"이스라엘 외에는 온 천하에 신이 없는 줄을 아나이다 (열왕기하 5:15)"},
-"4-24":{핵심:"엘리사는 아람군이 이스라엘을 포위할 때 '우리와 함께한 자가 그들과 함께한 자보다 많다'며 제자의 눈을 열어 하늘의 군대를 보게 합니다.",성품:"하나님은 우리 눈에 보이지 않는 곳에서 더 큰 군대로 보호하시는 분입니다.",묵상:"눈에 보이는 위협에 두려워하고 있나요? 오늘 믿음의 눈으로 내 상황을 다시 바라보세요.",기도:"보이지 않는 것을 보게 하시는 하나님, 두려운 상황 속에서도 보호하심을 믿는 믿음의 눈을 열어주소서.",구절:"우리와 함께 한 자가 그들과 함께 한 자보다 많으니라 (열왕기하 6:16-17)"},
-"4-25":{핵심:"북이스라엘은 계속 하나님을 떠나 결국 앗수르에 포로로 잡혀가는 심판을 받습니다.",성품:"하나님은 반드시 심판하시는 분이지만 그 심판도 오래 참으신 후에 오는 것입니다.",묵상:"하나님의 오래 참으심을 당연하게 여기고 있지는 않나요? 오늘이 바로 돌아올 수 있는 은혜의 시간입니다.",기도:"오래 참으시는 하나님, 당신의 인내를 헛되이 여기지 않고 오늘 온전히 돌아오게 하소서.",구절:"여호와께서 하신 말씀대로 이스라엘을 그 앞에서 내쫓으신지라 (열왕기하 17:23)"},
-"4-26":{핵심:"히스기야 왕은 앗수르의 산헤립이 예루살렘을 위협할 때 성전에서 기도합니다. 하나님은 그날 밤 앗수르 군사 185,000명을 치십니다.",성품:"하나님은 기도에 응답하시는 분입니다.",묵상:"나를 위협하는 상황을 하나님 앞에 펼쳐놓고 기도해본 적 있나요?",기도:"응답하시는 하나님, 히스기야처럼 내 위기를 당신 앞에 가져가며 기도하게 하소서.",구절:"주는 천하 만국에 홀로 하나님이시라 (열왕기하 19:15)"},
-"4-27":{핵심:"히스기야는 죽게 되었을 때 하나님께 기도하여 15년의 생명을 더 받습니다.",성품:"하나님은 기도를 들으시며 우리 삶에 구체적으로 개입하시는 분입니다.",묵상:"하나님의 은혜를 받은 후에 교만해진 적이 있나요? 오늘 받은 은혜를 하나님께 돌려드리세요.",기도:"은혜를 베푸시는 하나님, 받은 은혜가 더 깊은 겸손과 감사로 이어지게 하소서.",구절:"내가 네 기도를 들었고 네 눈물을 보았노라 (열왕기하 20:5)"},
-"4-28":{핵심:"므낫세는 유다 역사상 가장 악한 왕이지만 고난 중에 회개하고 하나님께 돌아옵니다.",성품:"하나님은 가장 악한 자의 회개도 받으시는 분입니다.",묵상:"내 죄는 너무 커서 용서받기 어렵다고 생각한 적이 있나요? 므낫세의 이야기는 그것이 사실이 아님을 보여줍니다.",기도:"용서의 하나님, 므낫세의 죄도 받으신 당신의 긍휼이 나에게도 미침을 믿으며 담대히 주 앞에 나아가게 하소서.",구절:"하나님이 그의 기도를 받으시며... (역대하 33:12-13)"},
-"4-29":{핵심:"요시야 왕이 성전을 수리하다가 율법책을 발견합니다. 말씀을 읽고 옷을 찢으며 회개하고 전국적인 개혁을 단행합니다.",성품:"하나님은 말씀을 통해 민족을 새롭게 하시는 분입니다.",묵상:"최근 말씀이 내 마음에 깊이 닿은 적이 있나요? 오늘 말씀 앞에 다시 마음을 여는 시간을 가져보세요.",기도:"말씀의 하나님, 요시야처럼 말씀 앞에서 내 마음이 찢어지는 감동을 허락하소서.",구절:"왕이 율법책의 말을 듣자 곧 그의 옷을 찢으니라 (열왕기하 22:11)"},
-"4-30":{핵심:"역대기는 이스라엘 역사를 하나님의 관점에서 다시 씁니다. 아담부터 다윗까지의 족보는 하나님의 구원 역사의 큰 그림을 보여줍니다.",성품:"하나님은 역사의 주관자이시며 당신의 이야기를 이어가시는 분입니다.",묵상:"내 삶이 하나님의 더 큰 이야기의 일부임을 믿나요?",기도:"역사의 주관자이신 하나님, 내 삶이 당신의 큰 이야기 안에 있음을 믿으며 오늘도 함께 써가게 하소서.",구절:"여호와여 위대하심과 권능과 영광과 승리와 위엄이 다 주께 속하였사오니 (역대상 29:11)"},
+"3-22":{\ud575\uc2ec:"\ud558\ub098\ub2d8\uc740 \uae30\ub4dc\uc628\uc5d0\uac8c \uad70\uc0ac\uc758 \uc218\ub97c 300\uba85\uc73c\ub85c \uc904\uc774\uac8c \ud558\uc2ed\ub2c8\ub2e4. \uc774\ub294 \uc804\uc7c1\uc758 \uc2b9\ub9ac\uac00 \uc778\uac04\uc758 \uc22b\uc790\uac00 \uc544\ub2cc \uc624\uc9c1 \ud558\ub098\ub2d8\uc758 \ub2a5\ub825\uc5d0 \uc788\uc74c\uc744 \uae68\ub2eb\uac8c \ud558\uc2dc\uae30 \uc704\ud568\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc6b0\ub9ac\uc758 \uc57d\ud568\uacfc \ubd80\uc871\ud568\uc744 \ud1b5\ud574 \ub2f9\uc2e0\uc758 \ud06c\uc2e0 \ub2a5\ub825\uc744 \uc628\uc804\ud788 \ub4dc\ub7ec\ub0b4\uc2dc\ub294 \uc804\ub2a5\ud558\uc2e0 \uad6c\uc6d0\uc790\uc774\uc2ed\ub2c8\ub2e4.",\ubb35\uc0c1:"\uac00\uc9c4 \uac83\uc774 \uc801\uc5b4 \ub450\ub824\uc6b0\uc2e0\uac00\uc694? \ud558\ub098\ub2d8\uc740 300\uba85\uc73c\ub85c\ub3c4 \ub300\uad70\uc744 \uc774\uae30\uc2ed\ub2c8\ub2e4. \ub0b4 \uc57d\ud568\uc774 \uc624\ud788\ub824 \ud558\ub098\ub2d8\uc758 \ub2a5\ub825\uc774 \uc784\ud558\ub294 \ud1b5\ub85c\uac00 \ub428\uc744 \ubbff\uc73c\uc138\uc694.",\uae30\ub3c4:"\uc804\ub2a5\ud558\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \ub2a5\ub825\uacfc \uc0c1\ud669\uc744 \uc758\uc9c0\ud558\ub824\ub294 \ub9c8\uc74c\uc744 \ub0b4\ub824\ub193\uace0, \uc624\uc9c1 \uc8fc\ub2d8\uc758 \ud06c\uc2e0 \uc190\uae38\ub9cc\uc744 \uc2e0\ub8b0\ud558\uba70 \ub098\uc544\uac00\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uadf8\ub4e4\uacfc \uac19\uc774 \uc6b0\ub9ac\ub3c4 \ubcf5\uc74c \uc804\ud568\uc744 \ubc1b\uc740 \uc790\uc774\ub098 \ub4e4\uc740 \ubc14 \uadf8 \ub9d0\uc500\uc774 \uadf8\ub4e4\uc5d0\uac8c \uc720\uc775\ud558\uc9c0 \ubabb\ud55c \uac83\uc740 \ub4e3\ub294 \uc790\uac00 \ubbff\uc74c\uacfc \uacb0\ubd80\uc2dc\ud0a4\uc9c0 \uc544\ub2c8\ud568\uc774\ub77c (\ud788\ube0c\ub9ac\uc11c 4:2)"},
+"3-23":{\ud575\uc2ec:"\uc544\ube44\uba5c\ub809\uc774 \ub9f7\ub3cc\uc5d0 \ub9de\uc544 \uc8fd\ub294 \uc7a5\uba74\uc740 \ud558\ub098\ub2d8\uc758 \uc2ec\ud310\uc774 \ubc18\ub4dc\uc2dc \uc784\ud55c\ub2e4\ub294 \uac83\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4. \uc774\ud6c4\uc5d0\ub3c4 \uc774\uc2a4\ub77c\uc5d8\uc740 \ub610\ub2e4\uc2dc \ubc14\uc54c\uacfc \uc544\uc2a4\ub2e4\ub86f\uc744 \uc12c\uae30\uba70 \ud558\ub098\ub2d8\uc744 \ub5a0\ub098\ub294 \ubc18\ubcf5\uc801\uc778 \ud328\ud134\uc744 \ubcf4\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc624\ub798 \ucc38\uc73c\uc2dc\ub294 \ubd84\uc774\uc9c0\ub9cc \uacb0\ucf54 \uc8c4\ub97c \uc601\uc6d0\ud788 \uac04\uacfc\ud558\uc9c0 \uc54a\uc73c\uc2ed\ub2c8\ub2e4. \uc774\uc2a4\ub77c\uc5d8\uc774 \ubc18\ubcf5\uc801\uc73c\ub85c \uc8c4\ub97c \uc9c0\uc5b4\ub3c4 \ubd80\ub974\uc9d6\uc744 \ub54c \ub2e4\uc2dc \ub3cc\uc544\ubcf4\uc2dc\ub294 \uac83\uc740 \ud558\ub098\ub2d8\uc758 \uc778\ub0b4\uc640 \uc5b8\uc57d\uc5d0 \ub300\ud55c \uc2e0\uc2e4\ud558\uc2ec \ub54c\ubb38\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc5d0\ub3c4 \ubc18\ubcf5\ub418\ub294 \ud328\ud134\uc774 \uc788\ub098\uc694? \uacb0\uc2ec\ud558\uace0 \ub3cc\uc544\uc11c\ub2e4\uac00 \ub610 \ub118\uc5b4\uc9c0\ub294 \uadf8 \uc790\ub9ac\uc5d0\uc11c, \ud558\ub098\ub2d8\uc740 \uc5ec\uc804\ud788 \ub098\uc758 \ubd80\ub974\uc9d6\uc74c\uc744 \ub4e4\uc73c\uc2ed\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc758 \uc624\ub798 \ucc38\uc73c\uc2ec\uc774 \ub098\ub97c \ud68c\uac1c\ub85c \uc774\ub055\ub2c8\ub2e4.",\uae30\ub3c4:"\uc778\ub0b4\ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ubc18\ubcf5\ub418\ub294 \ub098\uc758 \uc5f0\uc57d\ud568\uc5d0\ub3c4 \ud3ec\uae30\ud558\uc9c0 \uc54a\uc73c\uc2dc\ub294 \uc0ac\ub791\uc5d0 \uac10\uc0ac\ud558\uba70, \uc624\ub298 \ub354 \uae4a\uc774 \uc8fc\uaed8\ub85c \ub3cc\uc544\uac00\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc774\uc2a4\ub77c\uc5d8 \uc790\uc190\uc774 \uc5ec\ud638\uc640\uaed8 \ubd80\ub974\uc9d6\uc5b4 \uc774\ub974\ub418 \uc6b0\ub9ac\uac00 \uc6b0\ub9ac \ud558\ub098\ub2d8\uc744 \ubc84\ub9ac\uace0 \ubc14\uc54c\ub4e4\uc744 \uc12c\uae40\uc73c\ub85c \uc8fc\uaed8 \ubc94\uc8c4\ud558\uc600\ub098\uc774\ub2e4 \ud558\ub2c8 (\uc0ac\uc0ac\uae30 10:10)"},
+"3-24":{\ud575\uc2ec:"\uc785\ub2e4\ub294 \uae30\uc0dd\uc758 \uc544\ub4e4\ub85c \ucad3\uaca8\ub0ac\uc9c0\ub9cc \uc704\uae30 \uc55e\uc5d0 \ub2e4\uc2dc \ubd80\ub984\uc744 \ubc1b\uc2b5\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc740 \uc5f0\uc57d\ud55c \uc790\ub97c \ub4e4\uc5b4 \uc4f0\uc2dc\uc9c0\ub9cc, \uc785\ub2e4\uc758 \uacbd\uc194\ud55c \uc11c\uc6d0\uc73c\ub85c \uc778\ud574 \ub538\uc744 \uc783\ub294 \ube44\uadf9\uc774 \ucc3e\uc544\uc635\ub2c8\ub2e4. \uc21c\uc885\uacfc \uc9c0\ud61c\uac00 \ud568\uaed8 \ud544\uc694\ud568\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ubc84\ub824\uc9c4 \uc790, \uc18c\uc678\ub41c \uc790\ub97c \ubd80\ub974\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \uc785\ub2e4\ucc98\ub7fc \uc138\uc0c1\uc774 \ubc84\ub9b0 \uc0ac\ub78c\uc744 \ud558\ub098\ub2d8\uc740 \ub2f9\uc2e0\uc758 \ub3c4\uad6c\ub85c \uc0ac\uc6a9\ud558\uc2ed\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc758 \uc740\ud61c\ub294 \uc778\uac04\uc758 \uc870\uac74\uc744 \ucd08\uc6d4\ud569\ub2c8\ub2e4.",\ubb35\uc0c1:"\ud639\uc2dc \uc2a4\uc2a4\ub85c \uc4f8\ubaa8\uc5c6\ub2e4\uace0 \ub290\ub080 \uc801\uc774 \uc788\ub098\uc694? \ud558\ub098\ub2d8\uc740 \uc138\uc0c1\uc774 \ubc84\ub9b0 \uc785\ub2e4\ub97c \ubd80\ub974\uc168\uc2b5\ub2c8\ub2e4. \uc624\ub298 \ub0b4\uac00 \uc5b4\ub5a4 \uc0c1\ud0dc\uc5d0 \uc788\ub4e0, \ud558\ub098\ub2d8\uc740 \ub098\ub97c \ubd80\ub974\uc2dc\uace0 \uc0ac\uc6a9\ud558\uae30 \uc6d0\ud558\uc2ed\ub2c8\ub2e4.",\uae30\ub3c4:"\uc18c\uc678\ub41c \uc790\ub97c \ubd80\ub974\uc2dc\ub294 \ud558\ub098\ub2d8, \ub098\uc758 \ubd80\uc871\ud568\uc5d0\ub3c4 \ubd88\uad6c\ud558\uace0 \ub2f9\uc2e0\uc758 \uc190\uc5d0 \uc4f0\uc784\ubc1b\ub294 \uadf8\ub987\uc73c\ub85c \ub9cc\ub4e4\uc5b4 \uc8fc\uc18c\uc11c.",\uad6c\uc808:"\uc774\uc5d0 \uc5ec\ud638\uc640\uc758 \uc601\uc774 \uc785\ub2e4\uc5d0\uac8c \uc784\ud558\uc2dc\ub2c8 (\uc0ac\uc0ac\uae30 11:29)"},
+"3-25":{\ud575\uc2ec:"\uc0bc\uc190\uc740 \ud558\ub098\ub2d8\uc758 \uc2e0\uc774 \uc784\ud55c \ub098\uc2e4\uc778\uc774\uc5c8\uc9c0\ub9cc, \uc695\ub9dd\uc73c\ub85c \uc778\ud574 \ubc18\ubcf5\uc801\uc73c\ub85c \ud558\ub098\ub2d8\uc758 \ubd80\ub974\uc2ec\uacfc \uac08\ub4f1\ud569\ub2c8\ub2e4. \ub4e4\ub9b4\ub77c\uc758 \uc720\ud639\uc5d0 \ub118\uc5b4\uac00 \ub208\uc774 \ubf51\ud788\ub294 \ube44\uadf9\uc744 \ub9de\uc9c0\ub9cc, \ub9c8\uc9c0\ub9c9 \uc21c\uac04 \ud558\ub098\ub2d8\uaed8 \ubd80\ub974\uc9d6\uc5b4 \ub2e4\uc2dc \ud798\uc744 \ud68c\ubcf5\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc2e4\ud328\ud55c \uc790\uc5d0\uac8c\ub3c4 \ub2e4\uc2dc \uae30\ud68c\ub97c \uc8fc\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \uc0bc\uc190\uc774 \ub9c8\uc9c0\ub9c9 \uae30\ub3c4\ub97c \ub4dc\ub9b4 \ub54c \ud558\ub098\ub2d8\uc740 \uc751\ub2f5\ud558\uc168\uc2b5\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc758 \uc790\ube44\ub294 \uc6b0\ub9ac\uc758 \uac00\uc7a5 \ub0ae\uc740 \uc21c\uac04\uc5d0\ub3c4 \ub2ff\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc5d0\uc11c \uac00\uc7a5 \ub0ae\uace0 \uc218\uce58\uc2a4\ub7ec\uc6b4 \uc21c\uac04\uc5d0\ub3c4 \ud558\ub098\ub2d8\uc740 \ub4e4\uc73c\uc2ed\ub2c8\ub2e4. \uc0bc\uc190\uc758 \ub9c8\uc9c0\ub9c9 \uae30\ub3c4\ucc98\ub7fc, \uc9c0\uae08 \ub0b4\uac00 \uc5b4\ub514\uc5d0 \uc788\ub4e0 \uc8fc\ub2d8\uaed8 \ubd80\ub974\uc9d6\uc744 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",\uae30\ub3c4:"\uc790\ube44\ub85c\uc6b0\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc2e4\ud328\uc640 \uc218\uce58 \uc18d\uc5d0\uc11c\ub3c4 \ub098\uc758 \ubd80\ub974\uc9d6\uc74c\uc744 \ub4e4\uc73c\uc2dc\uace0, \ub2e4\uc2dc \uc77c\uc5b4\uc124 \ud798\uc744 \uc8fc\uc18c\uc11c.",\uad6c\uc808:"\uc0bc\uc190\uc774 \uc5ec\ud638\uc640\uaed8 \ubd80\ub974\uc9d6\uc5b4 \uc774\ub974\ub418 \uc8fc \uc5ec\ud638\uc640\uc5ec \uad6c\ud558\uc635\ub098\ub2c8 \ub098\ub97c \uc0dd\uac01\ud558\uc635\uc18c\uc11c (\uc0ac\uc0ac\uae30 16:28)"},
+"3-26":{\ud575\uc2ec:"\uc0ac\uc0ac\uae30 \ud6c4\ubc18\ubd80\ub294 \uc774\uc2a4\ub77c\uc5d8\uc758 \uc601\uc801 \ud63c\ub780\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4. '\uadf8 \ub54c\uc5d0 \uc774\uc2a4\ub77c\uc5d8\uc5d0 \uc655\uc774 \uc5c6\uc73c\ubbc0\ub85c \uc0ac\ub78c\uc774 \uac01\uae30 \uc790\uae30 \uc18c\uacac\uc5d0 \uc633\uc740 \ub300\ub85c \ud589\ud558\uc600\ub354\ub77c'\ub294 \ub9d0\uc500\uc774 \uc774 \uc2dc\ub300\uc758 \ud575\uc2ec\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc6b0\ub9ac \uc0b6\uc758 \uc655\uc774 \ub418\uae30\ub97c \uc6d0\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \uc774\uc2a4\ub77c\uc5d8\uc758 \ud63c\ub780\uc740 \ud558\ub098\ub2d8\uc744 \uc655\uc73c\ub85c \uc778\uc815\ud558\uc9c0 \uc54a\uc740 \uacb0\uacfc\uc600\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub298 \ub0b4 \uc0b6\uc5d0\uc11c \uac01\uae30 \uc790\uae30 \uc18c\uacac\uc5d0 \uc633\uc740 \ub300\ub85c \ud589\ud558\ub294 \uc601\uc5ed\uc740 \uc5b4\ub514\uc778\uac00\uc694? \ud558\ub098\ub2d8\uc744 \ub098\uc758 \uc655\uc73c\ub85c, \ub0b4 \uc0b6\uc758 \uae30\uc900\uc73c\ub85c \uc0bc\uc744 \ub54c \uc9c4\uc815\ud55c \ubc29\ud5a5\uc774 \uc0dd\uae41\ub2c8\ub2e4.",\uae30\ub3c4:"\ub098\uc758 \uc655\uc774\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc0dd\uac01\uacfc \ud310\ub2e8\ubcf4\ub2e4 \ub2f9\uc2e0\uc758 \ub9d0\uc500\uc774 \ub0b4 \uc0b6\uc758 \uae30\uc900\uc774 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uadf8 \ub54c\uc5d0 \uc774\uc2a4\ub77c\uc5d8\uc5d0 \uc655\uc774 \uc5c6\uc73c\ubbc0\ub85c \uc0ac\ub78c\uc774 \uac01\uae30 \uc790\uae30\uc758 \uc18c\uacac\uc5d0 \uc633\uc740 \ub300\ub85c \ud589\ud558\uc600\ub354\ub77c (\uc0ac\uc0ac\uae30 21:25)"},
+"3-27":{\ud575\uc2ec:"\ub8fb\uae30\ub294 \uc0ac\uc0ac \uc2dc\ub300\uc758 \ud63c\ub780 \uc18d\uc5d0\uc11c \ud53c\uc5b4\ub09c \uc2e0\uc2e4\ud568\uc758 \uc774\uc57c\uae30\uc785\ub2c8\ub2e4. \ub8fb\uc758 \uace0\ubc31\uacfc \ubcf4\uc544\uc2a4\uc758 \uae30\uc5c5 \ubb34\ub97c \uc790\ub85c\uc11c\uc758 \uc0ac\ub791\uc774 \uc544\ub984\ub2f5\uac8c \ud3bc\uccd0\uc9d1\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc774\ubc29\uc778\ub3c4 \ud488\uc73c\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \ub8fb\uc740 \ubaa8\uc555 \uc5ec\uc778\uc774\uc5c8\uc9c0\ub9cc \ud558\ub098\ub2d8\uc758 \uc5b8\uc57d \ubc31\uc131 \uc548\uc73c\ub85c \ub4e4\uc5b4\uc654\uace0, \ub2e4\uc717 \uc655\uc758 \uc870\uc0c1\uc774 \ub418\uc5c8\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc5b4\ub514\ub97c \uac00\ub4e0 \ud568\uaed8\ud558\uaca0\ub2e4\ub294 \ub8fb\uc758 \uace0\ubc31\ucc98\ub7fc, \uc624\ub298 \ud558\ub098\ub2d8\uaed8 \uadf8\ub7f0 \uc2e0\uc2e4\ud568\uc73c\ub85c \ub098\uc544\uac08 \uc218 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc2e0\uc2e4\ud558\uc2e0 \ud558\ub098\ub2d8, \ub8fb\ucc98\ub7fc \uc5b4\ub5a4 \uc0c1\ud669\uc5d0\uc11c\ub3c4 \uc8fc\ub2d8\uc744 \ub530\ub974\ub294 \ubbff\uc74c\uc744 \ud5c8\ub77d\ud558\uc2dc\uace0, \ub0b4 \uc0b6\uc5d0\uc11c\ub3c4 \ub2f9\uc2e0\uc758 \uc120\ud55c \uc12d\ub9ac\ub97c \uacbd\ud5d8\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5b4\uba38\ub2c8\uc758 \ubc31\uc131\uc774 \ub098\uc758 \ubc31\uc131\uc774 \ub418\uace0 \uc5b4\uba38\ub2c8\uc758 \ud558\ub098\ub2d8\uc774 \ub098\uc758 \ud558\ub098\ub2d8\uc774 \ub418\uc2dc\ub9ac\ub2c8 (\ub8fb\uae30 1:16)"},
+"3-28":{\ud575\uc2ec:"\ud55c\ub098\uc758 \uac04\uc808\ud55c \uae30\ub3c4\uc640 \uc0ac\ubb34\uc5d8\uc758 \ud0c4\uc0dd\uc740 \ud558\ub098\ub2d8\uc774 \uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\ub294 \ubd84\uc784\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4. \uc5b4\ub9b0 \uc0ac\ubb34\uc5d8\uc740 '\ub9d0\uc500\ud558\uc635\uc18c\uc11c, \uc8fc\uc758 \uc885\uc774 \ub4e3\uaca0\ub098\uc774\ub2e4'\ub77c\uace0 \uc751\ub2f5\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uace0\ud1b5 \uc911\uc5d0 \ubd80\ub974\uc9d6\ub294 \uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \ud55c\ub098\uac00 \uc6b8\uba70 \uae30\ub3c4\ud560 \ub54c \ud558\ub098\ub2d8\uc740 \uadf8 \uae30\ub3c4\ub97c \uae30\uc5b5\ud558\uc168\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub798 \uae30\ub3c4\ud588\uc9c0\ub9cc \uc544\uc9c1 \uc751\ub2f5\uc774 \uc5c6\ub294 \uac83\uc774 \uc788\ub098\uc694? \ud55c\ub098\uc758 \uae30\ub3c4\ub294 \uc751\ub2f5\ub420 \ub54c\uae4c\uc9c0 \uba48\ucd94\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4.",\uae30\ub3c4:"\uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\ub294 \ud558\ub098\ub2d8, \ud55c\ub098\ucc98\ub7fc \ud3ec\uae30\ud558\uc9c0 \uc54a\uace0 \ub2f9\uc2e0 \uc55e\uc5d0 \ub0b4 \ub9c8\uc74c\uc744 \uc3df\uc544\ub0b4\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\ub294 \uc8fd\uc774\uae30\ub3c4 \ud558\uc2dc\uace0 \uc0b4\ub9ac\uae30\ub3c4 \ud558\uc2dc\uba70 \uc2a4\uc62c\uc5d0 \ub0b4\ub9ac\uac8c\ub3c4 \ud558\uc2dc\uace0 \uac70\uae30\uc5d0\uc11c \uc62c\ub9ac\uae30\ub3c4 \ud558\uc2dc\ub294\ub3c4\ub2e4 (\uc0ac\ubb34\uc5d8\uc0c1 2:6)"},
+"3-29":{\ud575\uc2ec:"\uc5b8\uc57d\uada4\ub97c \ube7c\uc557\uae30\uace0 \uc5d8\ub9ac\uc640 \uadf8 \uc544\ub4e4\ub4e4\uc774 \uc8fd\ub294 \ube44\uadf9\uc774 \uc77c\uc5b4\ub0a9\ub2c8\ub2e4. \uadf8\ub7ec\ub098 \ud558\ub098\ub2d8\uc740 \ube14\ub808\uc14b\uc758 \ub2e4\uace4 \uc2e0\uc804\uc5d0\uc11c \uc2a4\uc2a4\ub85c \ub2f9\uc2e0\uc758 \uc601\uad11\uc744 \uc9c0\ud0a4\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc2a4\uc2a4\ub85c \ub2f9\uc2e0\uc758 \uc601\uad11\uc744 \uc9c0\ud0a4\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \ub2e4\uace4 \uc2e0\uc0c1\uc774 \uc5ce\ub4dc\ub7ec\uc9c4 \uac83\uc740 \ud558\ub098\ub2d8\uc758 \uc8fc\uad8c\uc774 \ubaa8\ub4e0 \uc6b0\uc0c1\ubcf4\ub2e4 \ub192\uc74c\uc744 \uc120\ud3ec\ud569\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub54c\ub85c \uc0c1\ud669\uc774 \ub9c8\uce58 \ud558\ub098\ub2d8\uc774 \ud328\ubc30\ud558\uc2e0 \uac83\ucc98\ub7fc \ubcf4\uc77c \ub54c\uac00 \uc788\uc2b5\ub2c8\ub2e4. \ud558\uc9c0\ub9cc \ud558\ub098\ub2d8\uc740 \uc2a4\uc2a4\ub85c\uc758 \uc601\uad11\uc744 \uc9c0\ud0a4\uc2ed\ub2c8\ub2e4.",\uae30\ub3c4:"\uc601\uad11\uc758 \ud558\ub098\ub2d8, \uc5b4\ub5a4 \uc0c1\ud669\uc5d0\uc11c\ub3c4 \ub2f9\uc2e0\uc758 \uc774\ub984\uc774 \ub192\uc784 \ubc1b\uc73c\uba70, \ub0b4 \uc0b6\uc774 \uadf8 \uc601\uad11\uc744 \ub4dc\ub7ec\ub0b4\ub294 \ud1b5\ub85c\uac00 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uc758 \uc190\uc774 \uc544\uc2a4\ub3d7 \uc0ac\ub78c\uc5d0\uac8c \uc5c4\uc911\ud788 \ub354\ud558\uc0ac (\uc0ac\ubb34\uc5d8\uc0c1 5:6)"},
+"3-30":{\ud575\uc2ec:"\uc0ac\ubb34\uc5d8\uc774 \ub9c8\uc9c0\ub9c9 \uc0ac\uc0ac\ub85c \uc774\uc2a4\ub77c\uc5d8\uc744 \uc774\ub044\ub294 \ub3d9\uc548 \ubc31\uc131\uc740 \uc655\uc744 \uc694\uad6c\ud569\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc740 \uc774\ub97c \ud5c8\ub77d\ud558\uc2dc\uc9c0\ub9cc \uc655\uc758 \ud3d0\ub2e8\uc744 \ubbf8\ub9ac \uacbd\uace0\ud558\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc778\uac04\uc758 \uc790\uc720\ub97c \uc874\uc911\ud558\uc2dc\ub418 \uadf8 \uc120\ud0dd\uc758 \uacb0\uacfc\ub3c4 \uacbd\ud5d8\ud558\uac8c \ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4\uac00 \uc6d0\ud558\ub294 \uac83\uc774 \ubc18\ub4dc\uc2dc \ub0b4\uac8c \ud544\uc694\ud55c \uac83\uc740 \uc544\ub2d0 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc624\ub298 \ub0b4 \uc18c\uc6d0\uc744 \ud558\ub098\ub2d8\uc758 \ub73b \uc55e\uc5d0 \ub2e4\uc2dc \ub193\uc73c\uba70 '\ub2f9\uc2e0\uc758 \ub73b\uc774 \uc774\ub8e8\uc5b4\uc9c0\uc774\ub2e4'\ub97c \uace0\ubc31\ud560 \uc218 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc9c0\ud61c\ub85c\uc6b0\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc6d0\ud568\ubcf4\ub2e4 \ub2f9\uc2e0\uc758 \ub73b\uc774 \ub354 \uc120\ud568\uc744 \ubbff\uc73c\uba70, \uc624\ub298 \ub0b4 \uacc4\ud68d\uc744 \ub2f9\uc2e0\uaed8 \ub9e1\uae30\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c\ub294 \uadf8\uc758 \ud06c\uc2e0 \uc774\ub984\uc744 \uc704\ud574\uc11c\ub77c\ub3c4 \uc790\uae30 \ubc31\uc131\uc744 \ubc84\ub9ac\uc9c0 \uc544\ub2c8\ud558\uc2e4 \uac83\uc774\uc694 (\uc0ac\ubb34\uc5d8\uc0c1 12:22)"},
+"3-31":{\ud575\uc2ec:"\uc0ac\uc6b8\uc758 \ubd88\uc21c\uc885\uc5d0 \uc0ac\ubb34\uc5d8\uc740 '\uc21c\uc885\uc774 \uc81c\uc0ac\ubcf4\ub2e4 \ub0ab\uace0 \ub4e3\ub294 \uac83\uc774 \uc218\uc591\uc758 \uae30\ub984\ubcf4\ub2e4 \ub0ab\ub2e4'\uace0 \uc120\ud3ec\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc678\uc801\uc778 \uc885\uad50 \ud589\uc704\ubcf4\ub2e4 \ub9c8\uc74c\uc758 \uc21c\uc885\uc744 \uae30\ubed0\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub298 \ub0b4 \uc2e0\uc559\uc774 \ud615\uc2dd\uc5d0 \uba38\ubb3c\uace0 \uc788\uc9c0\ub294 \uc54a\ub098\uc694? \ud558\ub098\ub2d8\uc740 \uc624\ub298 \ub098\uc758 \uc9c4\uc2ec \uc5b4\ub9b0 \uc21c\uc885\uc744 \uc6d0\ud558\uc2ed\ub2c8\ub2e4.",\uae30\ub3c4:"\ub9c8\uc74c\uc744 \ubcf4\uc2dc\ub294 \ud558\ub098\ub2d8, \ud615\uc2dd\uc774 \uc544\ub2cc \uc9c4\uc2ec\uc73c\ub85c \ub2f9\uc2e0\uaed8 \ub098\uc544\uac00\uba70, \uc624\ub298 \ud558\ub8e8 \ub9d0\uc500\uc5d0 \uc21c\uc885\ud558\ub294 \uc0b6\uc744 \uc0b4\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uc758 \uad6c\uc6d0\uc740 \uc0ac\ub78c\uc774 \ub9ce\uace0 \uc801\uc74c\uc5d0 \ub2ec\ub9ac\uc9c0 \uc544\ub2c8\ud558\uc600\ub290\ub2c8\ub77c (\uc0ac\ubb34\uc5d8\uc0c1 14:6)"},
+"4-1":{\ud575\uc2ec:"\uc0ac\uc6b8\uc740 \uc544\ub9d0\ub809\uc744 \uc644\uc804\ud788 \uc9c4\uba78\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. \uacb0\uad6d \ud558\ub098\ub2d8\uc740 \uc0ac\uc6b8\uc744 \uc655\uc73c\ub85c \uc0bc\uc740 \uac83\uc744 \ud6c4\ud68c\ud558\uc2dc\uace0 \ub2e4\uc717\uc744 \uc608\ube44\ud558\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc644\uc804\ud55c \uc21c\uc885\uc744 \uc6d0\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \uc0ac\uc6b8\uc740 90% \uc21c\uc885\ud588\uc9c0\ub9cc \uadf8\uac83\uc740 \ubd88\uc21c\uc885\uc774\uc5c8\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\uac70\uc758 \ub2e4 \uc21c\uc885\ud588\ub294\ub370\ub77c\uace0 \uc0dd\uac01\ud558\ub294 \uc601\uc5ed\uc774 \uc788\ub098\uc694? \uc624\ub298 \uc644\uc804\ud788 \ub0b4\uc5b4\ub4dc\ub9ac\uc9c0 \ubabb\ud55c \uac83\uc774 \ubb34\uc5c7\uc778\uc9c0 \ubb3c\uc5b4\ubcf4\uc138\uc694.",\uae30\ub3c4:"\uc804\ub2a5\ud558\uc2e0 \ud558\ub098\ub2d8, \ubd80\ubd84\uc801\uc778 \uc21c\uc885\uc774 \uc544\ub2cc \uc628\uc804\ud55c \ud5cc\uc2e0\uc73c\ub85c \ub2f9\uc2e0\uc744 \ub530\ub974\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc21c\uc885\uc774 \uc81c\uc0ac\ubcf4\ub2e4 \ub0ab\uace0 \ub4e3\ub294 \uac83\uc774 \uc22b\uc591\uc758 \uae30\ub984\ubcf4\ub2e4 \ub098\uc73c\ub2c8 (\uc0ac\ubb34\uc5d8\uc0c1 15:22)"},
+"4-2":{\ud575\uc2ec:"\ub2e4\uc717\uc774 \uae30\ub984\ubd80\uc74c\uc744 \ubc1b\uc2b5\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc740 \uc0ac\ubb34\uc5d8\uc5d0\uac8c '\uc678\ubaa8\ub97c \ubcf4\uc9c0 \ub9d0\ub77c, \ub098\ub294 \uc911\uc2ec\uc744 \ubcf4\ub290\ub2c8\ub77c'\uace0 \ud558\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc911\uc2ec\uc744 \ubcf4\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4. \uc138\uc0c1\uc740 \uc678\ubaa8\uc640 \uc870\uac74\uc744 \ubcf4\uc9c0\ub9cc \ud558\ub098\ub2d8\uc740 \ub9c8\uc74c\uc758 \uc911\uc2ec\uc744 \ubcf4\uc2ed\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc544\ubb34\ub3c4 \uc54c\uc544\uc8fc\uc9c0 \uc54a\ub294 \uacf3\uc5d0\uc11c\ub3c4 \ud558\ub098\ub2d8\uc740 \ub0b4 \uc911\uc2ec\uc744 \ubcf4\uace0 \uacc4\uc2ed\ub2c8\ub2e4.",\uae30\ub3c4:"\uc911\uc2ec\uc744 \ubcf4\uc2dc\ub294 \ud558\ub098\ub2d8, \uc0ac\ub78c\uc758 \uc2dc\uc120\uc774 \uc544\ub2c8\ub77c \ud558\ub098\ub2d8\uc758 \uc2dc\uc120 \uc55e\uc5d0\uc11c \uc0b4\uc544\uac00\ub294 \uc624\ub298\uc774 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc0ac\ub78c\uc740 \uc678\ubaa8\ub97c \ubcf4\uac70\ub2c8\uc640 \ub098 \uc5ec\ud638\uc640\ub294 \uc911\uc2ec\uc744 \ubcf4\ub290\ub2c8\ub77c (\uc0ac\ubb34\uc5d8\uc0c1 16:7)"},
+"4-3":{\ud575\uc2ec:"\ub2e4\uc717\uc740 \uace8\ub9ac\uc557 \uc55e\uc5d0 \ub098\uc544\uac00 \ub3cc \ub2e4\uc12f \uac1c\uc640 \ubb3c\ub9e4\ub85c \uac70\uc778\uc744 \uc4f0\ub7ec\ub728\ub9bd\ub2c8\ub2e4. '\uc804\uc7c1\uc740 \uc5ec\ud638\uc640\uaed8 \uc18d\ud55c \uac83\uc774\ub77c'\ub294 \ub2e4\uc717\uc758 \uace0\ubc31\uc774 \ud575\uc2ec\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc57d\ud55c \uc790\ub97c \ud1b5\ud574 \uac15\ud55c \uc790\ub97c \uc774\uae30\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc5d0\uc11c \uace8\ub9ac\uc557 \uac19\uc740 \ub450\ub824\uc6c0\uc774 \uc788\ub098\uc694? \uc624\ub298 '\uc804\uc7c1\uc740 \uc5ec\ud638\uc640\uaed8 \uc18d\ud55c \uac83'\uc774\ub77c\uace0 \ub2f4\ub300\ud788 \uace0\ubc31\ud574\ubcf4\uc138\uc694.",\uae30\ub3c4:"\uc804\ub2a5\ud558\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc55e\uc758 \ub450\ub824\uc6b4 \uac83\ubcf4\ub2e4 \ub2f9\uc2e0\uc774 \ub354 \ud06c\uc2ec\uc744 \ubbff\uc73c\uba70, \ub2f4\ub300\ud558\uac8c \ub098\uc544\uac00\ub294 \ud558\ub8e8\uac00 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc804\uc7c1\uc740 \uc5ec\ud638\uc640\uaed8 \uc18d\ud55c \uac83\uc778\uc989 \uadf8\uac00 \ub108\ud76c\ub97c \uc6b0\ub9ac \uc190\uc5d0 \ub118\uae30\uc2dc\ub9ac\ub77c (\uc0ac\ubb34\uc5d8\uc0c1 17:47)"},
+"4-4":{\ud575\uc2ec:"\ub2e4\uc717\uacfc \uc694\ub098\ub2e8\uc758 \uc6b0\uc815\uc740 \uc131\uacbd\uc5d0\uc11c \uac00\uc7a5 \uc544\ub984\ub2e4\uc6b4 \uad00\uacc4 \uc911 \ud558\ub098\uc785\ub2c8\ub2e4. \uc694\ub098\ub2e8\uc740 \uc655\uc704 \uacc4\uc2b9\uc790\uc784\uc5d0\ub3c4 \ub2e4\uc717\uc744 \uc704\ud574 \uc790\uc2e0\uc744 \ub0b4\uc5b4\uc90d\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc6b0\uc815\uacfc \uc0ac\ub791\uc744 \ud1b5\ud574 \ub2f9\uc2e0\uc758 \ubc31\uc131\uc744 \ubcf4\ud638\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc5d0\uc11c \uc694\ub098\ub2e8 \uac19\uc740 \uc0ac\ub78c\uc774 \uc788\ub098\uc694? \uc624\ub298 \ub0b4 \uc8fc\ubcc0\uc5d0\uc11c \ud76c\uc0dd\uc801 \uc0ac\ub791\uc744 \uc2e4\ucc9c\ud560 \uae30\ud68c\ub97c \ucc3e\uc544\ubcf4\uc138\uc694.",\uae30\ub3c4:"\uc0ac\ub791\uc758 \ud558\ub098\ub2d8, \uc2e0\uc2e4\ud55c \uad00\uacc4\ub97c \ud5c8\ub77d\ud558\uc2dc\uace0 \ub0b4\uac00 \uba3c\uc800 \ub2e4\ub978 \uc774\ub97c \uc704\ud574 \ub098\ub97c \ub0ae\ucd94\ub294 \uc0b6\uc744 \uc0b4\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc694\ub098\ub2e8\uc740 \ub2e4\uc717\uc744 \uc0ac\ub791\ud558\ubbc0\ub85c \uadf8\uc640 \ub354\ubd88\uc5b4 \uc5b8\uc57d\uc744 \ub9fa\uc5c8\uc73c\uba70 (\uc0ac\ubb34\uc5d8\uc0c1 18:3)"},
+"4-5":{\ud575\uc2ec:"\uc0ac\uc6b8\uc758 \ub9c8\uc9c0\ub9c9\uc740 \ube44\ucc38\ud569\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc744 \ub5a0\ub09c \uc655\uc758 \ub05d\uc744 \uc0ac\ubb34\uc5d8\uc0c1\uc740 \ub0c9\uc815\ud558\uac8c \uae30\ub85d\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ub05d\uae4c\uc9c0 \uae30\ub2e4\ub9ac\uc2dc\ub294 \ubd84\uc774\uc9c0\ub9cc \ub5a0\ub09c \uc790\uc758 \uacb0\ub9d0\uc744 \ub9c9\uc9c0\ub294 \uc54a\uc73c\uc2ed\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub298 \ud558\ub098\ub2d8\uc758 \uc74c\uc131\uc5d0 \ub9c8\uc74c\uc744 \uc5ec\uc138\uc694.",\uae30\ub3c4:"\uc2e0\uc2e4\ud558\uc2e0 \ud558\ub098\ub2d8, \uc0ac\uc6b8\ucc98\ub7fc \ud558\ub098\ub2d8\uc744 \ub5a0\ub098\uc9c0 \uc54a\uac8c \ud558\uc2dc\uace0, \ub05d\uae4c\uc9c0 \uc8fc\ub2d8\uc758 \uc190\uc744 \ubd99\uc7a1\ub294 \uc0b6\uc744 \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c \ub108\ub97c \ub5a0\ub098 \ub124 \ub300\uc801\uc774 \ub418\uc168\uac70\ub298 (\uc0ac\ubb34\uc5d8\uc0c1 28:16)"},
+"4-6":{\ud575\uc2ec:"\ub2e4\uc717\uc740 \ud5e4\ube0c\ub860\uc5d0\uc11c \uc720\ub2e4\uc758 \uc655\uc774 \ub418\uace0 \uae34 \ub0b4\uc804\uc774 \uc774\uc5b4\uc9c0\uc9c0\ub9cc \ub2e4\uc717\uc758 \uc9d1\uc740 \uc810\uc810 \uac15\ud574\uc9d1\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc778\ub0b4\ud558\uba70 \uae30\ub2e4\ub9ac\ub294 \uc790\uc640 \ud568\uaed8\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4\uac00 \uae30\ub2e4\ub9ac\uace0 \uc788\ub294 \ud558\ub098\ub2d8\uc758 \uc57d\uc18d\uc774 \uc788\ub098\uc694? \ud558\ub098\ub2d8\uc758 \ub54c\ub294 \uacb0\ucf54 \ub2a6\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",\uae30\ub3c4:"\ub54c\ub97c \uc544\uc2dc\ub294 \ud558\ub098\ub2d8, \ub0b4 \uc131\uae09\ud568\uc744 \ub0b4\ub824\ub193\uace0 \ub2f9\uc2e0\uc758 \ub54c\ub97c \uae30\ub2e4\ub9ac\ub294 \ubbff\uc74c\uc744 \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\ub9cc\uad70\uc758 \ud558\ub098\ub2d8 \uc5ec\ud638\uc640\uaed8\uc11c \ud568\uaed8 \uacc4\uc2dc\ub2c8 \ub2e4\uc717\uc774 \uc810\uc810 \uac15\uc131\ud558\uc5ec \uac00\ub2c8\ub77c (\uc0ac\ubb34\uc5d8\ud558 5:10)"},
+"4-7":{\ud575\uc2ec:"\ub2e4\uc717\uc774 \uc608\ub8e8\uc0b4\ub818\uc744 \uc815\ubcf5\ud569\ub2c8\ub2e4. \uc5b8\uc57d\uada4\ub97c \uc62e\uae30\ub294 \uacfc\uc815\uc5d0\uc11c \uc6c3\uc0ac\uc758 \uc0ac\uac74\uc774 \uc77c\uc5b4\ub098\uace0 \ub2e4\uc717\uc740 \ud558\ub098\ub2d8\uc758 \uac70\ub8e9\ud568\uc744 \uc0c8\ub86d\uac8c \ubc30\uc6c1\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uac70\ub8e9\ud558\uc2e0 \ubd84\uc785\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc758 \uc784\uc7ac\ub294 \uac70\ub8e9\ud558\uc2ec\uc5d0 \ub300\ud55c \uacbd\uc678\uc5d0\uc11c \uc2dc\uc791\ub429\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc2e0\uc559\uc774 \ub108\ubb34 \uc775\uc219\ud574\uc838\uc11c \ud558\ub098\ub2d8\uc758 \uac70\ub8e9\ud558\uc2ec\uc744 \uc78a\uc5b4\ubc84\ub9ac\uace0 \uc788\uc9c0\ub294 \uc54a\ub098\uc694?",\uae30\ub3c4:"\uac70\ub8e9\ud558\uc2e0 \ud558\ub098\ub2d8, \ub2f9\uc2e0\uc758 \uc784\uc7ac \uc55e\uc5d0 \uacbd\uc678\ud568\uc73c\ub85c \ub098\uc544\uac00\uba70, \uc624\ub298 \ud558\ub8e8 \uac70\ub8e9\ud558\uc2e0 \uc8fc\ub97c \uc608\ubc30\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uc758 \uada4\uac00 \uc5b4\ucc0c \ub0b4\uac8c\ub85c \uc624\ub9ac\uc694 (\uc0ac\ubb34\uc5d8\ud558 6:9)"},
+"4-8":{\ud575\uc2ec:"\ub2e4\uc717\uc774 \ubc27\uc138\ubc14 \uc0ac\uac74\uc73c\ub85c \ud070 \uc8c4\ub97c \ubc94\ud558\uace0 \ub098\ub2e8\uc758 \ucc45\ub9dd\uc744 \ubc1b\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc57d\uc18d\uc744 \uc9c0\ud0a4\uc2dc\ub294 \ubd84\uc774\uba70 \ub3d9\uc2dc\uc5d0 \uc8c4\ub97c \uc9c1\uba74\ud558\uac8c \ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub098\ub2e8\uc774 '\ub2f9\uc2e0\uc774 \uadf8 \uc0ac\ub78c\uc774\ub77c'\uace0 \ud588\uc744 \ub54c \ub2e4\uc717\uc740 \uc989\uc2dc \uc778\uc815\ud588\uc2b5\ub2c8\ub2e4. \uc989\uc2dc \uc778\uc815\ud558\uace0 \ub3cc\uc774\ud0ac \uc218 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc9c4\uc2e4\ud558\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc0b6\uc758 \uc228\uaca8\uc9c4 \uc8c4\ub97c \uc9c1\uba74\ud560 \uc6a9\uae30\ub97c \uc8fc\uc2dc\uace0, \uc989\uc2dc \ud68c\uac1c\ud558\uba70 \ub3cc\uc544\uc624\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c\ub3c4 \ub2f9\uc2e0\uc758 \uc8c4\ub97c \uc0ac\ud558\uc168\ub098\ub2c8 (\uc0ac\ubb34\uc5d8\ud558 12:13)"},
+"4-9":{\ud575\uc2ec:"\ub2e4\uc717 \uac00\uc815\uc758 \ube44\uadf9\uc774 \uc2dc\uc791\ub429\ub2c8\ub2e4. \uadf8\ub7ec\ub098 \ub2e4\uc717\uc740 \ub3c4\ub9dd\uce58\uba74\uc11c\ub3c4 \ud558\ub098\ub2d8\uaed8 \uc608\ubc30\ud558\uae30\ub97c \uba48\ucd94\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc8c4\uc758 \uacb0\uacfc \uac00\uc6b4\ub370\uc5d0\uc11c\ub3c4 \ud568\uaed8\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uace0\ub09c \uc911\uc5d0\ub3c4 \ud558\ub098\ub2d8\uc744 \ud5a5\ud55c \uc608\ubc30\ub97c \uba48\ucd94\uc9c0 \ub9c8\uc138\uc694.",\uae30\ub3c4:"\uc2e0\uc2e4\ud558\uc2e0 \ud558\ub098\ub2d8, \uc5b4\ub5a4 \uc0c1\ud669\uc5d0\uc11c\ub3c4 \uc608\ubc30\ub97c \ub4dc\ub9ac\ub294 \ud558\ub8e8\uac00 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub9cc\uc77c \ub0b4\uac00 \uc5ec\ud638\uc640 \uc55e\uc5d0\uc11c \uc740\ud61c\ub97c \uc785\uc73c\uba74 \ub3c4\ub85c \ub098\ub97c \uc778\ub3c4\ud558\uc2dc\ub9ac\ub77c (\uc0ac\ubb34\uc5d8\ud558 15:25)"},
+"4-10":{\ud575\uc2ec:"\uc555\uc0b4\ub86c\uc758 \ubc18\ub780\uc73c\ub85c \ub2e4\uc717\uc740 \uc608\ub8e8\uc0b4\ub818\uc744 \ub5a0\ub0a9\ub2c8\ub2e4. \uc2dc\ubbc0\uc774\uc758 \uc800\uc8fc\ub97c \ubc1b\uc744 \ub54c \ub2e4\uc717\uc740 \uacb8\uc190\ud788 \ubc1b\uc544\ub4e4\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uacb8\uc190\ud55c \uc790\ub97c \ud68c\ubcf5\uc2dc\ud0a4\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub204\uad70\uac00\uc758 \ube44\ub09c\uc774\ub098 \uc5b4\ub824\uc6b4 \uc0c1\ud669\uc774 \ucc3e\uc544\uc62c \ub54c, \ub2e4\uc717\ucc98\ub7fc \uadf8 \uc548\uc5d0\uc11c \ud558\ub098\ub2d8\uc758 \uc190\uae38\uc744 \ubcfc \uc218 \uc788\ub098\uc694?",\uae30\ub3c4:"\uacb8\uc190\uc744 \uc0ac\ub791\ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ub0b4\uac00 \ub0ae\uc544\uc9c0\ub294 \uc21c\uac04\uc5d0 \ub2f9\uc2e0\uc758 \uc190\uae38\uc744 \uc2e0\ub8b0\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c \uadf8\uc5d0\uac8c \ub2e4\uc717\uc744 \uc800\uc8fc\ud558\ub77c \ud558\uc2ec\uc774\ub2c8 (\uc0ac\ubb34\uc5d8\ud558 16:10)"},
+"4-11":{\ud575\uc2ec:"\ub2e4\uc717\uc758 \ub9d0\ub144\uc5d0\ub3c4 \ubc18\ub780\uc774 \uacc4\uc18d\ub429\ub2c8\ub2e4. \ud558\uc9c0\ub9cc \ub2e4\uc717\uc758 \uc6a9\uc0ac\ub4e4\uc758 \uc774\uc57c\uae30\ub294 \ucda9\uc131\uc2a4\ub7ec\uc6b4 \uacf5\ub3d9\uccb4\uac00 \uc5bc\ub9c8\ub098 \uc18c\uc911\ud55c\uc9c0\ub97c \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ucda9\uc131\uc2a4\ub7ec\uc6b4 \uacf5\ub3d9\uccb4\ub97c \ud1b5\ud574 \uc5ed\uc0ac\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc5d0\uc11c \ud568\uaed8 \uc2e0\uc559\uc758 \uae38\uc744 \uac77\ub294 \uacf5\ub3d9\uccb4\uac00 \uc788\ub098\uc694?",\uae30\ub3c4:"\uacf5\ub3d9\uccb4\uc758 \ud558\ub098\ub2d8, \ub098\ub3c4 \uc2e0\uc2e4\ud55c \ub3d9\ubc18\uc790\uac00 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c \ud070 \uad6c\uc6d0\uc73c\ub85c \uad6c\uc6d0\ud558\uc2dc\ub2c8\ub77c (\uc0ac\ubb34\uc5d8\ud558 23:12)"},
+"4-12":{\ud575\uc2ec:"\ub2e4\uc717\uc758 \ub9c8\uc9c0\ub9c9 \ub178\ub798 '\uc5ec\ud638\uc640\ub294 \ub098\uc758 \ubc18\uc11d\uc774\uc2dc\uc694'\ub294 \uc628 \uc0dd\uc560\ub97c \ud1b5\ud55c \uc2e0\uc559\uc758 \uacb0\ub860\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ud68c\uac1c\ud558\ub294 \uc790\ub97c \ubc1b\uc73c\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub2e4\uc717\uc758 \uc77c\uc0dd\uc740 \uc644\ubcbd\ud558\uc9c0 \uc54a\uc558\uc9c0\ub9cc \ud558\ub098\ub2d8\uc744 \ud5a5\ud55c \ub9c8\uc74c\uc740 \ud55c\uacb0\uac19\uc558\uc2b5\ub2c8\ub2e4.",\uae30\ub3c4:"\uae0d\ud73c\uc774 \ub9ce\uc73c\uc2e0 \ud558\ub098\ub2d8, \ub2e4\uc717\ucc98\ub7fc \uc2e4\ud328\ud574\ub3c4 \uc989\uc2dc \ub3cc\uc544\uc624\ub294 \ub9c8\uc74c\uc744 \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\ub294 \ub098\uc758 \ubc18\uc11d\uc774\uc2dc\uc694 \ub098\uc758 \uc694\uc0c8\uc2dc\uc694 \ub098\ub97c \uc704\ud558\uc5ec \ub098\ub97c \uac74\uc9c0\uc2dc\ub294 \uc790\uc2dc\uc694 (\uc0ac\ubb34\uc5d8\ud558 22:2)"},
+"4-13":{\ud575\uc2ec:"\ub2e4\uc717\uc774 \uc8fd\uae30 \uc804 \uc194\ub85c\ubaac\uc5d0\uac8c '\ud558\ub098\ub2d8\uc758 \ub3c4\ub97c \uc9c0\ud0a4\ub77c'\uace0 \ub2f9\ubd80\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc138\ub300\ub97c \ub118\uc5b4 \uc5b8\uc57d\uc744 \uc774\uc5b4\uac00\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc2e0\uc559\uc774 \ub2e4\uc74c \uc138\ub300\uc5d0\uac8c \uc804\ud574\uc9c0\uace0 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc601\uc6d0\ud558\uc2e0 \ud558\ub098\ub2d8, \ub098\ub97c \ud1b5\ud574 \ub2f9\uc2e0\uc758 \uc5b8\uc57d\uc774 \ub2e4\uc74c \uc138\ub300\ub85c \uc774\uc5b4\uc9c0\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub124\uac00 \ubb34\uc5c7\uc744 \ud558\ub4e0\uc9c0 \uc5b4\ub514\ub85c \uac00\ub4e0\uc9c0 \ud615\ud1b5\ud560\uc9c0\ub77c (\uc5f4\uc655\uae30\uc0c1 2:3)"},
+"4-14":{\ud575\uc2ec:"\uc194\ub85c\ubaac\uc774 \uae30\ube0c\uc628\uc5d0\uc11c \ud558\ub098\ub2d8\uaed8 \uc77c\ucc9c \ubc88\uc81c\ub97c \ub4dc\ub9b4 \ub54c \ud558\ub098\ub2d8\uc774 \ub098\ud0c0\ub098\uc2ed\ub2c8\ub2e4. \uc194\ub85c\ubaac\uc740 \uc7ac\ubb3c\uc774\ub098 \uc7a5\uc218\uac00 \uc544\ub2cc \uc9c0\ud61c\ub97c \uad6c\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ubc14\ub978 \uac83\uc744 \uad6c\ud558\ub294 \uc790\uc5d0\uac8c \ub118\uce58\ub3c4\ub85d \uc8fc\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc9c0\uae08 \ub0b4\uac00 \ud558\ub098\ub2d8\uaed8 \uad6c\ud558\ub294 \uac83\uc740 \ubb34\uc5c7\uc778\uac00\uc694?",\uae30\ub3c4:"\uc9c0\ud61c\ub97c \uc8fc\uc2dc\ub294 \ud558\ub098\ub2d8, \uc194\ub85c\ubaac\ucc98\ub7fc \ud558\ub098\ub2d8\uc758 \ub73b\uc744 \uc774\ub8e8\uae30 \uc704\ud55c \uc9c0\ud61c\ub97c \uad6c\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub4e3\ub294 \ub9c8\uc74c\uc744 \uc885\uc5d0\uac8c \uc8fc\uc0ac \uc8fc\uc758 \ubc31\uc131\uc744 \uc7ac\ud310\ud558\uc5ec \uc120\uc545\uc744 \ubd84\ubcc4\ud558\uac8c \ud558\uc635\uc18c\uc11c (\uc5f4\uc655\uae30\uc0c1 3:9)"},
+"4-15":{\ud575\uc2ec:"\uc194\ub85c\ubaac\uc774 7\ub144\uc5d0 \uac78\uccd0 \uc131\uc804\uc744 \uac74\ucd95\ud569\ub2c8\ub2e4. \ubd09\ud5cc\uc2dd \ub0a0 \ud558\ub098\ub2d8\uc758 \uc601\uad11\uc774 \uc131\uc804\uc5d0 \uac00\ub4dd \ucc3c\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ub2f9\uc2e0\uc758 \ubc31\uc131 \uac00\uc6b4\ub370 \uc784\uc7ac\ud558\uae30\ub97c \uc6d0\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc774 \ud558\ub098\ub2d8\uc758 \uc784\uc7ac\ub85c \uac00\ub4dd \ucc2c \uc131\uc804\uc774 \ub420 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",\uae30\ub3c4:"\uc784\uc7ac\ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ub0b4 \uc0b6\uc774 \ub2f9\uc2e0\uc758 \uc601\uad11\uc73c\ub85c \uac00\ub4dd \ucc2c \uc131\uc804\uc774 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uc758 \uc601\uad11\uc774 \uc5ec\ud638\uc640\uc758 \uc131\uc804\uc5d0 \uac00\ub4dd\ud568\uc774\uc5c8\ub354\ub77c (\uc5f4\uc655\uae30\uc0c1 8:10-11)"},
+"4-16":{\ud575\uc2ec:"\uc194\ub85c\ubaac\uc758 \uc131\uc804 \ubd09\ud5cc \uae30\ub3c4\ub294 \uc131\uacbd\uc5d0\uc11c \uac00\uc7a5 \uc704\ub300\ud55c \uae30\ub3c4 \uc911 \ud558\ub098\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\ub294 \ud558\ub098\ub2d8\uc774\uc2ed\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uae30\ub3c4\uac00 \ud558\ub098\ub2d8\uc758 \uc704\ub300\ud558\uc2ec\uc73c\ub85c \uc2dc\uc791\ub418\uace0 \uc788\ub098\uc694?",\uae30\ub3c4:"\uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\ub294 \ud558\ub098\ub2d8, \ub2f9\uc2e0\uc758 \uc704\ub300\ud558\uc2ec \uc55e\uc5d0 \uacb8\uc190\ud788 \ub098\uc544\uac00\uba70 \uc911\ubcf4\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ud558\ub298\uacfc \ud558\ub298\ub4e4\uc758 \ud558\ub298\uc774\ub77c\ub3c4 \uc8fc\ub97c \uc6a9\ub0a9\ud558\uc9c0 \ubabb\ud558\uaca0\uac70\ub4e0 (\uc5f4\uc655\uae30\uc0c1 8:27)"},
+"4-17":{\ud575\uc2ec:"\uc194\ub85c\ubaac\uc758 \uc601\uad11\uc774 \uc808\uc815\uc5d0 \ub2ec\ud558\uc9c0\ub9cc \uc774\ubc29 \uc5ec\uc778\ub4e4\uc744 \ub530\ub77c \uc2e0\ub4e4\uc744 \uc12c\uae30\uae30 \uc2dc\uc791\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc9c0\ud61c\ub97c \uc8fc\uc2dc\uc9c0\ub9cc \uadf8 \uc9c0\ud61c\ub97c \uc5b4\ub5bb\uac8c \uc0ac\uc6a9\ud560\uc9c0\ub294 \uc778\uac04\uc758 \uc120\ud0dd\uc5d0 \ub2ec\ub824 \uc788\uc2b5\ub2c8\ub2e4.",\ubb35\uc0c1:"\ud558\ub098\ub2d8\uc774 \ub0b4\uac8c \uc8fc\uc2e0 \uc7ac\ub2a5\uacfc \uc740\uc0ac\ub97c \uc5b4\ub514\uc5d0 \uc4f0\uace0 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc740\uc0ac\ub97c \uc8fc\uc2dc\ub294 \ud558\ub098\ub2d8, \ub2f9\uc2e0\uc758 \uc601\uad11\uc744 \uc704\ud574 \uc0ac\uc6a9\ud558\ub294 \uccad\uc9c0\uae30\uac00 \ub418\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc194\ub85c\ubaac\uc774 \ub9c8\uc74c\uc744 \ub3cc\ub824 \uc774\uc2a4\ub77c\uc5d8\uc758 \ud558\ub098\ub2d8 \uc5ec\ud638\uc640\ub97c \ub5a0\ub098\ubbc0\ub85c (\uc5f4\uc655\uae30\uc0c1 11:9)"},
+"4-18":{\ud575\uc2ec:"\ub974\ud638\ubcf4\uc554\uc774 \ub178\uc778\ub4e4\uc758 \uc870\uc5b8\uc744 \ubb34\uc2dc\ud558\uace0 \uacb0\uad6d \uc774\uc2a4\ub77c\uc5d8\uc740 \ub0a8\ubd81\uc73c\ub85c \ubd84\uc5f4\ub429\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uad50\ub9cc\ud55c \uc790\ub97c \ub0ae\ucd94\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc5f0\ub95c \uc788\ub294 \uc0ac\ub78c\ub4e4\uc758 \uc870\uc5b8\uc5d0 \uadc0\ub97c \uae30\uc6b8\uc5ec\ubcf4\uc138\uc694. \uacb8\uc190\uc740 \uc9c0\ud61c\uc758 \uc2dc\uc791\uc785\ub2c8\ub2e4.",\uae30\ub3c4:"\uc9c0\ud61c\uc758 \ud558\ub098\ub2d8, \ub098\uc758 \uad50\ub9cc\uc744 \ub0b4\ub824\ub193\uace0 \uacb8\uc190\ud788 \ub2f9\uc2e0\uc758 \ub73b\uc5d0 \uadc0 \uae30\uc6b8\uc774\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc774 \uc77c\uc740 \uc5ec\ud638\uc640\uaed8\ub85c \ub9d0\ubbf8\uc554\uc544 \ub09c \uac83\uc774\ub77c (\uc5f4\uc655\uae30\uc0c1 12:15)"},
+"4-19":{\ud575\uc2ec:"\uc5d8\ub9ac\uc57c \uc120\uc9c0\uc790\uac00 \ub4f1\uc7a5\ud569\ub2c8\ub2e4. \uadf8\ub9bf \uc2dc\ub0c7\uac00\uc5d0\uc11c \uae4c\ub9c8\uadc0\uac00 \uba39\uc744 \uac83\uc744 \uac00\uc838\uc624\ub294 \uc7a5\uba74\uc740 \ud558\ub098\ub2d8\uc758 \ub180\ub77c\uc6b4 \ub3cc\ubcf4\uc2ec\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ud640\ub85c \uc11c \uc788\ub294 \uc790\ub97c \uba39\uc774\uc2dc\uace0 \ub3cc\ubcf4\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ud63c\uc790\ub77c\uace0 \ub290\uaef4\uc9c0\ub294 \uc21c\uac04\uc774 \uc788\ub098\uc694? \uc624\ub298 \ud558\ub098\ub2d8\uc774 \uc608\uc0c1\uce58 \ubabb\ud55c \ubc29\ubc95\uc73c\ub85c \ub3cc\ubcf4\uc2dc\ub294 \ud754\uc801\ub4e4\uc744 \ucc3e\uc544\ubcf4\uc138\uc694.",\uae30\ub3c4:"\uacf5\uae09\ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ub0b4\uac00 \uad11\uc57c\uc5d0 \uc788\uc744 \ub54c\ub3c4 \ub2f9\uc2e0\uc774 \ub3cc\ubcf4\uc2ec\uc744 \ubbff\uc73c\uba70 \uac10\uc0ac\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub0b4\uac00 \uae4c\ub9c8\uadc0\ub4e4\uc5d0\uac8c \uba85\ub839\ud558\uc5ec \uac70\uae30\uc11c \ub108\ub97c \uba39\uc774\uac8c \ud558\ub9ac\ub77c (\uc5f4\uc655\uae30\uc0c1 17:2-4)"},
+"4-20":{\ud575\uc2ec:"\uac08\uba5c\uc0b0\uc758 \ub300\uacb0\uc5d0\uc11c \uc5d8\ub9ac\uc57c\uac00 450\uba85\uc758 \ubc14\uc54c \uc120\uc9c0\uc790\ub4e4\uacfc \ub9de\uc12d\ub2c8\ub2e4. \ud558\ub298\uc5d0\uc11c \ubd88\uc774 \ub0b4\ub824\uc640 \ubc88\uc81c\ubb3c\uc744 \ud0dc\uc6c1\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ub2f9\uc2e0\ub9cc\uc774 \ucc38 \ud558\ub098\ub2d8\uc774\uc2ec\uc744 \uc99d\uba85\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub298 \ub0b4 \uc0b6\uc5d0\uc11c \ud558\ub098\ub2d8\ub9cc\uc774 \ub098\uc758 \uc720\uc77c\ud55c \ud558\ub098\ub2d8\uc774\uc2ec\uc744 \ub2e4\uc2dc \uace0\ubc31\ud558\ub294 \uc2dc\uac04\uc744 \uac00\uc9c0\uc138\uc694.",\uae30\ub3c4:"\uc720\uc77c\ud558\uc2e0 \ud558\ub098\ub2d8, \uc624\uc9c1 \ub2f9\uc2e0\ub9cc\uc774 \ub098\uc758 \ud558\ub098\ub2d8\uc774\uc2ec\uc744 \uace0\ubc31\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc8fc \uc5ec\ud638\uc640\ub294 \ud558\ub098\ub2d8\uc774\uc2e0 \uac83\uc744 \uc54c\uac8c \ud558\uc635\uc18c\uc11c (\uc5f4\uc655\uae30\uc0c1 18:37)"},
+"4-21":{\ud575\uc2ec:"\uc544\ud569\uc774 \ub098\ubd07\uc758 \ud3ec\ub3c4\uc6d0\uc744 \ube7c\uc557\uc2b5\ub2c8\ub2e4. \uadf8\ub7ec\ub098 \uc544\ud569\uc774 \uacb8\uc190\ud788 \ud68c\uac1c\ud558\uc790 \ud558\ub098\ub2d8\uc740 \uc7ac\uc559\uc744 \ub2a6\ucd94\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc57d\uc790\uc758 \uc5b5\uc6b8\ud568\uc744 \ub4e3\uace0 \uc2ec\ud310\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc624\ub298 \uc815\uc758\ub97c \uc704\ud574 \ub0b4\uac00 \ud560 \uc218 \uc788\ub294 \uc791\uc740 \ud589\ub3d9\uc744 \uc0dd\uac01\ud574\ubcf4\uc138\uc694.",\uae30\ub3c4:"\uacf5\uc758\ub85c\uc6b0\uc2e0 \ud558\ub098\ub2d8, \uc57d\uc790\uc758 \ud3b8\uc5d0 \uc11c\uc2dc\ub294 \ub2f9\uc2e0\uc744 \ub530\ub77c \uc815\uc758\ub97c \uc2e4\ucc9c\ud558\ub294 \uc6a9\uae30\ub97c \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\uadf8\uac00 \ub0b4 \uc55e\uc5d0\uc11c \uacb8\ube44\ud558\ubbc0\ub85c \ub0b4\uac00 \uc7ac\uc559\uc744 \uc800\uc758 \uc2dc\ub300\uc5d0\ub294 \ub0b4\ub9ac\uc9c0 \uc544\ub2c8\ud558\uace0... (\uc5f4\uc655\uae30\uc0c1 21:29)"},
+"4-22":{\ud575\uc2ec:"\uc5d8\ub9ac\uc57c\uac00 \ud68c\uc624\ub9ac\ubc14\ub78c \uc18d\uc5d0 \ud558\ub298\ub85c \uc62c\ub77c\uac00\uace0 \uc5d8\ub9ac\uc0ac\uac00 \uadf8 \uc0ac\uc5ed\uc744 \uc774\uc5b4\ubc1b\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ub2f9\uc2e0\uc758 \uc885\uc758 \ub05d\uc744 \uc601\uad11\uc2a4\ub7fd\uac8c \ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc5d8\ub9ac\uc0ac\uac00 \uac11\uc808\uc758 \uc601\uac10\uc744 \uad6c\ud55c \uac83\ucc98\ub7fc, \uc624\ub298 \ub0b4\uac00 \ud558\ub098\ub2d8\uaed8 \ub300\ub2f4\ud558\uac8c \uad6c\ud558\uace0 \uc2f6\uc740 \uac83\uc774 \uc788\ub098\uc694?",\uae30\ub3c4:"\ub2a5\ub825\uc758 \ud558\ub098\ub2d8, \ub2f9\uc2e0\uc758 \uc601\uc774 \ub0b4 \uc0b6\uc5d0 \uac15\ud558\uac8c \uc5ed\uc0ac\ud558\uc2dc\uae30\ub97c \uad6c\ud558\uba70, \ub354 \ud070 \ubbff\uc74c\uc73c\ub85c \ub098\uc544\uac00\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub124\uac00 \uc5b4\ub824\uc6b4 \uc77c\uc744 \uad6c\ud558\ub294\ub3c4\ub2e4 (\uc5f4\uc655\uae30\ud558 2:10)"},
+"4-23":{\ud575\uc2ec:"\ub098\uc544\ub9cc \uc7a5\uad70\uc758 \ubb38\ub465\ubcd1\uc774 \uce58\uc720\ub429\ub2c8\ub2e4. '\uc774\uc2a4\ub77c\uc5d8 \uc678\uc5d0\ub294 \uc628 \ucc9c\ud558\uc5d0 \ud558\ub098\ub2d8\uc774 \uc5c6\ub294 \uc904\uc744 \uc54c\uc558\ub098\uc774\ub2e4'\ub77c\ub294 \ub098\uc544\ub9cc\uc758 \uace0\ubc31\uc774 \ud575\uc2ec\uc785\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc774\ubc29\uc778\uc5d0\uac8c\ub3c4 \uc740\ud61c\ub97c \ubca0\ud478\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\uc694\ub2e8\uac15\uc5d0\uc11c \uc77c\uacf1 \ubc88 \uc53b\uc73c\ub77c\ub294 \ub2e8\uc21c\ud55c \uba85\ub839\uc5d0 \uc21c\uc885\ud55c \ub098\uc544\ub9cc\ucc98\ub7fc, \ud558\ub098\ub2d8\uc758 \ub2e8\uc21c\ud55c \ub9d0\uc500\uc5d0 \uc21c\uc885\ud560 \uc218 \uc788\ub098\uc694?",\uae30\ub3c4:"\ubaa8\ub4e0 \ubbfc\uc871\uc758 \ud558\ub098\ub2d8, \ub0b4 \uc790\uc874\uc2ec\uc744 \ub0b4\ub824\ub193\uace0 \ub2f9\uc2e0\uc758 \ub9d0\uc500\uc5d0 \uc21c\uc885\ud558\ub294 \uacb8\uc190\uc744 \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\uc774\uc2a4\ub77c\uc5d8 \uc678\uc5d0\ub294 \uc628 \ucc9c\ud558\uc5d0 \uc2e0\uc774 \uc5c6\ub294 \uc904\uc744 \uc544\ub098\uc774\ub2e4 (\uc5f4\uc655\uae30\ud558 5:15)"},
+"4-24":{\ud575\uc2ec:"\uc5d8\ub9ac\uc0ac\ub294 \uc544\ub78c\uad70\uc774 \uc774\uc2a4\ub77c\uc5d8\uc744 \ud3ec\uc704\ud560 \ub54c '\uc6b0\ub9ac\uc640 \ud568\uaed8\ud55c \uc790\uac00 \uadf8\ub4e4\uacfc \ud568\uaed8\ud55c \uc790\ubcf4\ub2e4 \ub9ce\ub2e4'\uba70 \uc81c\uc790\uc758 \ub208\uc744 \uc5f4\uc5b4 \ud558\ub298\uc758 \uad70\ub300\ub97c \ubcf4\uac8c \ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc6b0\ub9ac \ub208\uc5d0 \ubcf4\uc774\uc9c0 \uc54a\ub294 \uacf3\uc5d0\uc11c \ub354 \ud070 \uad70\ub300\ub85c \ubcf4\ud638\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub208\uc5d0 \ubcf4\uc774\ub294 \uc704\ud611\uc5d0 \ub450\ub824\uc6cc\ud558\uace0 \uc788\ub098\uc694? \uc624\ub298 \ubbff\uc74c\uc758 \ub208\uc73c\ub85c \ub0b4 \uc0c1\ud669\uc744 \ub2e4\uc2dc \ubc14\ub77c\ubcf4\uc138\uc694.",\uae30\ub3c4:"\ubcf4\uc774\uc9c0 \uc54a\ub294 \uac83\uc744 \ubcf4\uac8c \ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ub450\ub824\uc6b4 \uc0c1\ud669 \uc18d\uc5d0\uc11c\ub3c4 \ubcf4\ud638\ud558\uc2ec\uc744 \ubbff\ub294 \ubbff\uc74c\uc758 \ub208\uc744 \uc5f4\uc5b4\uc8fc\uc18c\uc11c.",\uad6c\uc808:"\uc6b0\ub9ac\uc640 \ud568\uaed8 \ud55c \uc790\uac00 \uadf8\ub4e4\uacfc \ud568\uaed8 \ud55c \uc790\ubcf4\ub2e4 \ub9ce\uc73c\ub2c8\ub77c (\uc5f4\uc655\uae30\ud558 6:16-17)"},
+"4-25":{\ud575\uc2ec:"\ubd81\uc774\uc2a4\ub77c\uc5d8\uc740 \uacc4\uc18d \ud558\ub098\ub2d8\uc744 \ub5a0\ub098 \uacb0\uad6d \uc557\uc218\ub974\uc5d0 \ud3ec\ub85c\ub85c \uc7a1\ud600\uac00\ub294 \uc2ec\ud310\uc744 \ubc1b\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ubc18\ub4dc\uc2dc \uc2ec\ud310\ud558\uc2dc\ub294 \ubd84\uc774\uc9c0\ub9cc \uadf8 \uc2ec\ud310\ub3c4 \uc624\ub798 \ucc38\uc73c\uc2e0 \ud6c4\uc5d0 \uc624\ub294 \uac83\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ud558\ub098\ub2d8\uc758 \uc624\ub798 \ucc38\uc73c\uc2ec\uc744 \ub2f9\uc5f0\ud558\uac8c \uc5ec\uae30\uace0 \uc788\uc9c0\ub294 \uc54a\ub098\uc694? \uc624\ub298\uc774 \ubc14\ub85c \ub3cc\uc544\uc62c \uc218 \uc788\ub294 \uc740\ud61c\uc758 \uc2dc\uac04\uc785\ub2c8\ub2e4.",\uae30\ub3c4:"\uc624\ub798 \ucc38\uc73c\uc2dc\ub294 \ud558\ub098\ub2d8, \ub2f9\uc2e0\uc758 \uc778\ub0b4\ub97c \ud5db\ub418\uc774 \uc5ec\uae30\uc9c0 \uc54a\uace0 \uc624\ub298 \uc628\uc804\ud788 \ub3cc\uc544\uc624\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uaed8\uc11c \ud558\uc2e0 \ub9d0\uc500\ub300\ub85c \uc774\uc2a4\ub77c\uc5d8\uc744 \uadf8 \uc55e\uc5d0\uc11c \ub0b4\ucad3\uc73c\uc2e0\uc9c0\ub77c (\uc5f4\uc655\uae30\ud558 17:23)"},
+"4-26":{\ud575\uc2ec:"\ud788\uc2a4\uae30\uc57c \uc655\uc740 \uc557\uc218\ub974\uc758 \uc0b0\ud5e4\ub9bd\uc774 \uc608\ub8e8\uc0b4\ub818\uc744 \uc704\ud611\ud560 \ub54c \uc131\uc804\uc5d0\uc11c \uae30\ub3c4\ud569\ub2c8\ub2e4. \ud558\ub098\ub2d8\uc740 \uadf8\ub0a0 \ubc24 \uc557\uc218\ub974 \uad70\uc0ac 185,000\uba85\uc744 \uce58\uc2ed\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uae30\ub3c4\uc5d0 \uc751\ub2f5\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub098\ub97c \uc704\ud611\ud558\ub294 \uc0c1\ud669\uc744 \ud558\ub098\ub2d8 \uc55e\uc5d0 \ud3bc\uccd0\ub193\uace0 \uae30\ub3c4\ud574\ubcf8 \uc801 \uc788\ub098\uc694?",\uae30\ub3c4:"\uc751\ub2f5\ud558\uc2dc\ub294 \ud558\ub098\ub2d8, \ud788\uc2a4\uae30\uc57c\ucc98\ub7fc \ub0b4 \uc704\uae30\ub97c \ub2f9\uc2e0 \uc55e\uc5d0 \uac00\uc838\uac00\uba70 \uae30\ub3c4\ud558\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc8fc\ub294 \ucc9c\ud558 \ub9cc\uad6d\uc5d0 \ud640\ub85c \ud558\ub098\ub2d8\uc774\uc2dc\ub77c (\uc5f4\uc655\uae30\ud558 19:15)"},
+"4-27":{\ud575\uc2ec:"\ud788\uc2a4\uae30\uc57c\ub294 \uc8fd\uac8c \ub418\uc5c8\uc744 \ub54c \ud558\ub098\ub2d8\uaed8 \uae30\ub3c4\ud558\uc5ec 15\ub144\uc758 \uc0dd\uba85\uc744 \ub354 \ubc1b\uc2b5\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uae30\ub3c4\ub97c \ub4e4\uc73c\uc2dc\uba70 \uc6b0\ub9ac \uc0b6\uc5d0 \uad6c\uccb4\uc801\uc73c\ub85c \uac1c\uc785\ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ud558\ub098\ub2d8\uc758 \uc740\ud61c\ub97c \ubc1b\uc740 \ud6c4\uc5d0 \uad50\ub9cc\ud574\uc9c4 \uc801\uc774 \uc788\ub098\uc694? \uc624\ub298 \ubc1b\uc740 \uc740\ud61c\ub97c \ud558\ub098\ub2d8\uaed8 \ub3cc\ub824\ub4dc\ub9ac\uc138\uc694.",\uae30\ub3c4:"\uc740\ud61c\ub97c \ubca0\ud478\uc2dc\ub294 \ud558\ub098\ub2d8, \ubc1b\uc740 \uc740\ud61c\uac00 \ub354 \uae4a\uc740 \uacb8\uc190\uacfc \uac10\uc0ac\ub85c \uc774\uc5b4\uc9c0\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ub0b4\uac00 \ub124 \uae30\ub3c4\ub97c \ub4e4\uc5c8\uace0 \ub124 \ub208\ubb3c\uc744 \ubcf4\uc558\ub178\ub77c (\uc5f4\uc655\uae30\ud558 20:5)"},
+"4-28":{\ud575\uc2ec:"\ubbc0\ub0ab\uc138\ub294 \uc720\ub2e4 \uc5ed\uc0ac\uc0c1 \uac00\uc7a5 \uc545\ud55c \uc655\uc774\uc9c0\ub9cc \uace0\ub09c \uc911\uc5d0 \ud68c\uac1c\ud558\uace0 \ud558\ub098\ub2d8\uaed8 \ub3cc\uc544\uc635\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uac00\uc7a5 \uc545\ud55c \uc790\uc758 \ud68c\uac1c\ub3c4 \ubc1b\uc73c\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc8c4\ub294 \ub108\ubb34 \ucee4\uc11c \uc6a9\uc11c\ubc1b\uae30 \uc5b4\ub835\ub2e4\uace0 \uc0dd\uac01\ud55c \uc801\uc774 \uc788\ub098\uc694? \ubbc0\ub0ab\uc138\uc758 \uc774\uc57c\uae30\ub294 \uadf8\uac83\uc774 \uc0ac\uc2e4\uc774 \uc544\ub2d8\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",\uae30\ub3c4:"\uc6a9\uc11c\uc758 \ud558\ub098\ub2d8, \ubbc0\ub0ab\uc138\uc758 \uc8c4\ub3c4 \ubc1b\uc73c\uc2e0 \ub2f9\uc2e0\uc758 \uae0d\ud73c\uc774 \ub098\uc5d0\uac8c\ub3c4 \ubbf8\uce68\uc744 \ubbff\uc73c\uba70 \ub2f4\ub300\ud788 \uc8fc \uc55e\uc5d0 \ub098\uc544\uac00\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\ud558\ub098\ub2d8\uc774 \uadf8\uc758 \uae30\ub3c4\ub97c \ubc1b\uc73c\uc2dc\uba70... (\uc5ed\ub300\ud558 33:12-13)"},
+"4-29":{\ud575\uc2ec:"\uc694\uc2dc\uc57c \uc655\uc774 \uc131\uc804\uc744 \uc218\ub9ac\ud558\ub2e4\uac00 \uc728\ubc95\ucc45\uc744 \ubc1c\uacac\ud569\ub2c8\ub2e4. \ub9d0\uc500\uc744 \uc77d\uace0 \uc637\uc744 \ucc22\uc73c\uba70 \ud68c\uac1c\ud558\uace0 \uc804\uad6d\uc801\uc778 \uac1c\ud601\uc744 \ub2e8\ud589\ud569\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \ub9d0\uc500\uc744 \ud1b5\ud574 \ubbfc\uc871\uc744 \uc0c8\ub86d\uac8c \ud558\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ucd5c\uadfc \ub9d0\uc500\uc774 \ub0b4 \ub9c8\uc74c\uc5d0 \uae4a\uc774 \ub2ff\uc740 \uc801\uc774 \uc788\ub098\uc694? \uc624\ub298 \ub9d0\uc500 \uc55e\uc5d0 \ub2e4\uc2dc \ub9c8\uc74c\uc744 \uc5ec\ub294 \uc2dc\uac04\uc744 \uac00\uc838\ubcf4\uc138\uc694.",\uae30\ub3c4:"\ub9d0\uc500\uc758 \ud558\ub098\ub2d8, \uc694\uc2dc\uc57c\ucc98\ub7fc \ub9d0\uc500 \uc55e\uc5d0\uc11c \ub0b4 \ub9c8\uc74c\uc774 \ucc22\uc5b4\uc9c0\ub294 \uac10\ub3d9\uc744 \ud5c8\ub77d\ud558\uc18c\uc11c.",\uad6c\uc808:"\uc655\uc774 \uc728\ubc95\ucc45\uc758 \ub9d0\uc744 \ub4e3\uc790 \uace7 \uadf8\uc758 \uc637\uc744 \ucc22\uc73c\ub2c8\ub77c (\uc5f4\uc655\uae30\ud558 22:11)"},
+"4-30":{\ud575\uc2ec:"\uc5ed\ub300\uae30\ub294 \uc774\uc2a4\ub77c\uc5d8 \uc5ed\uc0ac\ub97c \ud558\ub098\ub2d8\uc758 \uad00\uc810\uc5d0\uc11c \ub2e4\uc2dc \uc501\ub2c8\ub2e4. \uc544\ub2f4\ubd80\ud130 \ub2e4\uc717\uae4c\uc9c0\uc758 \uc871\ubcf4\ub294 \ud558\ub098\ub2d8\uc758 \uad6c\uc6d0 \uc5ed\uc0ac\uc758 \ud070 \uadf8\ub9bc\uc744 \ubcf4\uc5ec\uc90d\ub2c8\ub2e4.",\uc131\ud488:"\ud558\ub098\ub2d8\uc740 \uc5ed\uc0ac\uc758 \uc8fc\uad00\uc790\uc774\uc2dc\uba70 \ub2f9\uc2e0\uc758 \uc774\uc57c\uae30\ub97c \uc774\uc5b4\uac00\uc2dc\ub294 \ubd84\uc785\ub2c8\ub2e4.",\ubb35\uc0c1:"\ub0b4 \uc0b6\uc774 \ud558\ub098\ub2d8\uc758 \ub354 \ud070 \uc774\uc57c\uae30\uc758 \uc77c\ubd80\uc784\uc744 \ubbff\ub098\uc694?",\uae30\ub3c4:"\uc5ed\uc0ac\uc758 \uc8fc\uad00\uc790\uc774\uc2e0 \ud558\ub098\ub2d8, \ub0b4 \uc0b6\uc774 \ub2f9\uc2e0\uc758 \ud070 \uc774\uc57c\uae30 \uc548\uc5d0 \uc788\uc74c\uc744 \ubbff\uc73c\uba70 \uc624\ub298\ub3c4 \ud568\uaed8 \uc368\uac00\uac8c \ud558\uc18c\uc11c.",\uad6c\uc808:"\uc5ec\ud638\uc640\uc5ec \uc704\ub300\ud558\uc2ec\uacfc \uad8c\ub2a5\uacfc \uc601\uad11\uacfc \uc2b9\ub9ac\uc640 \uc704\uc5c4\uc774 \ub2e4 \uc8fc\uaed8 \uc18d\ud558\uc600\uc0ac\uc624\ub2c8 (\uc5ed\ub300\uc0c1 29:11)"},
 };
 
-const BF = {"창":"창세기","출":"출애굽기","레":"레위기","민":"민수기","신":"신명기","수":"여호수아","삿":"사사기","룻":"룻기","삼상":"사무엘상","삼하":"사무엘하","왕상":"열왕기상","왕하":"열왕기하","대상":"역대상","대하":"역대하","스":"에스라","느":"느헤미야","에":"에스더","욥":"욥기","시":"시편","잠":"잠언","전":"전도서","아":"아가","사":"이사야","렘":"예레미야","애":"예레미야애가","겔":"에스겔","단":"다니엘","호":"호세아","욜":"요엘","암":"아모스","옵":"오바댜","욘":"요나","미":"미가","나":"나훔","합":"하박국","습":"스바냐","학":"학개","슥":"스가랴","말":"말라기","마":"마태복음","막":"마가복음","눅":"누가복음","요":"요한복음","행":"사도행전","롬":"로마서","고전":"고린도전서","고후":"고린도후서","갈":"갈라디아서","엡":"에베소서","빌":"빌립보서","골":"골로새서","살전":"데살로니가전서","살후":"데살로니가후서","딤전":"디모데전서","딤후":"디모데후서","딛":"디도서","몬":"빌레몬서","히":"히브리서","약":"야고보서","벧전":"베드로전서","벧후":"베드로후서","요일":"요한일서","요이":"요한이서","요삼":"요한삼서","유":"유다서","계":"요한계시록"};
+const BF = {"\ucc3d":"\ucc3d\uc138\uae30","\ucd9c":"\ucd9c\uc560\uad7d\uae30","\ub808":"\ub808\uc704\uae30","\ubbfc":"\ubbfc\uc218\uae30","\uc2e0":"\uc2e0\uba85\uae30","\uc218":"\uc5ec\ud638\uc218\uc544","\uc0bf":"\uc0ac\uc0ac\uae30","\ub8fb":"\ub8fb\uae30","\uc0bc\uc0c1":"\uc0ac\ubb34\uc5d8\uc0c1","\uc0bc\ud558":"\uc0ac\ubb34\uc5d8\ud558","\uc655\uc0c1":"\uc5f4\uc655\uae30\uc0c1","\uc655\ud558":"\uc5f4\uc655\uae30\ud558","\ub300\uc0c1":"\uc5ed\ub300\uc0c1","\ub300\ud558":"\uc5ed\ub300\ud558","\uc2a4":"\uc5d0\uc2a4\ub77c","\ub290":"\ub290\ud5e4\ubbf8\uc57c","\uc5d0":"\uc5d0\uc2a4\ub354","\uc6a5":"\uc6a5\uae30","\uc2dc":"\uc2dc\ud3b8","\uc7a0":"\uc7a0\uc5b8","\uc804":"\uc804\ub3c4\uc11c","\uc544":"\uc544\uac00","\uc0ac":"\uc774\uc0ac\uc57c","\ub818":"\uc608\ub808\ubbf8\uc57c","\uc560":"\uc608\ub808\ubbf8\uc57c\uc560\uac00","\uac94":"\uc5d0\uc2a4\uac94","\ub2e8":"\ub2e4\ub2c8\uc5d8","\ud638":"\ud638\uc138\uc544","\uc69c":"\uc694\uc5d8","\uc554":"\uc544\ubaa8\uc2a4","\uc635":"\uc624\ubc14\ub31c","\uc698":"\uc694\ub098","\ubbf8":"\ubbf8\uac00","\ub098":"\ub098\ud6d4","\ud569":"\ud558\ubc15\uad6d","\uc2b5":"\uc2a4\ubc14\ub0d0","\ud559":"\ud559\uac1c","\uc2a5":"\uc2a4\uac00\ub7b4","\ub9d0":"\ub9d0\ub77c\uae30","\ub9c8":"\ub9c8\ud0dc\ubcf5\uc74c","\ub9c9":"\ub9c8\uac00\ubcf5\uc74c","\ub205":"\ub204\uac00\ubcf5\uc74c","\uc694":"\uc694\ud55c\ubcf5\uc74c","\ud589":"\uc0ac\ub3c4\ud589\uc804","\ub86c":"\ub85c\ub9c8\uc11c","\uace0\uc804":"\uace0\ub9b0\ub3c4\uc804\uc11c","\uace0\ud6c4":"\uace0\ub9b0\ub3c4\ud6c4\uc11c","\uac08":"\uac08\ub77c\ub514\uc544\uc11c","\uc5e1":"\uc5d0\ubca0\uc18c\uc11c","\ube4c":"\ube4c\ub9bd\ubcf4\uc11c","\uace8":"\uace8\ub85c\uc0c8\uc11c","\uc0b4\uc804":"\ub370\uc0b4\ub85c\ub2c8\uac00\uc804\uc11c","\uc0b4\ud6c4":"\ub370\uc0b4\ub85c\ub2c8\uac00\ud6c4\uc11c","\ub524\uc804":"\ub514\ubaa8\ub370\uc804\uc11c","\ub524\ud6c4":"\ub514\ubaa8\ub370\ud6c4\uc11c","\ub51b":"\ub514\ub3c4\uc11c","\ubaac":"\ube4c\ub808\ubaac\uc11c","\ud788":"\ud788\ube0c\ub9ac\uc11c","\uc57d":"\uc57c\uace0\ubcf4\uc11c","\ubca7\uc804":"\ubca0\ub4dc\ub85c\uc804\uc11c","\ubca7\ud6c4":"\ubca0\ub4dc\ub85c\ud6c4\uc11c","\uc694\uc77c":"\uc694\ud55c\uc77c\uc11c","\uc694\uc774":"\uc694\ud55c\uc774\uc11c","\uc694\uc0bc":"\uc694\ud55c\uc0bc\uc11c","\uc720":"\uc720\ub2e4\uc11c","\uacc4":"\uc694\ud55c\uacc4\uc2dc\ub85d"};
 function expand(raw) {
-  if (!raw || raw==="개별통독") return raw;
-  const sorted = Object.keys(BF).sort((a,b)=>b.length-a.length);
-  let r = raw;
-  for (const ab of sorted) r = r.replace(new RegExp(`^${ab}\\b`), BF[ab]);
-  return r;
+  if (!raw || raw==="\uac1c\ubcc4\ud1b5\ub3c5") return raw;
+  const sorted = Object.keys(BF).sort((a,b)=>b.length-a.length);
+  let r = raw;
+  for (const ab of sorted) r = r.replace(new RegExp(`^${ab}\\b`), BF[ab]);
+  return r;
 }
 
 const R = {
-  "1-1":"창 1-3","1-2":"창 4-6","1-3":"창 7-9","1-4":"창 10-12","1-5":"창 13-16","1-6":"창 17-19","1-7":"창 20-22","1-8":"창 23-24","1-9":"창 25-27","1-10":"창 28-30","1-11":"창 31-32","1-12":"창 33-35","1-13":"창 36-37","1-14":"창 38-40","1-15":"창 41-42","1-16":"창 43-45","1-17":"창 46-48","1-18":"창 49-50",
-  "1-19":"출 1-4","1-20":"출 5-8","1-21":"출 9-11","1-22":"출 12-14","1-23":"출 15-17","1-24":"출 18-20","1-25":"출 21-23","1-26":"출 24-26","1-27":"출 27-29","1-28":"출 30-32","1-29":"출 33-35","1-30":"출 36-38","1-31":"출 39-40",
-  "2-1":"레 1-4","2-2":"레 5-7","2-3":"레 8-10","2-4":"레 11-12","2-5":"레 13-14","2-6":"레 15-17","2-7":"레 18-20","2-8":"레 21-23","2-9":"레 24-25","2-10":"레 26-27",
-  "2-11":"민 1-2","2-12":"민 3-4","2-13":"민 5-6","2-14":"민 7-8","2-15":"민 9-11","2-16":"개별통독","2-17":"개별통독","2-18":"개별통독",
-  "2-19":"민 12-14","2-20":"민 15-16","2-21":"민 17-20","2-22":"민 21-23","2-23":"민 24-26","2-24":"민 27-29","2-25":"민 30-31","2-26":"민 32-33","2-27":"민 34-36","2-28":"신 1-2",
-  "3-1":"신 3-4","3-2":"신 5-7","3-3":"신 8-10","3-4":"신 11-13","3-5":"신 14-16","3-6":"신 17-20","3-7":"신 21-24","3-8":"신 25-27","3-9":"신 28-29","3-10":"신 30-31","3-11":"신 32-34",
-  "3-12":"수 1-4","3-13":"수 5-8","3-14":"수 9-11","3-15":"수 12-14","3-16":"수 15-17","3-17":"수 18-20","3-18":"수 21-22","3-19":"수 23-24",
-  "3-20":"삿 1-3","3-21":"삿 4-6","3-22":"삿 7-8","3-23":"삿 9-10","3-24":"삿 11-14","3-25":"삿 15-18","3-26":"삿 19-21","3-27":"룻 1-4",
-  "3-28":"삼상 1-3","3-29":"삼상 4-8","3-30":"삼상 9-12","3-31":"삼상 13-14",
-  "4-1":"삼상 15-17","4-2":"삼상 18-20","4-3":"삼상 21-24","4-4":"삼상 25-27","4-5":"삼상 28-31",
-  "4-6":"삼하 1-3","4-7":"삼하 4-7","4-8":"삼하 8-12","4-9":"삼하 13-15","4-10":"삼하 16-18","4-11":"삼하 19-21","4-12":"삼하 22-24",
-  "4-13":"왕상 1-2","4-14":"왕상 3-5","4-15":"왕상 6-7","4-16":"왕상 8-9","4-17":"왕상 10-11","4-18":"왕상 12-14","4-19":"왕상 15-17","4-20":"왕상 18-20","4-21":"왕상 21-22",
-  "4-22":"왕하 1-3","4-23":"왕하 4-6","4-24":"왕하 7-9","4-25":"왕하 10-13","4-26":"왕하 14-16","4-27":"왕하 17-18","4-28":"왕하 19-21","4-29":"왕하 22-25","4-30":"대상 1-2",
-  "5-1":"대상 3-5","5-2":"대상 6-7","5-3":"대상 8-10","5-4":"대상 11-13","5-5":"대상 14-16","5-6":"대상 17-20","5-7":"대상 21-23","5-8":"대상 24-26","5-9":"대상 27-29",
-  "5-10":"대하 1-5","5-11":"대하 6-8","5-12":"대하 9-12","5-13":"대하 13-17","5-14":"대하 18-20","5-15":"대하 21-24","5-16":"대하 25-28","5-17":"대하 29-31","5-18":"대하 32-34","5-19":"대하 35-36",
-  "5-20":"스 1-2","5-21":"스 3-6","5-22":"스 7-10","5-23":"느 1-4","5-24":"느 5-7","5-25":"느 8-10","5-26":"느 11-13","5-27":"에 1-5","5-28":"에 6-10",
-  "5-29":"욥 1-4","5-30":"욥 5-7","5-31":"욥 8-11",
-  "6-1":"욥 12-14","6-2":"욥 15-18","6-3":"욥 19-21","6-4":"욥 22-25","6-5":"욥 26-29","6-6":"욥 30-31","6-7":"욥 32-34","6-8":"욥 35-37","6-9":"욥 38-39","6-10":"욥 40-42",
-  "6-11":"시 1-8","6-12":"시 9-16","6-13":"시 17-20","6-14":"시 21-25","6-15":"시 26-31","6-16":"시 32-35","6-17":"시 36-38","6-18":"시 39-44","6-19":"시 45-50","6-20":"시 51-57","6-21":"시 58-65","6-22":"시 66-69","6-23":"시 70-73","6-24":"시 74-77","6-25":"시 78-79","6-26":"시 80-85","6-27":"시 86-89","6-28":"시 90-95","6-29":"시 96-102","6-30":"시 103-105",
-  "7-1":"시 106-107","7-2":"시 108-114","7-3":"시 115-118","7-4":"시 119","7-5":"시 120-131","7-6":"시 132-138","7-7":"시 139-144","7-8":"시 145-150",
-  "7-9":"잠 1-3","7-10":"잠 4-6","7-11":"잠 7-9","7-12":"잠 10-12","7-13":"잠 13-15","7-14":"잠 16-18","7-15":"잠 19-21","7-16":"잠 22-24","7-17":"잠 25-27","7-18":"잠 28-31",
-  "7-19":"전 1-4","7-20":"전 5-8","7-21":"전 9-12","7-22":"아 1-8",
-  "7-23":"사 1-4","7-24":"사 5-8","7-25":"사 9-13","7-26":"사 14-18","7-27":"사 19-23","7-28":"사 24-28","7-29":"사 29-32","7-30":"사 33-36","7-31":"사 37-40",
-  "8-1":"사 41-43","8-2":"사 44-47","8-3":"사 48-51","8-4":"사 52-57","8-5":"사 58-62","8-6":"사 63-66",
-  "8-7":"렘 1-3","8-8":"렘 4-6","8-9":"렘 7-9","8-10":"렘 10-12","8-11":"렘 13-16","8-12":"렘 17-20","8-13":"렘 21-24","8-14":"렘 25-27","8-15":"렘 28-30","8-16":"렘 31-32","8-17":"렘 33-36","8-18":"렘 37-40","8-19":"렘 41-44","8-20":"렘 45-48","8-21":"렘 49-50","8-22":"렘 51-52",
-  "8-23":"애 1-2","8-24":"애 3-5",
-  "8-25":"겔 1-5","8-26":"겔 6-9","8-27":"겔 10-12","8-28":"겔 13-15","8-29":"겔 16-17","8-30":"겔 18-20","8-31":"겔 21-22",
-  "9-1":"겔 23-25","9-2":"겔 26-28","9-3":"겔 29-32","9-4":"겔 33-35","9-5":"겔 36-38","9-6":"겔 39-41","9-7":"겔 42-44","9-8":"겔 45-48",
-  "9-9":"단 1-3","9-10":"단 4-6","9-11":"단 7-9","9-12":"단 10-12",
-  "9-13":"호 1-7","9-14":"호 8-14","9-15":"욜 1-3","9-16":"암 1-5","9-17":"암 6-9","9-18":"옵 1, 욘 1-4","9-19":"미 1-7","9-20":"나 1-3, 합 1-3","9-21":"습 1-3, 학 1-2","9-22":"슥 1-5","9-23":"슥 6-10",
-  "9-24":"개별통독","9-25":"개별통독","9-26":"개별통독",
-  "9-27":"슥 11-14","9-28":"말 1-4","9-29":"마 1-4","9-30":"마 5-6",
-  "10-1":"마 7-8","10-2":"마 9-10","10-3":"마 11-12","10-4":"마 13-14","10-5":"마 15-17","10-6":"마 18-20","10-7":"마 21-22","10-8":"마 23-24","10-9":"마 25-26","10-10":"마 27-28",
-  "10-11":"막 1-3","10-12":"막 4-6","10-13":"막 7-9","10-14":"막 10-12","10-15":"막 13-16",
-  "10-16":"눅 1-2","10-17":"눅 3-5","10-18":"눅 6-7","10-19":"눅 8-9","10-20":"눅 10-11","10-21":"눅 12-13","10-22":"눅 14-16","10-23":"눅 17-18","10-24":"눅 19-20","10-25":"눅 21-22","10-26":"눅 23-24",
-  "10-27":"요 1-3","10-28":"요 4-5","10-29":"요 6-7","10-30":"요 8-9","10-31":"요 10-11",
-  "11-1":"요 12-13","11-2":"요 14-15","11-3":"요 16-18","11-4":"요 19-21",
-  "11-5":"행 1-3","11-6":"행 4-6","11-7":"행 7-8","11-8":"행 9-10","11-9":"행 11-13","11-10":"행 14-16","11-11":"행 17-19","11-12":"행 20-22","11-13":"행 23-25","11-14":"행 26-28",
-  "11-15":"롬 1-3","11-16":"롬 4-6","11-17":"롬 7-9","11-18":"롬 10-12","11-19":"롬 13-16",
-  "11-20":"고전 1-3","11-21":"고전 4-6","11-22":"고전 7-9","11-23":"고전 10-11","11-24":"고전 12-14","11-25":"고전 15-16",
-  "11-26":"고후 1-3","11-27":"고후 4-7","11-28":"고후 8-10","11-29":"고후 11-13","11-30":"갈 1-3",
-  "12-1":"갈 4-6","12-2":"엡 1-3","12-3":"엡 4-6","12-4":"빌 1-4","12-5":"골 1-4","12-6":"살전 1-5","12-7":"살후 1-3","12-8":"딤전 1-6","12-9":"딤후 1-4","12-10":"딛 1-3, 몬 1",
-  "12-11":"히 1-4","12-12":"히 5-7","12-13":"히 8-10","12-14":"히 11-13","12-15":"약 1-5","12-16":"벧전 1-5","12-17":"벧후 1-3","12-18":"요일 1-5","12-19":"요이, 요삼, 유",
-  "12-20":"계 1-3","12-21":"계 4-7","12-22":"계 8-12","12-23":"계 13-17","12-24":"계 18-22",
-  "12-25":"개별통독","12-26":"개별통독","12-27":"개별통독","12-28":"개별통독","12-29":"개별통독","12-30":"개별통독","12-31":"개별통독",
-};
-
-const BF = {"창":"창세기","출":"출애굽기","레":"레위기","민":"민수기","신":"신명기","수":"여호수아","삿":"사사기","룻":"룻기","삼상":"사무엘상","삼하":"사무엘하","왕상":"열왕기상","왕하":"열왕기하","대상":"역대상","대하":"역대하","스":"에스라","느":"느헤미야","에":"에스더","욥":"욥기","시":"시편","잠":"잠언","전":"전도서","아":"아가","사":"이사야","렘":"예레미야","애":"예레미야애가","겔":"에스겔","단":"다니엘","호":"호세아","욜":"요엘","암":"아모스","옵":"오바댜","욘":"요나","미":"미가","나":"나훔","합":"하박국","습":"스바냐","학":"학개","슥":"스가랴","말":"말라기","마":"마태복음","막":"마가복음","눅":"누가복음","요":"요한복음","행":"사도행전","롬":"로마서","고전":"고린도전서","고후":"고린도후서","갈":"갈라디아서","엡":"에베소서","빌":"빌립보서","골":"골로새서","살전":"데살로니가전서","살후":"데살로니가후서","딤전":"디모데전서","딤후":"디모데후서","딛":"디도서","몬":"빌레몬서","히":"히브리서","약":"야고보서","벧전":"베드로전서","벧후":"베드로후서","요일":"요한일서","요이":"요한이서","요삼":"요한삼서","유":"요한삼서","유":"유다서","계":"요한계시록"};
-function expand(raw) {
-  if (!raw || raw==="개별통독") return raw;
-  const sorted = Object.keys(BF).sort((a,b)=>b.length-a.length);
-  let r = raw;
-  for (const ab of sorted) r = r.replace(new RegExp(`^${ab}\\b`), BF[ab]);
-  return r;
-}
-
-const GOSPEL_BOOKS = new Set(["마","막","눅","요"]);
-const NT_BOOKS = new Set(["행","롬","고전","고후","갈","엡","빌","골","살전","살후","딤전","딤후","딛","몬","히","약","벧전","벧후","요일","요이","요삼","유","계"]);
-const THEMES = [
-  {key:"GOD", name:"하나님", subtitle:"하나님은 누구신가", en:"Father · Creator · Sovereign", color:"#C9A84C", glow:"rgba(201,168,76,0.4)", bg:"rgba(201,168,76,0.07)", border:"rgba(201,168,76,0.22)", symbol:"✦", badge:"구약 · 하나님"},
-  {key:"JESUS", name:"예수님", subtitle:"예수님은 누구신가", en:"Son · Savior · Lord", color:"#D48C6E", glow:"rgba(212,140,110,0.4)", bg:"rgba(212,140,110,0.07)", border:"rgba(212,140,110,0.22)", symbol:"✝", badge:"복음서 · 예수님"},
-  {key:"SPIRIT", name:"성령님", subtitle:"성령님은 누구신가", en:"Holy Spirit · Comforter · Guide", color:"#6EA8D4", glow:"rgba(110,168,212,0.4)", bg:"rgba(110,168,212,0.07)", border:"rgba(110,168,212,0.22)", symbol:"◈", badge:"신약 · 성령님"},
-];
-function detectTheme(raw) {
-  if (!raw || raw==="개별통독") return THEMES[0];
-  const fw = raw.trim().split(/[\s,]/)[0];
-  if (GOSPEL_BOOKS.has(fw)) return THEMES[1];
-  if (NT_BOOKS.has(fw)) return THEMES[2];
-  return THEMES[0];
-}
-const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
-const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
-const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmtLong = d => d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
-const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
-const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
-const MAX_SEC = 300;
-
-// ─── 로그인 화면 ──────────────────────────────────────────────────────────────
-function LoginScreen() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const handleLogin = async () => {
-    setLoading(true); setError("");
-    try {
-      await signInWithPopup(auth, gProvider);
-    } catch(e) {
-      if (e.code !== "auth/popup-closed-by-user") setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
-      setLoading(false);
-    }
-  };
-  return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E,#060818)",display:"flex",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"'Noto Serif KR',serif"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap');`}</style>
-      <div style={{textAlign:"center",maxWidth:340,width:"100%"}}>
-        <div style={{fontSize:52,marginBottom:16,color:"#C9A84C"}}>✦</div>
-        <div style={{fontSize:10,letterSpacing:".25em",color:"#3A3028",textTransform:"uppercase",marginBottom:8,fontFamily:"'Cormorant Garamond',serif"}}>BASIC Community Church</div>
-        <h1 style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",color:"#C9A84C",marginBottom:8,fontWeight:600}}>2026 성경통독</h1>
-        <p style={{fontSize:13,color:"#6A5E50",marginBottom:40,lineHeight:1.8,fontWeight:300}}>구글 계정으로 로그인하면<br/>통독 기록이 자동으로 저장되고<br/>멤버들과 함께 나눌 수 있어요</p>
-        <button onClick={handleLogin} disabled={loading}
-          style={{background:"#fff",border:"none",borderRadius:14,padding:"15px 32px",cursor:"pointer",fontSize:14,fontWeight:600,color:"#333",display:"flex",alignItems:"center",gap:10,margin:"0 auto",boxShadow:"0 4px 24px rgba(0,0,0,.4)",transition:"all .2s",opacity:loading?0.7:1}}>
-          <img src="https://www.google.com/favicon.ico" width={18} height={18} alt="G" onError={e=>e.target.style.display="none"}/>
-          {loading ? "로그인 중..." : "Google로 로그인"}
-        </button>
-        {error && <div style={{marginTop:16,fontSize:12,color:"#E07070",background:"rgba(224,112,112,.1)",border:"1px solid rgba(224,112,112,.2)",borderRadius:10,padding:"10px 14px"}}>{error}</div>}
-      </div>
-    </div>
-  );
-}
-
-// ─── 리더 현황판 ──────────────────────────────────────────────────────────────
-function LeaderDashboard({ theme }) {
-  const TODAY = today0();
-  const [selDate, setSelDate] = useState(TODAY);
-  const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const key = dk(selDate);
-  const raw = R[key] || "";
-
-  useEffect(() => {
-    setLoading(true);
-    const q = query(collection(db, "completions"), where("dateKey", "==", key));
-    const unsub = onSnapshot(q, snap => {
-      setMembers(snap.docs.map(d => d.data()));
-      setLoading(false);
-    }, () => setLoading(false));
-    return () => unsub();
-  }, [key]);
-
-  const getColor = m => {
-    if (m.done && m.voiceDone) return "#4CAF81";
-    if (m.done) return "#C9A84C";
-    if (m.voiceDone) return "#6EA8D4";
-    return "#444";
-  };
-  const getLabel = m => {
-    if (m.done && m.voiceDone) return "통독 + 기도 ✓";
-    if (m.done) return "통독 완료";
-    if (m.voiceDone) return "기도 완료";
-    return "미완료";
-  };
-
-  const sorted = [...members].sort((a,b) => {
-    const s = m => (m.done?2:0)+(m.voiceDone?1:0);
-    return s(b)-s(a);
-  });
-
-  return (
-    <div className="fade" style={{paddingTop:8}}>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
-        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
-        <div style={{textAlign:"center"}}>
-          <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{selDate.getMonth()+1}월 {selDate.getDate()}일 현황</div>
-          <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw || "—"}</div>
-        </div>
-        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
-      </div>
-
-      {!loading && (
-        <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
-          {[
-            ["전체",members.length,"#6A5E50"],
-            ["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],
-            ["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],
-            ["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"],
-          ].map(([label,count,color])=>(
-            <div key={label} style={{background:"rgba(255,255,255,.03)",border:`1px solid ${color}33`,borderRadius:12,padding:"10px 4px",textAlign:"center"}}>
-              <div style={{fontSize:20,fontFamily:"'Cormorant Garamond',serif",color,fontWeight:600}}>{count}</div>
-              <div style={{fontSize:9,color:"#5A5040",letterSpacing:".05em",marginTop:2}}>{label}</div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div style={{display:"flex",gap:12,marginBottom:14,flexWrap:"wrap"}}>
-        {[["#4CAF81","통독 + 기도"],["#C9A84C","통독만"],["#6EA8D4","기도만"],["#444","미완료"]].map(([c,l])=>(
-          <div key={l} style={{display:"flex",alignItems:"center",gap:5}}>
-            <div style={{width:10,height:10,borderRadius:5,background:c,boxShadow:`0 0 6px ${c}`}}/>
-            <span style={{fontSize:11,color:"#6A5E50"}}>{l}</span>
-          </div>
-        ))}
-      </div>
-
-      {loading ? (
-        <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>불러오는 중...</div>
-      ) : sorted.length === 0 ? (
-        <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>이 날 아직 참여한 멤버가 없어요</div>
-      ) : (
-        <div style={{display:"flex",flexDirection:"column",gap:8}}>
-          {sorted.map(m => (
-            <div key={m.uid} style={{background:"rgba(255,255,255,.03)",border:`2px solid ${getColor(m)}44`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:12,transition:"all .2s"}}>
-              {m.photoURL ? (
-                <img src={m.photoURL} width={38} height={38} style={{borderRadius:19,border:`2px solid ${getColor(m)}`,flexShrink:0}} alt=""/>
-              ) : (
-                <div style={{width:38,height:38,borderRadius:19,background:`${getColor(m)}22`,border:`2px solid ${getColor(m)}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0,color:getColor(m)}}>
-                  {(m.displayName||"?")[0]}
-                </div>
-              )}
-              <div style={{flex:1,minWidth:0}}>
-                <div style={{fontSize:14,color:"#EDE5D5",fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{m.displayName || m.email}</div>
-                <div style={{fontSize:11,color:getColor(m),marginTop:2}}>{getLabel(m)}</div>
-              </div>
-              <div style={{display:"flex",gap:6,flexShrink:0}}>
-                <div style={{width:22,height:22,borderRadius:11,background:m.done?"#C9A84C22":"rgba(255,255,255,.03)",border:`1px solid ${m.done?"#C9A84C":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.done?"#C9A84C":"#444"}}>
-                  {m.done?"✓":"—"}
-                </div>
-                <div style={{width:22,height:22,borderRadius:11,background:m.voiceDone?"#4CAF8122":"rgba(255,255,255,.03)",border:`1px solid ${m.voiceDone?"#4CAF81":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.voiceDone?"#4CAF81":"#444"}}>
-                  {m.voiceDone?"🎙":"—"}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      <div style={{height:36}}/>
-    </div>
-  );
-}
-
-// ─── 음성 녹음 컴포넌트 ───────────────────────────────────────────────────────
-function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
-  const [recState, setRecState] = useState("idle");
-  const [elapsed, setElapsed] = useState(0);
-  const [audioUrl, setAudioUrl] = useState(null);
-  const [savedMeta, setSavedMeta] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [showShareModal, setShowShareModal] = useState(false);
-  const shareTextRef = useRef(null);
-  const mediaRef = useRef(null);
-  const chunksRef = useRef([]);
-  const timerRef = useRef(null);
-  const blobRef = useRef(null);
-
-  const storageKey = `bc365_audio_${dateKey}`;
-  const metaKey = `bc365_audio_meta_${dateKey}`;
-  const dateStr = dateKey.replace("-","월 ")+"일";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
-
-  useEffect(() => {
-    setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
-    try {
-      const metaR = localStorage.getItem(metaKey);
-      const audioR = localStorage.getItem(storageKey);
-      if (metaR && audioR) { setSavedMeta(JSON.parse(metaR)); setAudioUrl(audioR); setRecState("saved"); }
-      else setRecState("idle");
-    } catch { setRecState("idle"); }
-    setLoading(false);
-  }, [dateKey]);
-
-  const startRecording = async () => {
-    setError("");
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":"audio/ogg";
-      const mr = new MediaRecorder(stream,{mimeType,audioBitsPerSecond:32000});
-      chunksRef.current = [];
-      mr.ondataavailable = e => { if(e.data.size>0) chunksRef.current.push(e.data); };
-      mr.onstop = () => {
-        stream.getTracks().forEach(t=>t.stop());
-        const blob = new Blob(chunksRef.current,{type:mimeType});
-        blobRef.current = blob;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const dataUrl = reader.result;
-          const dur = elapsed;
-          const meta = {duration:dur,savedAt:new Date().toLocaleString("ko-KR"),size:Math.round(blob.size/1024)};
-          setAudioUrl(dataUrl); setSavedMeta(meta);
-          try {
-            localStorage.setItem(storageKey,dataUrl);
-            localStorage.setItem(metaKey,JSON.stringify(meta));
-            setRecState("saved");
-            if(onSave) onSave();
-          } catch { setError("저장 실패: 파일이 너무 큽니다."); setRecState("idle"); }
-        };
-        reader.readAsDataURL(blob);
-      };
-      mr.start(1000); mediaRef.current = mr; setElapsed(0); setRecState("recording");
-      timerRef.current = setInterval(()=>setElapsed(prev=>{if(prev+1>=MAX_SEC){stopRecording();return prev+1;}return prev+1;}),1000);
-    } catch { setError("마이크 접근이 거부되었습니다."); }
-  };
-
-  const stopRecording = () => {
-    clearInterval(timerRef.current);
-    if(mediaRef.current&&mediaRef.current.state!=="inactive") mediaRef.current.stop();
-  };
-
-  const deleteAudio = () => {
-    if(!confirm("이 날의 녹음을 삭제할까요?")) return;
-    try{localStorage.removeItem(storageKey);localStorage.removeItem(metaKey);}catch{}
-    setAudioUrl(null);setSavedMeta(null);setRecState("idle");setElapsed(0);
-    if(onDelete) onDelete();
-  };
-
-  const handleShare = async () => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if(isMobile&&navigator.share){
-      try{await navigator.share({title:"2026 BASIC 성경통독 🙏",text:shareText,url:window.location.href});return;}
-      catch(e){if(e.name==="AbortError")return;}
-    }
-    setShowShareModal(true);
-  };
-
-  const pct = Math.min((elapsed/MAX_SEC)*100,100);
-
-  if(loading) return <div style={{padding:"24px 0",textAlign:"center",color:"#3A3028",fontSize:12}}>불러오는 중…</div>;
-
-  return (
-    <div>
-      {showShareModal && (
-        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.8)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setShowShareModal(false)}>
-          <div style={{background:"#12151F",border:`1px solid ${theme.border}`,borderRadius:20,padding:"24px",maxWidth:400,width:"100%"}} onClick={e=>e.stopPropagation()}>
-            <div style={{fontSize:10,letterSpacing:".2em",color:theme.color+"88",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>공유할 내용</div>
-            <textarea ref={shareTextRef} readOnly value={shareText}
-              onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();}}}
-              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontSize:13,lineHeight:1.8,resize:"none",height:160}}/>
-            <div style={{display:"flex",gap:8,marginTop:12}}>
-              <button onClick={()=>{shareTextRef.current.select(); document.execCommand("copy");}} style={{flex:1,background:theme.color,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontWeight:700}}>📋 복사하기</button>
-              <button onClick={()=>setShowShareModal(false)} style={{background:"rgba(255,255,255,.05)",borderRadius:12,padding:"12px 16px",color:"#6A5E50"}}>닫기</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {recState==="idle" && (
-        <div style={{textAlign:"center",padding:"8px 0"}}>
-          <button onClick={startRecording} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:100,padding:"12px 28px",color:"#08090F",fontSize:14,fontWeight:600,cursor:"pointer"}}>🎙 녹음 시작</button>
-        </div>
-      )}
-
-      {recState==="recording" && (
-        <div style={{textAlign:"center",padding:"8px 0"}}>
-          <div style={{fontSize:34,fontWeight:600,color:theme.color}}>{fmtTime(elapsed)}</div>
-          <button onClick={stopRecording} style={{background:"rgba(224,100,100,.15)",border:"1px solid rgba(224,100,100,.3)",borderRadius:100,padding:"11px 28px",color:"#E08080"}}>■ 녹음 완료</button>
-        </div>
-      )}
-
-      {recState==="saved" && audioUrl && (
-        <div>
-          <audio controls src={audioUrl} style={{width:"100%",height:40,borderRadius:20,outline:"none"}}/>
-          <div style={{display:"flex",gap:8,marginTop:10,justifyContent:"flex-end"}}>
-            <button onClick={handleShare} style={{background:theme.color,border:"none",borderRadius:20,padding:"5px 12px",color:"#08090F",fontSize:11}}>📤 공유</button>
-            <button onClick={deleteAudio} style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"5px 12px",color:"#E08080",fontSize:11}}>삭제</button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── 메인 앱 ─────────────────────────────────────────────────────────────────
-export default function App() {
-  const TODAY = today0();
-  const [user, setUser] = useState(undefined);
-  const [viewDate, setViewDate] = useState(TODAY);
-  const [devotional, setDevotional] = useState("");
-  const [done, setDone] = useState(new Set());
-  const [voiceDone, setVoiceDone] = useState(new Set());
-  const [tab, setTab] = useState("main");
-  const [calMonth, setCalMonth] = useState(TODAY.getMonth());
-
-  const key = dk(viewDate);
-  const raw = R[key] || "";
-  const theme = detectTheme(raw);
-  const isToday = key === dk(TODAY);
-  const isPersonal = raw === "개별통독";
-  const expanded = expand(raw);
-  const d = DEVOTIONALS[key];
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (u) => {
-      setUser(u);
-      if (u) {
-        const { done: d2, voiceDone: v2 } = await loadUserCompletions(u.uid);
-        setDone(d2); setVoiceDone(v2);
-      }
-    });
-    return () => unsub();
-  }, []);
-
-  useEffect(() => {
-    if (isPersonal) { setDevotional("PERSONAL"); return; }
-    if (!raw) { setDevotional(""); return; }
-    if (d) { setDevotional(`[본문의 핵심]\n${d.핵심}\n\n[${theme.name}의 성품]\n${d.성품}\n\n[오늘의 묵상]\n${d.묵상}\n\n[오늘의 기도]\n${d.기도}`); }
-  }, [key, isPersonal, raw, theme.name, d]);
-
-  const toggleDone = async () => {
-    const next = new Set(done);
-    next.has(key) ? next.delete(key) : next.add(key);
-    setDone(next);
-    if (user) await saveCompletion(user, key, next.has(key), voiceDone.has(key), raw);
-  };
-
-  const handleVoiceSaved = async () => {
-    const nextV = new Set(voiceDone); nextV.add(key);
-    setVoiceDone(nextV);
-    const nextD = new Set(done); nextD.add(key);
-    setDone(nextD);
-    if (user) await saveCompletion(user, key, true, true, raw);
-  };
-
-  const handleVoiceDeleted = async () => {
-    const nextV = new Set(voiceDone); nextV.delete(key);
-    setVoiceDone(nextV);
-    if (user) await saveCompletion(user, key, done.has(key), false, raw);
-  };
-
-  const parseSections = (text) => {
-    if (!text || text==="PERSONAL") return [];
-    const heads = ["본문의 핵심",`${theme.name}의 성품`,"오늘의 묵상","오늘의 기도"];
-    const icons = ["◎","✦","☽","♡"];
-    return heads.map((h,i) => {
-      const m = text.match(new RegExp(`\\[${h}\\]([\\s\\S]*?)(?=\\[|$)`));
-      return m ? {label:h,icon:icons[i],content:m[1].trim()} : null;
-    }).filter(Boolean);
-  };
-  const sections = parseSections(devotional);
-
-  const buildCalendar = (m) => {
-    const fd = new Date(2026,m,1).getDay(), ld = new Date(2026,m+1,0).getDate(), cells = [];
-    for (let i=0;i<fd;i++) cells.push(null);
-    for (let d2=1;d2<=ld;d2++) {
-      const dt=new Date(2026,m,d2),k2=dk(dt),r2=R[k2]||"";
-      cells.push({d:d2,k:k2,r2,dt,theme:detectTheme(r2),done:done.has(k2),voiceDone:voiceDone.has(k2),isToday:k2===dk(TODAY),isView:k2===key});
-    }
-    return cells;
-  };
-  const calCells = buildCalendar(calMonth);
-  const totalDays = Object.keys(R).filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-  const doneDays = [...done].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-  const prog = totalDays>0?(doneDays/totalDays)*100:0;
-  const nav = (delta) => { const next=addDays(viewDate,delta); if(R[dk(next)]!==undefined){setViewDate(next);setTab("main");} };
-  const hasPrev = R[dk(addDays(viewDate,-1))]!==undefined;
-  const hasNext = R[dk(addDays(viewDate,1))]!==undefined;
-
-  if (user === undefined) return <div style={{minHeight:"100vh",background:"#06091A"}}/>;
-  if (!user) return <LoginScreen />;
-
-  const TABS = [["main","📖 묵상"],["voice","🎙 기도"],["calendar","📅 달력"],["leader","👑 현황판"]];
-
-  return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR',serif",overflowX:"hidden"}}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}
-        .fade{animation:fadeUp .6s ease both}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-        .btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#9A8E7A;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:13px}
-        .cal-cell:hover{opacity:.8;transform:scale(1.04)}
-      `}</style>
-
-      <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
-        <header style={{display:"flex",justifyContent:"space-between",padding:"22px 0 0"}}>
-          <div>
-            <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028"}}>BASIC Community Church · 2026 성경통독</div>
-            <div style={{fontSize:12,color:"#6A5E50"}}>{fmtLong(viewDate)}</div>
-          </div>
-          <button onClick={()=>signOut(auth)} style={{background:"none",border:"1px solid rgba(255,255,255,.08)",borderRadius:20,padding:"4px 10px",color:"#5A5040",fontSize:10,cursor:"pointer"}}>로그아웃</button>
-        </header>
-
-        <div style={{display:"flex",gap:3,justifyContent:"center",margin:"14px 0 0",overflowX:"auto"}}>
-          {TABS.map(([t,l]) => (
-            <button key={t} onClick={()=>setTab(t)} style={{color:tab===t?theme.color:"#5A5242",background:tab===t?theme.bg:"none",border:"none",padding:"7px 12px",borderRadius:20,fontSize:11,cursor:"pointer"}}>
-              {l}
-            </button>
-          ))}
-        </div>
-
-        {/* ═══ 묵상 탭 ═══ */}
-        {tab==="main" && (
-          <div key={key} className="fade">
-            <section style={{textAlign:"center",padding:"24px 0 18px"}}>
-              <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
-            </section>
-
-          {tab==="main" && (
-          <div key={key} className="fade">
-            <section style={{textAlign:"center",padding:"24px 0 18px"}}>
-              <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
-            </section>
-
-            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
-              <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4}}>{raw}</div>
-              <div style={{fontSize:13,color:theme.color+"88",marginBottom:12}}>{expanded}</div>
-              <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"16px",marginTop:4}}>
-                <div style={{fontSize:14,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,marginBottom:8,wordBreak:"keep-all"}}>
-                  "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
-                </div>
-                <div style={{fontSize:12,color:theme.color+"88"}}>갈라디아서 2:20</div>
-              </div>
-            </div>
-
-            {sections.length>0 && (
-              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
-                {sections.map(s=>(
-                  <div key={s.label} style={{marginBottom:15}}>
-                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
-                      <span style={{color:theme.color}}>{s.icon}</span>
-                      <span style={{fontSize:12,color:theme.color+"BB",fontWeight:600}}>{s.label}</span>
-                    </div>
-                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.85}}>{s.content}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
-              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
-                {done.has(key)?"✓ 완료됨":"완료 체크"}
-              </button>
-              <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
-            </div>
-          </div>
-        )}
-            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
-              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
-                {done.has(key)?"✓ 완료됨":"완료 체크"}
-              </button>
-              <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
-            </div>
-          </div>
-        )}
-
-        {/* ═══ 기도 녹음 탭 (여기에서 갈라디아서 2:20 고정됨!) ═══ */}
-        {tab==="voice" && (
-          <div key={`voice-${key}`} className="fade" style={{paddingTop:8}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",margin:"14px 0 18px"}}>
-              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              <div style={{textAlign:"center",fontSize:14,color:"#EDE5D5"}}>{viewDate.getMonth()+1}월 {viewDate.getDate()}일</div>
-            <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
-            </div>
-
-            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
-              <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
-                
-                {/* ──────────────── 갈라디아서 2:20 고정 ──────────────── */}
-                <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
-                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,marginBottom:10,wordBreak:"keep-all"}}>
-                    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
-                  </div>
-                  <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>갈라디아서 2:20</div>
-                  <div style={{fontSize:12,color:theme.color,marginTop:5}}>이 구절을 소리 내어 선포한 후 기도를 이어가 보세요.</div>
-                </div>
-                {/* ──────────────────────────────────────────────────────────── */}
-
-              </div>
-              <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
-            </div>
-          </div>
-        )}
-
-        {/* ═══ 달력 탭 ═══ */}
-        {tab==="calendar" && (
-          <div className="fade" style={{paddingTop:18}}>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
-              <button className="btn" onClick={()=>setCalMonth(m=>Math.max(0,m-1))} disabled={calMonth<=0}>←</button>
-              <div style={{fontSize:18,color:"#EDE5D5"}}>{MONTH_NAMES[calMonth]} 2026</div>
-              <button className="btn" onClick={()=>setCalMonth(m=>Math.min(11,m+1))} disabled={calMonth>=11}>→</button>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2}}>
-              {calCells.map((cell,i)=>{
-                if(!cell) return <div key={`e${i}`}/>;
-                const t2=cell.theme;
-                return (
-                  <div key={cell.k} className="cal-cell" onClick={()=>{setViewDate(cell.dt);setTab("main");}}
-                    style={{background:cell.done?"rgba(255,255,255,.05)":"rgba(255,255,255,.02)",border:`1px solid ${cell.isView?t2.color:"transparent"}`,borderRadius:10,padding:"10px 5px",textAlign:"center",cursor:"pointer"}}>
-                    <div style={{fontSize:11,color:cell.isToday?t2.color:"#6A5E50"}}>{cell.d}</div>
-                    <div style={{fontSize:9,color:t2.color}}>{cell.done?"✓":""} {cell.voiceDone?"🎙":""}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* ═══ 현황판 탭 ═══ */}
-        {tab==="leader" && <LeaderDashboard theme={theme}/>}
-
-      </div>
-    </div>
-  );
-}
+  "1-1":"\ucc3d 1-3","1-2":"\ucc3d 4-6","1-3":"\ucc3d 7-9","1-4":"\ucc3d 10-12","1-5":"\ucc3d 13-16","1-6":"\ucc3d 17-19","1-7":"\ucc3d 20-22","1-8":"\ucc3d 23-24","1-9":"\ucc3d 25-27","1-10":"\ucc3d 28-30","1-11":"\ucc3d 31-32","1-12":"\ucc3d 33-35","1-13":"\ucc3d 36-37","1-14":"\ucc3d 38-40","1-15":"\ucc3d 41-42","1-16":"\ucc3d 43-45","1-17":"\ucc3d 46-48","1-18":"\ucc3d 49-50",
+  "1-19":"\ucd9c 1-4","1-20":"\ucd9c 5-8","1-21":"\ucd9c 9-11","1-22":"\ucd9c 12-14","1-23":"\ucd9c 15-17","1-24":"\ucd9c 18-20","1-25":"\ucd9c 21-23","1-26":"\ucd9c 24-26","1-27":"\ucd9c 27-29","1-28":"\ucd9c 30-32","1-29":"\ucd9c 33-35","1-30":"\ucd9c 36-38","1-31":"\ucd9c 39-40",
+  "2-1":"\ub808 1-4","2-2":"\ub808 5-7","2-3":"\ub808 8-10","2-4":"\ub808 11-12","2-5":"\ub808 13-14","2-6":"\ub808 15-17","2-7":"\ub808 18-20","2-8":"\ub808 21-23","2-9":"\ub808 24-25","2-10":"\ub808 26-27",
+  "2-11":"\ubbfc 1-2","2-12":"\ubbfc 3-4","2-13":"\ubbfc 5-6","2-14":"\ubbfc 7-8","2-15":"\ubbfc 9-11","2-16":"\uac1c\ubcc4\ud1b5\ub3c5","2-17":"\uac1c\ubcc4\ud1b5\ub3c5","2-18":"\uac1c\ubcc4\ud1b5\ub3c5",
+  "2-19":"\ubbfc 12-14","2-20":"\ubbfc 15-16","2-21":"\ubbfc 17-20","2-22":"\ubbfc 21-23","2-23":"\ubbfc 24-26","2-24":"\ubbfc 27-29","2-25":"\ubbfc 30-31","2-26":"\ubbfc 32-33","2-27":"\ubbfc 34-36","2-28":"\uc2e0 1-2",
+  "3-1":"\uc2e0 3-4","3-2":"\uc2e0 5-7","3-3":"\uc2e0 8-10","3-4":"\uc2e0 11-13","3-5":"\uc2e0 14-16","3-6":"\uc2e0 17-20","3-7":"\uc2e0 21-24","3-8":"\uc2e0 25-27","3-9":"\uc2e0 28-29","3-10":"\uc2e0 30-31","3-11":"\uc2e0 32-34",
+  "3-12":"\uc218 1-4","3-13":"\uc218 5-8","3-14":"\uc218 9-11","3-15":"\uc218 12-14","3-16":"\uc218 15-17","3-17":"\uc218 18-20","3-18":"\uc218 21-22","3-19":"\uc218 23-24",
+  "3-20":"\uc0bf 1-3","3-21":"\uc0bf 4-6","3-22":"\uc0bf 7-8","3-23":"\uc0bf 9-10","3-24":"\uc0bf 11-14","3-25":"\uc0bf 15-18","3-26":"\uc0bf 19-21","3-27":"\ub8fb 1-4",
+  "3-28":"\uc0bc\uc0c1 1-3","3-29":"\uc0bc\uc0c1 4-8","3-30":"\uc0bc\uc0c1 9-12","3-31":"\uc0bc\uc0c1 13-14",
+  "4-1":"\uc0bc\uc0c1 15-17","4-2":"\uc0bc\uc0c1 18-20","4-3":"\uc0bc\uc0c1 21-24","4-4":"\uc0bc\uc0c1 25-27","4-5":"\uc0bc\uc0c1 28-31",
+  "4-6":"\uc0bc\ud558 1-3","4-7":"\uc0bc\ud558 4-7","4-8":"\uc0bc\ud558 8-12","4-9":"\uc0bc\ud558 13-15","4-10":"\uc0bc\ud558 16-18","4-11":"\uc0bc\ud558 19-21","4-12":"\uc0bc\ud558 22-24",
+  "4-13":"\uc655\uc0c1 1-2","4-14":"\uc655\uc0c1 3-5","4-15":"\uc655\uc0c1 6-7","4-16":"\uc655\uc0c1 8-9","4-17":"\uc655\uc0c1 10-11","4-18":"\uc655\uc0c1 12-14","4-19":"\uc655\uc0c1 15-17","4-20":"\uc655\uc0c1 18-20","4-21":"\uc655\uc0c1 21-22",
+  "4-22":"\uc655\ud558 1-3","4-23":"\uc655\ud558 4-6","4-24":"\uc655\ud558 7-9","4-25":"\uc655\ud558 10-13","4-26":"\uc655\ud558 14-16","4-27":"\uc655\ud558 17-18","4-28":"\uc655\ud558 19-21","4-29":"\uc655\ud558 22-25","4-30":"\ub300\uc0c1 1-2",
+  "5-1":"\ub300\uc0c1 3-5","5-2":"\ub300\uc0c1 6-7","5-3":"\ub300\uc0c1 8-10","5-4":"\ub300\uc0c1 11-13","5-5":"\ub300\uc0c1 14-16","5-6":"\ub300\uc0c1 17-20","5-7":"\ub300\uc0c1 21-23","5-8":"\ub300\uc0c1 24-26","5-9":"\ub300\uc0c1 27-29",
+  "5-10":"\ub300\ud558 1-5","5-11":"\ub300\ud558 6-8","5-12":"\ub300\ud558 9-12","5-13":"\ub300\ud558 13-17","5-14":"\ub300\ud558 18-20","5-15":"\ub300\ud558 21-24","5-16":"\ub300\ud558 25-28","5-17":"\ub300\ud558 29-31","5-18":"\ub300\ud558 32-34","5-19":"\ub300\ud558 35-36",
+  "5-20":"\uc2a4 1-2","5-21":"\uc2a4 3-6","5-22":"\uc2a4 7-10","5-23":"\ub290 1-4","5-24":"\ub290 5-7","5-25":"\ub290 8-10","5-26":"\ub290 11-13","5-27":"\uc5d0 1-5","5-28":"\uc5d0 6-10",
+  "5-29":"\uc6a5 1-4","5-30":"\uc6a5 5-7","5-31":"\uc6a5 8-11",
+  "6-1":"\uc6a5 12-14","6-2":"\uc6a5 15-18","6-3":"\uc6a5 19-21","6-4":"\uc6a5 22-25","6-5":"\uc6a5 26-29","6-6":"\uc6a5 30-31","6-7":"\uc6a5 32-34","6-8":"\uc6a5 35-37","6-9":"\uc6a5 38-39","6-10":"\uc6a5 40-42",
+  "6-11":"\uc2dc 1-8","6-12":"\uc2dc 9-16","6-13":"\uc2dc 17-20","6-14":"\uc2dc 21-25","6-15":"\uc2dc 26-31","6-16":"\uc2dc 32-35","6-17":"\uc2dc 36-38","6-18":"\uc2dc 39-44","6-19":"\uc2dc 45-50","6-20":"\uc2dc 51-57","6-21":"\uc2dc 58-65","6-22":"\uc2dc 66-69","6-23":"\uc2dc 70-73","6-24":"\uc2dc 74-77","6-25":"\uc2dc 78-79","6-26":"\uc2dc 80-85","6-27":"\uc2dc 86-89","6-28":"\uc2dc 90-95","6-29":"\uc2dc 96-102","6-30":"\uc2dc 103-105",
+  "7-1":"\uc2dc 106-107","7-2":"\uc2dc 108-114","7-3":"\uc2dc 115-118","7-4":"\uc2dc 119","7-5":"\uc2dc 120-131","7-6":"\uc2dc 132-138","7-7":"\uc2dc 139-144","7-8":"\uc2dc 145-150",
+  "7-9":"\uc7a0 1-3","7-10":"\uc7a0 4-6","7-11":"\uc7a0 7-9","7-12":"\uc7a0 10-12","7-13":"\uc7a0 13-15","7-14":"\uc7a0 16-18","7-15":"\uc7a0 19-21","7-16":"\uc7a0 22-24","7-17":"\uc7a0 25-27","7-18":"\uc7a0 28-31",
+  "7-19":"\uc804 1-4","7-20":"\uc804 5-8","7-21":"\uc804 9-12","7-22":"\uc544 1-8",
+  "7-23":"\uc0ac 1-4","7-24":"\uc0ac 5-8","7-25":"\uc0ac 9-13","7-26":"\uc0ac 14-18","7-27":"\uc0ac 19-23","7-28":"\uc0ac 24-28","7-29":"\uc0ac 29-32","7-30":"\uc0ac 33-36","7-31":"\uc0ac 37-40",
+  "8-1":"\uc0ac 41-43","8-2":"\uc0ac 44-47","8-3":"\uc0ac 48-51","8-4":"\uc0ac 52-57","8-5":"\uc0ac 58-62","8-6":"\uc0ac 63-66",
+  "8-7":"\ub818 1-3","8-8":"\ub818 4-6","8-9":"\ub818 7-9","8-10":"\ub818 10-12","8-11":"\ub818 13-16","8-12":"\ub818 17-20","8-13":"\ub818 21-24","8-14":"\ub818 25-27","8-15":"\ub818 28-30","8-16":"\ub818 31-32","8-17":"\ub818 33-36","8-18":"\ub818 37-40","8-19":"\ub818 41-44","8-20":"\ub818 45-48","8-21":"\ub818 49-50","8-22":"\ub818 51-52",
+  "8-23":"\uc560 1-2","8-24":"\uc560 3-5",
+  "8-25":"\uac94 1-5","8-26":"\uac94 6-9","8-27":"\uac94 10-12","8-28":"\uac94 13-15","8-29":"\uac94 16-17","8-30":"\uac94 18-20","8-31":"\uac94 21-22",
+  "9-1":"\uac94 23-25","9-2":"\uac94 26-28","9-3":"\uac94 29-32","9-4":"\uac94 33-35","9-5":"\uac94 36-38","9-6":"\uac94 39-41","9-7":"\uac94 42-44","9-8":"\uac94 45-48",
+  "9-9":"\ub2e8 1-3","9-10":"\ub2e8 4-6","9-11":"\ub2e8 7-9","9-12":"\ub2e8 10-12",
+  "9-13":"\ud638 1-7","9-14":"\ud638 8-14","9-15":"\uc69c 1-3","9-16":"\uc554 1-5","9-17":"\uc554 6-9","9-18":"\uc635 1, \uc698 1-4","9-19":"\ubbf8 1-7","9-20":"\ub098 1-3, \ud569 1-3","9-21":"\uc2b5 1-3, \ud559 1-2","9-22":"\uc2a5 1-5","9-23":"\uc2a5 6-10",
+  "9-24":"\uac1c\ubcc4\ud1b5\ub3c5","9-25":"\uac1c\ubcc4\ud1b5\ub3c5","9-26":"\uac1c\ubcc4\ud1b5\ub3c5",
+  "9-27":"\uc2a5 11-14","9-28":"\ub9d0 1-4","9-29":"\ub9c8 1-4","9-30":"\ub9c8 5-6",
+  "10-1":"\ub9c8 7-8","10-2":"\ub9c8 9-10","10-3":"\ub9c8 11-12","10-4":"\ub9c8 13-14","10-5":"\ub9c8 15-17","10-6":"\ub9c8 18-20","10-7":"\ub9c8 21-22","10-8":"\ub9c8 23-24","10-9":"\ub9c8 25-26","10-10":"\ub9c8 27-28",
+  "10-11":"\ub9c9 1-3","10-12":"\ub9c9 4-6","10-13":"\ub9c9 7-9","10-14":"\ub9c9 10-12","10-15":"\ub9c9 13-16",
+  "10-16":"\ub205 1-2","10-17":"\ub205 3-5","10-18":"\ub205 6-
