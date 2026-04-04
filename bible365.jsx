@@ -575,33 +575,46 @@ export default function App() {
               <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
             </section>
 
-            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
-             <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4}}>{raw}</div>
-<div style={{fontSize:13,color:theme.color+"88",marginBottom:12}}>{expanded}</div>
+          {tab==="main" && (
+          <div key={key} className="fade">
+            <section style={{textAlign:"center",padding:"24px 0 18px"}}>
+              <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
+            </section>
 
-{/* 갈라디아서 2:20 고정 */}
-<div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"16px",marginTop:4}}>
-  <div style={{fontSize:14,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,marginBottom:8,wordBreak:"keep-all"}}>
-    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
-  </div>
-  <div style={{fontSize:12,color:theme.color+"88"}}>갈라디아서 2:20</div>
-</div>
-</div>
+            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
+              <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4}}>{raw}</div>
+              <div style={{fontSize:13,color:theme.color+"88",marginBottom:12}}>{expanded}</div>
+              <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"16px",marginTop:4}}>
+                <div style={{fontSize:14,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,marginBottom:8,wordBreak:"keep-all"}}>
+                  "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
+                </div>
+                <div style={{fontSize:12,color:theme.color+"88"}}>갈라디아서 2:20</div>
+              </div>
+            </div>
 
-{sections.length>0 && (
-              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
-                {sections.map(s=>(
-                  <div key={s.label} style={{marginBottom:15}}>
-                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
-                      <span style={{color:theme.color}}>{s.icon}</span>
-                      <span style={{fontSize:12,color:theme.color+"BB",fontWeight:600}}>{s.label}</span>
-                    </div>
-                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.85}}>{s.content}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+            {sections.length>0 && (
+              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
+                {sections.map(s=>(
+                  <div key={s.label} style={{marginBottom:15}}>
+                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
+                      <span style={{color:theme.color}}>{s.icon}</span>
+                      <span style={{fontSize:12,color:theme.color+"BB",fontWeight:600}}>{s.label}</span>
+                    </div>
+                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.85}}>{s.content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
+            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
+              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
+              <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
+                {done.has(key)?"✓ 완료됨":"완료 체크"}
+              </button>
+              <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
+            </div>
+          </div>
+        )}
             <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
               <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
               <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
