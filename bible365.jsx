@@ -69,7 +69,7 @@ const DEVOTIONALS = {
 "4-9":{핵심:"다윗 가정의 비극이 시작됩니다. 그러나 다윗은 도망치면서도 하나님께 예배하기를 멈추지 않습니다.",성품:"하나님은 죄의 결과 가운데에서도 함께하시는 분입니다.",묵상:"고난 중에도 하나님을 향한 예배를 멈추지 마세요.",기도:"신실하신 하나님, 어떤 상황에서도 예배를 드리는 하루가 되게 하소서.",구절:"만일 내가 여호와 앞에서 은혜를 입으면 도로 나를 인도하시리라 (사무엘하 15:25)"},
 "4-10":{핵심:"압살롬의 반란으로 다윗은 예루살렘을 떠납니다. 시므이의 저주를 받을 때 다윗은 겸손히 받아들입니다.",성품:"하나님은 겸손한 자를 회복시키시는 분입니다.",묵상:"누군가의 비난이나 어려운 상황이 찾아올 때, 다윗처럼 그 안에서 하나님의 손길을 볼 수 있나요?",기도:"겸손을 사랑하시는 하나님, 내가 낮아지는 순간에 당신의 손길을 신뢰하게 하소서.",구절:"여호와께서 그에게 다윗을 저주하라 하심이니 (사무엘하 16:10)"},
 "4-11":{핵심:"다윗의 말년에도 반란이 계속됩니다. 하지만 다윗의 용사들의 이야기는 충성스러운 공동체가 얼마나 소중한지를 보여줍니다.",성품:"하나님은 충성스러운 공동체를 통해 역사하시는 분입니다.",묵상:"내 삶에서 함께 신앙의 길을 걷는 공동체가 있나요?",기도:"공동체의 하나님, 나도 신실한 동반자가 되게 하소서.",구절:"여호와께서 큰 구원으로 구원하시니라 (사무엘하 23:12)"},
-"4-12":{핵심:"다윗의 마지막 노래 '여호와는 나의 반석이시요'는 온 생애를 통한 신앙의 결론입니다.",성품:"하나님은 회개하는 자를 받으시는 분입니다.",묵상:"다윗의 일생은 완벽하지 않았지만 하나님을 향한 마음은 한결같았습니다.",기도:"긍휼이 많으신 하나님, 다윗처럼 실패해도 즉시 돌아오는 마음을 허락하소서.",구절:"여호와는 나의 반석이시요 나의 요새시요 나를 위하여 나를 건지시는 자시요 (사무엘하 22:2)"},
+"4-12":{핵심:"다윗의 마지막 노래 '여호와는 나의 반석이시요'는 온 생애를 통한 신앙의 결론입니다.",성품:"하나님은 회개하는 자를 받으시는 분입니다.",묵상:"다윗의 일생은 완벽하지 않았지만 하나님을 향한 마음은 한결같았습니다.",기도:"긍융이 많으신 하나님, 다윗처럼 실패해도 즉시 돌아오는 마음을 허락하소서.",구절:"여호와는 나의 반석이시요 나의 요새시요 나를 위하여 나를 건지시는 자시요 (사무엘하 22:2)"},
 "4-13":{핵심:"다윗이 죽기 전 솔로몬에게 '하나님의 도를 지키라'고 당부합니다.",성품:"하나님은 세대를 넘어 언약을 이어가시는 분입니다.",묵상:"내 신앙이 다음 세대에게 전해지고 있나요?",기도:"영원하신 하나님, 나를 통해 당신의 언약이 다음 세대로 이어지게 하소서.",구절:"네가 무엇을 하든지 어디로 가든지 형통할지라 (열왕기상 2:3)"},
 "4-14":{핵심:"솔로몬이 기브온에서 하나님께 일천 번제를 드릴 때 하나님이 나타나십니다. 솔로몬은 재물이나 장수가 아닌 지혜를 구합니다.",성품:"하나님은 바른 것을 구하는 자에게 넘치도록 주시는 분입니다.",묵상:"지금 내가 하나님께 구하는 것은 무엇인가요?",기도:"지혜를 주시는 하나님, 솔로몬처럼 하나님의 뜻을 이루기 위한 지혜를 구하게 하소서.",구절:"듣는 마음을 종에게 주사 주의 백성을 재판하여 선악을 분별하게 하옵소서 (열왕기상 3:9)"},
 "4-15":{핵심:"솔로몬이 7년에 걸쳐 성전을 건축합니다. 봉헌식 날 하나님의 영광이 성전에 가득 찼습니다.",성품:"하나님은 당신의 백성 가운데 임재하기를 원하시는 분입니다.",묵상:"내 삶이 하나님의 임재로 가득 찬 성전이 될 수 있습니다.",기도:"임재하시는 하나님, 내 삶이 당신의 영광으로 가득 찬 성전이 되게 하소서.",구절:"여호와의 영광이 여호와의 성전에 가득함이었더라 (열왕기상 8:10-11)"},
@@ -343,7 +343,7 @@ function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
       if (metaR && audioR) { setSavedMeta(JSON.parse(metaR)); setAudioUrl(audioR); setRecState("saved"); }
       else setRecState("idle");
     } catch { setRecState("idle"); }
-    setLoading(false);
+    loading === true && setLoading(false);
   }, [dateKey]);
 
   const startRecording = async () => {
@@ -749,13 +749,17 @@ export default function App() {
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
-               <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
-  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>
-    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
-  </div>
-  <div style={{fontSize:12,color:theme.color+"88",marginBottom:8,fontFamily:"'Cormorant Garamond',serif",letterSpacing:".06em"}}>갈라디아서 2:20</div>
-  <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
-</div>
+                
+                {/* ──────────────── 갈라디아서 2:20 고정 섹션 ──────────────── */}
+                <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
+                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:10,wordBreak:"keep-all"}}>
+                    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
+                  </div>
+                  <div style={{fontSize:12,color:theme.color+"88",marginBottom:8,fontFamily:"'Cormorant Garamond',serif",letterSpacing:".06em"}}>갈라디아서 2:20</div>
+                  <div style={{fontSize:12,color:theme.color}}>이 구절을 소리 내어 선포한 후, 기도를 이어가 보세요.</div>
+                </div>
+                {/* ──────────────────────────────────────────────────────────── */}
+
               </div>
               <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
             </div>
