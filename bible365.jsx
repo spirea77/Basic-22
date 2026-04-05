@@ -507,13 +507,15 @@ export default function App() {
         </div>
 
         {/* ═══ 묵상 탭 ═══ */}
-        {tab==="main" && (
+       {tab==="main" && (
           <div key={key} className="fade">
             <section style={{textAlign:"center",padding:"24px 0 18px"}}>
               <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
             </section>
 
-         
+            <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
+              <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4}}>{raw}</div>
+              <div style={{fontSize:13,color:theme.color+"88",marginBottom:4}}>{expanded}</div>
             </div>
 
             {sections.length>0 && (
