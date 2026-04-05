@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc, collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 
-// ─── FIREBASE 설정 ─────────────────────────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyALaJMUPnc9Ik8JDUWMhWp8_O-Xk00jlv8",
   authDomain: "basie-22.firebaseapp.com",
@@ -17,7 +16,6 @@ const auth = getAuth(fbApp);
 const db = getFirestore(fbApp);
 const gProvider = new GoogleAuthProvider();
 
-// ─── FIRESTORE 헬퍼 ───────────────────────────────────────────────────────────
 async function saveCompletion(user, dateKey, done, voiceDone, passage) {
   try {
     await setDoc(doc(db, "completions", `${user.uid}_${dateKey}`), {
@@ -46,7 +44,6 @@ async function loadUserCompletions(uid) {
   } catch(e) { return { done: new Set(), voiceDone: new Set() }; }
 }
 
-// ─── 묵상 데이터 ──────────────────────────────────────────────────────────────
 const DEVOTIONALS = {
 "3-22":{핵심:"하나님은 기드온에게 군사의 수를 300명으로 줄이게 하십니다. 이는 전쟁의 승리가 인간의 숫자가 아닌 오직 하나님의 능력에 있음을 깨닫게 하시기 위함입니다.",성품:"하나님은 우리의 약함과 부족함을 통해 당신의 크신 능력을 온전히 드러내시는 전능하신 구원자이십니다.",묵상:"가진 것이 적어 두려우신가요? 하나님은 300명으로도 대군을 이기십니다. 내 약함이 오히려 하나님의 능력이 임하는 통로가 됨을 믿으세요.",기도:"전능하신 하나님, 내 능력과 상황을 의지하려는 마음을 내려놓고, 오직 주님의 크신 손길만을 신뢰하며 나아가게 하소서.",구절:"그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라 (히브리서 4:2)"},
 "3-23":{핵심:"아비멜렉이 맷돌에 맞아 죽는 장면은 하나님의 심판이 반드시 임한다는 것을 보여줍니다. 이후에도 이스라엘은 또다시 바알과 아스다롯을 섬기며 하나님을 떠나는 반복적인 패턴을 보입니다.",성품:"하나님은 오래 참으시는 분이지만 결코 죄를 영원히 간과하지 않으십니다. 이스라엘이 반복적으로 죄를 지어도 부르짖을 때 다시 돌아보시는 것은 하나님의 인내와 언약에 대한 신실하심 때문입니다.",묵상:"내 삶에도 반복되는 패턴이 있나요? 결심하고 돌아서다가 또 넘어지는 그 자리에서, 하나님은 여전히 나의 부르짖음을 들으십니다. 하나님의 오래 참으심이 나를 회개로 이끕니다.",기도:"인내하시는 하나님, 반복되는 나의 연약함에도 포기하지 않으시는 사랑에 감사하며, 오늘 더 깊이 주께로 돌아가게 하소서.",구절:"이스라엘 자손이 여호와께 부르짖어 이르되 우리가 우리 하나님을 버리고 바알들을 섬김으로 주께 범죄하였나이다 하니 (사사기 10:10)"},
@@ -164,29 +161,18 @@ function detectTheme(raw) {
 const dk = d => `${d.getMonth()+1}-${d.getDate()}`;
 const today0 = () => { const d=new Date(); d.setHours(0,0,0,0); return d; };
 const addDays = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmtLong = d => {
-  const yy = String(d.getFullYear()).slice(2);
-  const mm = d.getMonth() + 1;
-  const dd = d.getDate();
-  const wd = ["일","월","화","수","목","금","토"][d.getDay()];
-  return `${yy}년 ${mm}월 ${dd}일 (${wd})`;
-};
+const fmtLong = d => d.toLocaleDateString("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
 const fmtTime = s => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 const MONTH_NAMES = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
 const MAX_SEC = 300;
 
-// ─── 로그인 화면 ──────────────────────────────────────────────────────────────
 function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const handleLogin = async () => {
     setLoading(true); setError("");
-    try {
-      await signInWithPopup(auth, gProvider);
-    } catch(e) {
-      if (e.code !== "auth/popup-closed-by-user") setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
-      setLoading(false);
-    }
+    try { await signInWithPopup(auth, gProvider); }
+    catch(e) { if (e.code !== "auth/popup-closed-by-user") setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요."); setLoading(false); }
   };
   return (
     <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E,#060818)",display:"flex",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"'Noto Serif KR',serif"}}>
@@ -207,7 +193,6 @@ function LoginScreen() {
   );
 }
 
-// ─── 리더 현황판 ──────────────────────────────────────────────────────────────
 function LeaderDashboard({ theme }) {
   const TODAY = today0();
   const [selDate, setSelDate] = useState(TODAY);
@@ -219,34 +204,16 @@ function LeaderDashboard({ theme }) {
   useEffect(() => {
     setLoading(true);
     const q = query(collection(db, "completions"), where("dateKey", "==", key));
-    const unsub = onSnapshot(q, snap => {
-      setMembers(snap.docs.map(d => d.data()));
-      setLoading(false);
-    }, () => setLoading(false));
+    const unsub = onSnapshot(q, snap => { setMembers(snap.docs.map(d => d.data())); setLoading(false); }, () => setLoading(false));
     return () => unsub();
   }, [key]);
 
-  const getColor = m => {
-    if (m.done && m.voiceDone) return "#4CAF81";
-    if (m.done) return "#C9A84C";
-    if (m.voiceDone) return "#6EA8D4";
-    return "#444";
-  };
-  const getLabel = m => {
-    if (m.done && m.voiceDone) return "통독 + 기도 ✓";
-    if (m.done) return "통독 완료";
-    if (m.voiceDone) return "기도 완료";
-    return "미완료";
-  };
-
-  const sorted = [...members].sort((a,b) => {
-    const s = m => (m.done?2:0)+(m.voiceDone?1:0);
-    return s(b)-s(a);
-  });
+  const getColor = m => { if (m.done && m.voiceDone) return "#4CAF81"; if (m.done) return "#C9A84C"; if (m.voiceDone) return "#6EA8D4"; return "#444"; };
+  const getLabel = m => { if (m.done && m.voiceDone) return "통독 + 기도 ✓"; if (m.done) return "통독 완료"; if (m.voiceDone) return "기도 완료"; return "미완료"; };
+  const sorted = [...members].sort((a,b) => { const s = m => (m.done?2:0)+(m.voiceDone?1:0); return s(b)-s(a); });
 
   return (
     <div className="fade" style={{paddingTop:8}}>
-      {/* 날짜 네비 */}
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
         <div style={{textAlign:"center"}}>
@@ -255,16 +222,9 @@ function LeaderDashboard({ theme }) {
         </div>
         <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
       </div>
-
-      {/* 통계 카드 */}
       {!loading && (
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
-          {[
-            ["전체",members.length,"#6A5E50"],
-            ["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],
-            ["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],
-            ["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"],
-          ].map(([label,count,color])=>(
+          {[["전체",members.length,"#6A5E50"],["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"]].map(([label,count,color])=>(
             <div key={label} style={{background:"rgba(255,255,255,.03)",border:`1px solid ${color}33`,borderRadius:12,padding:"10px 4px",textAlign:"center"}}>
               <div style={{fontSize:20,fontFamily:"'Cormorant Garamond',serif",color,fontWeight:600}}>{count}</div>
               <div style={{fontSize:9,color:"#5A5040",letterSpacing:".05em",marginTop:2}}>{label}</div>
@@ -272,8 +232,6 @@ function LeaderDashboard({ theme }) {
           ))}
         </div>
       )}
-
-      {/* 색상 범례 */}
       <div style={{display:"flex",gap:12,marginBottom:14,flexWrap:"wrap"}}>
         {[["#4CAF81","통독 + 기도"],["#C9A84C","통독만"],["#6EA8D4","기도만"],["#444","미완료"]].map(([c,l])=>(
           <div key={l} style={{display:"flex",alignItems:"center",gap:5}}>
@@ -282,8 +240,6 @@ function LeaderDashboard({ theme }) {
           </div>
         ))}
       </div>
-
-      {/* 멤버 리스트 */}
       {loading ? (
         <div style={{textAlign:"center",padding:"40px 0",color:"#3A3028",fontSize:13}}>불러오는 중...</div>
       ) : sorted.length === 0 ? (
@@ -291,27 +247,20 @@ function LeaderDashboard({ theme }) {
       ) : (
         <div style={{display:"flex",flexDirection:"column",gap:8}}>
           {sorted.map(m => (
-            <div key={m.uid} style={{background:"rgba(255,255,255,.03)",border:`2px solid ${getColor(m)}44`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:12,transition:"all .2s"}}>
+            <div key={m.uid} style={{background:"rgba(255,255,255,.03)",border:`2px solid ${getColor(m)}44`,borderRadius:14,padding:"12px 14px",display:"flex",alignItems:"center",gap:12}}>
               {m.photoURL ? (
                 <img src={m.photoURL} width={38} height={38} style={{borderRadius:19,border:`2px solid ${getColor(m)}`,flexShrink:0}} alt=""/>
               ) : (
-                <div style={{width:38,height:38,borderRadius:19,background:`${getColor(m)}22`,border:`2px solid ${getColor(m)}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0,color:getColor(m)}}>
-                  {(m.displayName||"?")[0]}
-                </div>
+                <div style={{width:38,height:38,borderRadius:19,background:`${getColor(m)}22`,border:`2px solid ${getColor(m)}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,flexShrink:0,color:getColor(m)}}>{(m.displayName||"?")[0]}</div>
               )}
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontSize:14,color:"#EDE5D5",fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{m.displayName || m.email}</div>
                 <div style={{fontSize:11,color:getColor(m),marginTop:2}}>{getLabel(m)}</div>
               </div>
               <div style={{display:"flex",gap:6,flexShrink:0}}>
-                <div style={{width:22,height:22,borderRadius:11,background:m.done?"#C9A84C22":"rgba(255,255,255,.03)",border:`1px solid ${m.done?"#C9A84C":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.done?"#C9A84C":"#444"}}>
-                  {m.done?"✓":"—"}
-                </div>
-                <div style={{width:22,height:22,borderRadius:11,background:m.voiceDone?"#4CAF8122":"rgba(255,255,255,.03)",border:`1px solid ${m.voiceDone?"#4CAF81":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.voiceDone?"#4CAF81":"#444"}}>
-                  {m.voiceDone?"🎙":"—"}
-                </div>
+                <div style={{width:22,height:22,borderRadius:11,background:m.done?"#C9A84C22":"rgba(255,255,255,.03)",border:`1px solid ${m.done?"#C9A84C":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.done?"#C9A84C":"#444"}}>{m.done?"✓":"—"}</div>
+                <div style={{width:22,height:22,borderRadius:11,background:m.voiceDone?"#4CAF8122":"rgba(255,255,255,.03)",border:`1px solid ${m.voiceDone?"#4CAF81":"#333"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:m.voiceDone?"#4CAF81":"#444"}}>{m.voiceDone?"🎙":"—"}</div>
               </div>
-              <div style={{width:10,height:10,borderRadius:5,background:getColor(m),boxShadow:`0 0 8px ${getColor(m)}`,flexShrink:0}}/>
             </div>
           ))}
         </div>
@@ -321,168 +270,124 @@ function LeaderDashboard({ theme }) {
   );
 }
 
-// ─── 말씀 선포 타이머 컴포넌트 ─────────────────────────────────────────────────────
-function PrayerTimer({ dateKey, theme, onComplete, alreadyDone }) {
-  const [status, setStatus] = useState(alreadyDone ? "done" : "idle"); // idle | running | paused | done
-  const [elapsed, setElapsed] = useState(alreadyDone ? 300 : 0);
-  const [showVictory, setShowVictory] = useState(false);
+function VoiceRecorder({ dateKey, passageRaw, theme, onSave, onDelete }) {
+  const [recState, setRecState] = useState("idle");
+  const [elapsed, setElapsed] = useState(0);
+  const [audioUrl, setAudioUrl] = useState(null);
+  const [savedMeta, setSavedMeta] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [showShareModal, setShowShareModal] = useState(false);
+  const shareTextRef = useRef(null);
+  const mediaRef = useRef(null);
+  const chunksRef = useRef([]);
   const timerRef = useRef(null);
-  const TOTAL = 300;
+  const blobRef = useRef(null);
+
+  const storageKey = `bc365_audio_${dateKey}`;
+  const metaKey = `bc365_audio_meta_${dateKey}`;
+  const dateStr = dateKey.replace("-","월 ")+"일";
+  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n🎙 기도 녹음까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
 
   useEffect(() => {
+    setAudioUrl(null); setSavedMeta(null); setLoading(true); setError("");
+    try {
+      const metaR = localStorage.getItem(metaKey);
+      const audioR = localStorage.getItem(storageKey);
+      if (metaR && audioR) { setSavedMeta(JSON.parse(metaR)); setAudioUrl(audioR); setRecState("saved"); }
+      else setRecState("idle");
+    } catch { setRecState("idle"); }
+    setLoading(false);
+  }, [dateKey]);
+
+  const startRecording = async () => {
+    setError("");
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":"audio/ogg";
+      const mr = new MediaRecorder(stream,{mimeType,audioBitsPerSecond:32000});
+      chunksRef.current = [];
+      mr.ondataavailable = e => { if(e.data.size>0) chunksRef.current.push(e.data); };
+      mr.onstop = () => {
+        stream.getTracks().forEach(t=>t.stop());
+        const blob = new Blob(chunksRef.current,{type:mimeType});
+        blobRef.current = blob;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const dataUrl = reader.result;
+          const dur = elapsed;
+          const meta = {duration:dur,savedAt:new Date().toLocaleString("ko-KR"),size:Math.round(blob.size/1024)};
+          setAudioUrl(dataUrl); setSavedMeta(meta);
+          try {
+            localStorage.setItem(storageKey,dataUrl);
+            localStorage.setItem(metaKey,JSON.stringify(meta));
+            setRecState("saved");
+            if(onSave) onSave();
+          } catch { setError("저장 실패: 파일이 너무 큽니다."); setRecState("idle"); }
+        };
+        reader.readAsDataURL(blob);
+      };
+      mr.start(1000); mediaRef.current = mr; setElapsed(0); setRecState("recording");
+      timerRef.current = setInterval(()=>setElapsed(prev=>{if(prev+1>=MAX_SEC){stopRecording();return prev+1;}return prev+1;}),1000);
+    } catch { setError("마이크 접근이 거부되었습니다."); }
+  };
+
+  const stopRecording = () => {
     clearInterval(timerRef.current);
-    setStatus(alreadyDone ? "done" : "idle");
-    setElapsed(alreadyDone ? 300 : 0);
-    setShowVictory(false);
-  }, [dateKey, alreadyDone]);
-
-  useEffect(() => () => clearInterval(timerRef.current), []);
-
-  const startTimer = () => {
-    timerRef.current = setInterval(() => {
-      setElapsed(prev => {
-        if (prev >= TOTAL - 1) {
-          clearInterval(timerRef.current);
-          setStatus("done");
-          setShowVictory(true);
-          if (onComplete) onComplete();
-          setTimeout(() => setShowVictory(false), 4000);
-          return TOTAL;
-        }
-        return prev + 1;
-      });
-    }, 1000);
+    if(mediaRef.current&&mediaRef.current.state!=="inactive") mediaRef.current.stop();
   };
 
-  const start = () => {
-    if (status === "running") return;
-    setStatus("running");
-    startTimer();
+  const deleteAudio = () => {
+    if(!confirm("이 날의 녹음을 삭제할까요?")) return;
+    try{localStorage.removeItem(storageKey);localStorage.removeItem(metaKey);}catch{}
+    setAudioUrl(null);setSavedMeta(null);setRecState("idle");setElapsed(0);
+    if(onDelete) onDelete();
   };
 
-  const pause = () => {
-    clearInterval(timerRef.current);
-    setStatus("paused");
-  };
-
-  const resume = () => {
-    setStatus("running");
-    startTimer();
-  };
-
-  const reset = () => {
-    clearInterval(timerRef.current);
-    setStatus("idle");
-    setElapsed(0);
-  };
-
-  const remaining = TOTAL - elapsed;
-  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
-  const ss = String(remaining % 60).padStart(2, "0");
-  const progress = elapsed / TOTAL;
-  const circumference = 2 * Math.PI * 70;
-
-  const handleShare = () => {
-    const text = `📣 오늘도 말씀 선포 완료!\n\n히브리서 4:2\n"그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"\n\n2026 BASIC 성경통독 함께해요 🙏`;
-    if (navigator.share) {
-      navigator.share({ title: "2026 BASIC 성경통독", text }).catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() =>
-        alert("📋 클립보드에 복사됐어요!")
-      );
+  const handleShare = async () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if(isMobile&&navigator.share){
+      try{await navigator.share({title:"2026 BASIC 성경통독 🙏",text:shareText,url:window.location.href});return;}
+      catch(e){if(e.name==="AbortError")return;}
     }
+    setShowShareModal(true);
   };
+
+  if(loading) return <div style={{padding:"24px 0",textAlign:"center",color:"#3A3028",fontSize:12}}>불러오는 중…</div>;
 
   return (
-    <div style={{textAlign:"center",padding:"8px 0"}}>
-      {/* 원형 타이머 */}
-      <div style={{position:"relative",width:170,height:170,margin:"0 auto 28px"}}>
-        <svg viewBox="0 0 160 160" style={{transform:"rotate(-90deg)",width:"100%",height:"100%",position:"absolute",inset:0}}>
-          <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="8"/>
-          <circle cx="80" cy="80" r="70" fill="none" stroke={theme.color} strokeWidth="8"
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference * (1 - progress)}
-            strokeLinecap="round"
-            style={{transition: status === "running" ? "stroke-dashoffset 1s linear" : "none"}}/>
-        </svg>
-        <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
-          {status === "done" ? (
-            <>
-              <div style={{fontSize:30,marginBottom:4}}>✦</div>
-              <div style={{fontSize:14,color:theme.color,fontFamily:"'Noto Serif KR',serif",fontWeight:600}}>완료!</div>
-            </>
-          ) : (
-            <>
-              <div style={{fontSize:34,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",letterSpacing:".04em"}}>{mm}:{ss}</div>
-              <div style={{fontSize:10,letterSpacing:".12em",marginTop:4,color:
-                status === "paused" ? "#E08080" :
-                status === "running" ? theme.color+"BB" :
-                theme.color+"66"}}>
-                {status === "running" ? "주님만 의지합니다" :
-                 status === "paused" ? "일시정지 중" : "5분 선포"}
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* 버튼 영역 */}
-      {status === "idle" && (
-        <button onClick={start}
-          style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:100,padding:"14px 44px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:14,fontWeight:700,cursor:"pointer",boxShadow:`0 4px 24px ${theme.glow}55`,letterSpacing:".05em"}}>
-          ▶ 선포 시작
-        </button>
-      )}
-
-      {(status === "running" || status === "paused") && (
-        <div style={{display:"flex",gap:12,justifyContent:"center",alignItems:"center"}}>
-          {status === "running" ? (
-            <button onClick={pause}
-              style={{width:56,height:56,borderRadius:28,background:`${theme.color}22`,border:`2px solid ${theme.color}55`,color:theme.color,fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}>
-              ⏸
-            </button>
-          ) : (
-            <button onClick={resume}
-              style={{width:56,height:56,borderRadius:28,background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",color:"#08090F",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 4px 18px ${theme.glow}55`,transition:"all .2s"}}>
-              ▶
-            </button>
-          )}
-          <button onClick={reset}
-            style={{width:40,height:40,borderRadius:20,background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",color:"#6A5E50",fontSize:14,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            ↺
-          </button>
-        </div>
-      )}
-
-      {(status === "running" || status === "paused") && (
-        <div style={{marginTop:14,fontSize:11,color:"#4A4038"}}>
-          {status === "paused" ? "일시정지 — ▶ 를 눌러 재개하세요" : "5분이 끝나면 자동으로 완료됩니다"}
-        </div>
-      )}
-
-      {status === "done" && (
-        <div>
-          <div style={{fontSize:14,color:theme.color,marginBottom:16,fontFamily:"'Noto Serif KR',serif",fontWeight:500}}>오늘의 말씀 선포를 마쳤습니다</div>
-          <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginBottom:8}}>
-            <button onClick={handleShare}
-              style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:20,padding:"11px 26px",color:"#08090F",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",gap:6,boxShadow:`0 4px 16px ${theme.glow}55`}}>
-              <span style={{fontSize:18}}>📤</span> 공유
-            </button>
-            <button onClick={reset}
-              style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"11px 24px",color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontSize:12,cursor:"pointer"}}>
-              다시 시작
-            </button>
+    <div>
+      {showShareModal && (
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.8)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setShowShareModal(false)}>
+          <div style={{background:"#12151F",border:`1px solid ${theme.border}`,borderRadius:20,padding:"24px",maxWidth:400,width:"100%"}} onClick={e=>e.stopPropagation()}>
+            <div style={{fontSize:10,letterSpacing:".2em",color:theme.color+"88",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:8}}>공유할 내용</div>
+            <textarea ref={shareTextRef} readOnly value={shareText}
+              onClick={()=>{if(shareTextRef.current){shareTextRef.current.select();}}}
+              style={{width:"100%",background:"rgba(255,255,255,.04)",border:`1px solid ${theme.border}`,borderRadius:12,padding:"14px",color:"#EDE5D5",fontSize:13,lineHeight:1.8,resize:"none",height:160}}/>
+            <div style={{display:"flex",gap:8,marginTop:12}}>
+              <button onClick={()=>{shareTextRef.current.select(); document.execCommand("copy");}} style={{flex:1,background:theme.color,border:"none",borderRadius:12,padding:"12px",color:"#08090F",fontWeight:700}}>📋 복사하기</button>
+              <button onClick={()=>setShowShareModal(false)} style={{background:"rgba(255,255,255,.05)",borderRadius:12,padding:"12px 16px",color:"#6A5E50"}}>닫기</button>
+            </div>
           </div>
         </div>
       )}
-
-      {/* 승리 팝업 */}
-      {showVictory && (
-        <div style={{position:"fixed",inset:0,display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999,background:"rgba(0,0,0,.55)"}}>
-          <div style={{background:"linear-gradient(145deg,rgba(14,12,22,.98),rgba(8,9,15,.98))",border:`1px solid ${theme.color}55`,borderRadius:28,padding:"44px 56px",textAlign:"center",boxShadow:`0 20px 80px ${theme.glow}, 0 0 0 1px rgba(255,255,255,.04)`,animation:"popIn .45s cubic-bezier(.16,1,.3,1)"}}>
-            <div style={{fontSize:52,marginBottom:18}}>🎉</div>
-            <div style={{fontSize:26,fontFamily:"'Noto Serif KR',serif",color:theme.color,fontWeight:700,marginBottom:12,letterSpacing:".02em"}}>오늘도 승리했습니다!</div>
-            <div style={{fontSize:13,color:"#8A7E6E",fontWeight:300,lineHeight:1.8}}>5분 말씀 선포를 완주했어요!</div>
+      {recState==="idle" && (
+        <div style={{textAlign:"center",padding:"8px 0"}}>
+          <button onClick={startRecording} style={{background:`linear-gradient(135deg,${theme.color},${theme.color}CC)`,border:"none",borderRadius:100,padding:"12px 28px",color:"#08090F",fontSize:14,fontWeight:600,cursor:"pointer"}}>🎙 녹음 시작</button>
+        </div>
+      )}
+      {recState==="recording" && (
+        <div style={{textAlign:"center",padding:"8px 0"}}>
+          <div style={{fontSize:34,fontWeight:600,color:theme.color}}>{fmtTime(elapsed)}</div>
+          <button onClick={stopRecording} style={{background:"rgba(224,100,100,.15)",border:"1px solid rgba(224,100,100,.3)",borderRadius:100,padding:"11px 28px",color:"#E08080"}}>■ 녹음 완료</button>
+        </div>
+      )}
+      {recState==="saved" && audioUrl && (
+        <div>
+          <audio controls src={audioUrl} style={{width:"100%",height:40,borderRadius:20,outline:"none"}}/>
+          <div style={{display:"flex",gap:8,marginTop:10,justifyContent:"flex-end"}}>
+            <button onClick={handleShare} style={{background:theme.color,border:"none",borderRadius:20,padding:"5px 12px",color:"#08090F",fontSize:11}}>📤 공유</button>
+            <button onClick={deleteAudio} style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"5px 12px",color:"#E08080",fontSize:11}}>삭제</button>
           </div>
         </div>
       )}
@@ -490,18 +395,15 @@ function PrayerTimer({ dateKey, theme, onComplete, alreadyDone }) {
   );
 }
 
-
-// ─── 메인 앱 ─────────────────────────────────────────────────────────────────
 export default function App() {
   const TODAY = today0();
-  const [user, setUser] = useState(undefined); // undefined=로딩중, null=비로그인
+  const [user, setUser] = useState(undefined);
   const [viewDate, setViewDate] = useState(TODAY);
   const [devotional, setDevotional] = useState("");
   const [done, setDone] = useState(new Set());
   const [voiceDone, setVoiceDone] = useState(new Set());
   const [tab, setTab] = useState("main");
   const [calMonth, setCalMonth] = useState(TODAY.getMonth());
-  const [dataLoading, setDataLoading] = useState(false);
 
   const key = dk(viewDate);
   const raw = R[key] || "";
@@ -511,24 +413,12 @@ export default function App() {
   const expanded = expand(raw);
   const d = DEVOTIONALS[key];
 
-  // 인증 상태 감지
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        setDataLoading(true);
         const { done: d2, voiceDone: v2 } = await loadUserCompletions(u.uid);
-        // localStorage voiceDone 병합
-        const vSet = new Set(v2);
-        try {
-          for (let i = 0; i < localStorage.length; i++) {
-            const k2 = localStorage.key(i);
-            if (k2 && k2.startsWith("bc365_audio_meta_")) vSet.add(k2.replace("bc365_audio_meta_",""));
-          }
-        } catch {}
-        setDone(d2);
-        setVoiceDone(vSet);
-        setDataLoading(false);
+        setDone(d2); setVoiceDone(v2);
       }
     });
     return () => unsub();
@@ -537,11 +427,7 @@ export default function App() {
   useEffect(() => {
     if (isPersonal) { setDevotional("PERSONAL"); return; }
     if (!raw) { setDevotional(""); return; }
-    if (d) {
-      setDevotional(`[본문의 핵심]\n${d.핵심}\n\n[${theme.name}의 성품]\n${d.성품}\n\n[오늘의 묵상]\n${d.묵상}\n\n[오늘의 기도]\n${d.기도}`);
-    } else {
-      setDevotional("[본문의 핵심]\n이 날의 묵상은 다음 업데이트에서 추가됩니다.\n\n[오늘의 기도]\n주님, 오늘도 말씀 앞에 서게 하소서.");
-    }
+    if (d) { setDevotional(`[본문의 핵심]\n${d.핵심}\n\n[${theme.name}의 성품]\n${d.성품}\n\n[오늘의 묵상]\n${d.묵상}\n\n[오늘의 기도]\n${d.기도}`); }
   }, [key, isPersonal, raw, theme.name, d]);
 
   const toggleDone = async () => {
@@ -552,16 +438,13 @@ export default function App() {
   };
 
   const handleVoiceSaved = async () => {
-    const nextV = new Set(voiceDone); nextV.add(key);
-    setVoiceDone(nextV);
-    const nextD = new Set(done); nextD.add(key);
-    setDone(nextD);
+    const nextV = new Set(voiceDone); nextV.add(key); setVoiceDone(nextV);
+    const nextD = new Set(done); nextD.add(key); setDone(nextD);
     if (user) await saveCompletion(user, key, true, true, raw);
   };
 
   const handleVoiceDeleted = async () => {
-    const nextV = new Set(voiceDone); nextV.delete(key);
-    setVoiceDone(nextV);
+    const nextV = new Set(voiceDone); nextV.delete(key); setVoiceDone(nextV);
     if (user) await saveCompletion(user, key, done.has(key), false, raw);
   };
 
@@ -586,79 +469,38 @@ export default function App() {
     return cells;
   };
   const calCells = buildCalendar(calMonth);
-  const totalDays = Object.keys(R).filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-  const doneDays = [...done].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-  const prog = totalDays>0?(doneDays/totalDays)*100:0;
   const nav = (delta) => { const next=addDays(viewDate,delta); if(R[dk(next)]!==undefined){setViewDate(next);setTab("main");} };
   const hasPrev = R[dk(addDays(viewDate,-1))]!==undefined;
   const hasNext = R[dk(addDays(viewDate,1))]!==undefined;
 
-  // 로딩 중
-  if (user === undefined) return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A,#080C1E)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-      <div style={{textAlign:"center"}}>
-        <div style={{fontSize:40,color:"#C9A84C",marginBottom:16}}>✦</div>
-        <div style={{fontSize:12,color:"#3A3028",fontFamily:"sans-serif"}}>로딩 중...</div>
-      </div>
-    </div>
-  );
-
-  // 비로그인
+  if (user === undefined) return <div style={{minHeight:"100vh",background:"#06091A"}}/>;
   if (!user) return <LoginScreen />;
 
-  const TABS = [["main","📖 묵상"],["voice","📣 말씀 선포"],["calendar","📅 달력"],["leader","👑 현황판"]];
+  const TABS = [["main","📖 묵상"],["voice","🎙 기도"],["calendar","📅 달력"],["leader","👑 현황판"]];
 
   return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 55%,#060818 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR','Georgia',serif",overflowX:"hidden"}}>
+    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#06091A 0%,#080C1E 100%)",color:"#E8E0D0",fontFamily:"'Noto Serif KR',serif",overflowX:"hidden"}}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}
-        .fade{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) both}
+        .fade{animation:fadeUp .6s ease both}
         @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-        .hero-anim{animation:heroIn .9s cubic-bezier(.16,1,.3,1) both}
-        @keyframes heroIn{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:scale(1)}}
-        @keyframes ripple{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
-        .btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#9A8E7A;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:13px;transition:all .2s}
-        .btn:hover:not(:disabled){background:rgba(255,255,255,.09);color:#E8E0D0}
-        .btn:disabled{opacity:.25;cursor:not-allowed}
-        .tab-btn{background:none;border:none;padding:7px 12px;border-radius:20px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.04em;transition:all .25s;white-space:nowrap}
+        .btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#9A8E7A;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Serif KR',serif;font-size:13px}
         .cal-cell:hover{opacity:.8;transform:scale(1.04)}
-        @keyframes popIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-        ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
       `}</style>
 
       <div style={{maxWidth:660,margin:"0 auto",padding:"0 20px"}}>
-
-        {/* 헤더 */}
-        <header style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"22px 0 0",gap:12}}>
+        <header style={{display:"flex",justifyContent:"space-between",padding:"22px 0 0"}}>
           <div>
-            <div style={{fontSize:13,color:"#8A7E6E",fontFamily:"'Noto Serif KR',serif",fontWeight:300}}>{fmtLong(viewDate)}</div>
+            <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028"}}>BASIC Community Church · 2026 성경통독</div>
+            <div style={{fontSize:12,color:"#6A5E50"}}>{fmtLong(viewDate)}</div>
           </div>
-          <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
-            <div style={{background:`linear-gradient(135deg,${theme.bg},transparent)`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"5px 12px",fontSize:10,color:theme.color,letterSpacing:".08em",fontFamily:"'Cormorant Garamond',serif"}}>{theme.badge}</div>
-            {/* 사용자 프로필 + 로그아웃 */}
-            <button onClick={()=>signOut(auth)} title="로그아웃"
-              style={{background:"none",border:"1px solid rgba(255,255,255,.08)",borderRadius:20,padding:"4px 10px",cursor:"pointer",display:"flex",alignItems:"center",gap:6}}>
-              {user.photoURL
-                ? <img src={user.photoURL} width={22} height={22} style={{borderRadius:11}} alt=""/>
-                : <div style={{width:22,height:22,borderRadius:11,background:"#C9A84C33",color:"#C9A84C",fontSize:11,display:"flex",alignItems:"center",justifyContent:"center"}}>{(user.displayName||"?")[0]}</div>
-              }
-              <span style={{fontSize:10,color:"#5A5040"}}>로그아웃</span>
-            </button>
-          </div>
+          <button onClick={()=>signOut(auth)} style={{background:"none",border:"1px solid rgba(255,255,255,.08)",borderRadius:20,padding:"4px 10px",color:"#5A5040",fontSize:10,cursor:"pointer"}}>로그아웃</button>
         </header>
 
-        <div style={{display:"flex",alignItems:"center",gap:12,margin:"16px 0 0"}}>
-          <div style={{flex:1,height:1,background:`linear-gradient(to right,transparent,${theme.color}28)`}}/>
-          <span style={{color:theme.color+"66",fontSize:13}}>{theme.symbol}</span>
-          <div style={{flex:1,height:1,background:`linear-gradient(to left,transparent,${theme.color}28)`}}/>
-        </div>
-
-        {/* 탭 */}
-        <div style={{display:"flex",gap:3,justifyContent:"center",margin:"14px 0 0",overflowX:"auto",paddingBottom:2}}>
+        <div style={{display:"flex",gap:3,justifyContent:"center",margin:"14px 0 0",overflowX:"auto"}}>
           {TABS.map(([t,l]) => (
-            <button key={t} className="tab-btn" onClick={()=>setTab(t)}
-              style={{color:tab===t?theme.color:"#5A5242",background:tab===t?theme.bg:"none",border:tab===t?`1px solid ${theme.border}`:"1px solid transparent",fontWeight:tab===t?600:400}}>
+            <button key={t} onClick={()=>setTab(t)} style={{color:tab===t?theme.color:"#5A5242",background:tab===t?theme.bg:"none",border:"none",padding:"7px 12px",borderRadius:20,fontSize:11,cursor:"pointer"}}>
               {l}
             </button>
           ))}
@@ -667,134 +509,66 @@ export default function App() {
         {/* ═══ 묵상 탭 ═══ */}
         {tab==="main" && (
           <div key={key} className="fade">
-            <section style={{textAlign:"center",padding:"24px 0 18px",position:"relative"}}>
-              <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:240,height:240,background:`radial-gradient(ellipse,${theme.glow}18 0%,transparent 68%)`,pointerEvents:"none"}}/>
-              <div style={{fontSize:10,letterSpacing:".28em",color:theme.color+"66",textTransform:"uppercase",marginBottom:8,fontFamily:"'Cormorant Garamond',serif"}}>{theme.subtitle}</div>
-              <h1 className="hero-anim" style={{fontSize:"clamp(52px,11vw,76px)",fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color,letterSpacing:"-.02em",lineHeight:1,marginBottom:6,textShadow:`0 0 55px ${theme.glow}`}}>{theme.name}</h1>
-              <div style={{fontSize:11,color:"#352E25",letterSpacing:".14em",fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic"}}>{theme.en}</div>
+            <section style={{textAlign:"center",padding:"24px 0 18px"}}>
+              <h1 style={{fontSize:60,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:theme.color}}>{theme.name}</h1>
             </section>
 
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.06))`,border:`1px solid ${theme.border}`,borderRadius:20,padding:"18px 22px",marginBottom:12}}>
-              <div style={{fontSize:10,letterSpacing:".22em",color:theme.color+"66",textTransform:"uppercase",marginBottom:10,fontFamily:"'Cormorant Garamond',serif"}}>오늘의 통독 본문</div>
-              {isPersonal ? (
-                <div>
-                  <div style={{fontSize:20,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:8}}>개별 통독의 날 ✦</div>
-                  <div style={{fontSize:13,color:"#8A7E6E",lineHeight:1.85,fontWeight:300}}>오늘은 자유롭게 원하는 성경 본문을 읽는 날입니다.</div>
+              <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4}}>{raw}</div>
+              <div style={{fontSize:13,color:theme.color+"88",marginBottom:14}}>{expanded}</div>
+              <div style={{background:"rgba(255,255,255,.03)",border:`1px solid ${theme.border}`,borderRadius:14,padding:"16px"}}>
+                <div style={{fontSize:14,color:"#EDE5D5",lineHeight:1.8,fontWeight:500,marginBottom:8,wordBreak:"keep-all"}}>
+                  "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
                 </div>
-              ) : (
-                <div>
-                  <div style={{fontSize:26,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5",marginBottom:4,lineHeight:1.3}}>{raw}</div>
-                  <div style={{fontSize:13,color:theme.color+"88",marginBottom:12,letterSpacing:".04em"}}>{expanded}</div>
-                  <div style={{borderLeft:`3px solid ${theme.color}40`,paddingLeft:16,fontSize:13,color:"#7A6E5A",lineHeight:1.75,fontWeight:300}}>오늘 이 본문을 통해 <strong style={{color:theme.color+"BB",fontWeight:500}}>{theme.name}</strong>이 어떤 분이신지 묵상해보세요.</div>
-                </div>
-              )}
+                <div style={{fontSize:12,color:theme.color+"BB",fontWeight:600}}>갈라디아서 2:20</div>
+              </div>
             </div>
 
-            {!isPersonal && sections.length>0 && (
+            {sections.length>0 && (
               <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:20,padding:"18px 20px",marginBottom:14}}>
-                <div style={{fontSize:10,letterSpacing:".2em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:14}}>오늘의 묵상</div>
                 {sections.map(s=>(
-                  <div key={s.label} style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:14,padding:"14px 16px",marginBottom:8}}>
-                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
-                      <span style={{color:theme.color,fontSize:12}}>{s.icon}</span>
-                      <span style={{fontSize:10,letterSpacing:".16em",color:theme.color+"BB",fontFamily:"'Cormorant Garamond',serif",textTransform:"uppercase",fontWeight:500}}>{s.label}</span>
+                  <div key={s.label} style={{marginBottom:15}}>
+                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
+                      <span style={{color:theme.color}}>{s.icon}</span>
+                      <span style={{fontSize:12,color:theme.color+"BB",fontWeight:600}}>{s.label}</span>
                     </div>
-                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.95,fontWeight:300}}>{s.content}</p>
+                    <p style={{fontSize:14,color:"#C0B49A",lineHeight:1.85}}>{s.content}</p>
                   </div>
                 ))}
               </div>
             )}
 
-            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:12}}>
+            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
               <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              {!isToday && <button className="btn" onClick={()=>{setViewDate(TODAY);setTab("main");}} style={{borderColor:theme.color+"44",color:theme.color}}>오늘로</button>}
+              <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
+                {done.has(key)?"✓ 완료됨":"완료 체크"}
+              </button>
               <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
             </div>
-
-            <div style={{display:"flex",gap:10,marginBottom:12}}>
-              <button onClick={toggleDone} style={{flex:1,border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",transition:"all .3s cubic-bezier(.16,1,.3,1)",background:done.has(key)?`linear-gradient(135deg,${theme.color},${theme.color}CC)`:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,boxShadow:done.has(key)?`0 4px 24px ${theme.glow}50`:"none"}}>
-                {done.has(key)?"✓ 묵상 완료!":"묵상 완료 체크"}
-              </button>
-              <button onClick={()=>setTab("voice")} style={{flex:1,background:voiceDone.has(key)?`linear-gradient(135deg,${theme.color}55,${theme.color}33)`:"rgba(255,255,255,.04)",border:"none",borderRadius:14,padding:"14px 16px",cursor:"pointer",fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:600,letterSpacing:".05em",color:theme.color,transition:"all .2s"}}>
-                {voiceDone.has(key)?"📣 말씀 선포 완료!":"📣 말씀 선포"}
-              </button>
-            </div>
-
-            {(done.has(key) || voiceDone.has(key)) && (
-              <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:18,padding:"14px 18px 16px",marginBottom:36}}>
-                {done.has(key) && (
-                  <div style={{marginBottom: voiceDone.has(key)?14:0}}>
-                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                      <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 통독 진행률</span>
-                      <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{doneDays} / {totalDays}일</span>
-                    </div>
-                    <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
-                      <div style={{width:`${prog}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}66,${theme.color})`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
-                    </div>
-                  </div>
-                )}
-                {voiceDone.has(key) && (()=>{
-                  const voiceDoneDays = [...voiceDone].filter(k2=>R[k2]&&R[k2]!=="개별통독").length;
-                  const voiceProg = totalDays>0?(voiceDoneDays/totalDays)*100:0;
-                  return (
-                    <div>
-                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
-                        <span style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif"}}>2026 기도 완료 진행률</span>
-                        <span style={{fontSize:13,color:theme.color,fontFamily:"'Cormorant Garamond',serif"}}>{voiceDoneDays} / {totalDays}일</span>
-                      </div>
-                      <div style={{background:"rgba(255,255,255,.07)",borderRadius:100,height:4,overflow:"hidden"}}>
-                        <div style={{width:`${voiceProg}%`,height:"100%",background:`linear-gradient(90deg,${theme.color}44,${theme.color}88)`,borderRadius:100,transition:"width .7s cubic-bezier(.16,1,.3,1)"}}/>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
-            )}
-            {!done.has(key) && !voiceDone.has(key) && <div style={{marginBottom:36}}/>}
           </div>
         )}
 
-        {/* ═══ 말씀 녹음 탭 ═══ */}
+        {/* ═══ 기도 녹음 탭 ═══ */}
         {tab==="voice" && (
           <div key={`voice-${key}`} className="fade" style={{paddingTop:8}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",margin:"14px 0 18px",gap:8}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",margin:"14px 0 18px"}}>
               <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              <div style={{textAlign:"center"}}>
-                <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{viewDate.getMonth()+1}월 {viewDate.getDate()}일</div>
-                <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw||"—"}</div>
-              </div>
+              <div style={{textAlign:"center",fontSize:14,color:"#EDE5D5"}}>{viewDate.getMonth()+1}월 {viewDate.getDate()}일</div>
               <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
             </div>
-
             <div style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.05))`,border:`1px solid ${theme.border}`,borderRadius:22,padding:"24px 22px",marginBottom:14}}>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>오늘의 5분 선포</div>
-                <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"20px",marginBottom:14}}>
-                  <div style={{fontSize:10,letterSpacing:".18em",color:theme.color+"77",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:12}}>히브리서 4:2</div>
-                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.8,fontWeight:500,fontFamily:"'Noto Serif KR',serif",marginBottom:12,wordBreak:"keep-all",textAlign:"center"}}>
-                    "그들과 같이 우리도 복음 전함을 받은 자이나 들은 바 그 말씀이 그들에게 유익하지 못한 것은 듣는 자가 믿음과 결부시키지 아니함이라"
+                <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
+                <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:14}}>
+                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.75,fontWeight:500,marginBottom:10,wordBreak:"keep-all"}}>
+                    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
                   </div>
-                  <div style={{fontSize:12,color:theme.color+"AA",textAlign:"center"}}>이 말씀을 소리 내어 선포한 후, 5분 타이머를 시작하세요.</div>
+                  <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>갈라디아서 2:20</div>
+                  <div style={{fontSize:12,color:theme.color,marginTop:5}}>이 구절을 소리 내어 선포한 후 기도를 이어가 보세요.</div>
                 </div>
               </div>
-              <PrayerTimer dateKey={key} theme={theme} onComplete={handleVoiceSaved} alreadyDone={voiceDone.has(key)}/>
+              <VoiceRecorder dateKey={key} passageRaw={raw} theme={theme} onSave={handleVoiceSaved} onDelete={handleVoiceDeleted}/>
             </div>
-
-            <div style={{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.05)",borderRadius:16,padding:"14px 18px",marginBottom:14}}>
-              <div style={{fontSize:10,letterSpacing:".18em",color:"#3A3028",textTransform:"uppercase",fontFamily:"'Cormorant Garamond',serif",marginBottom:10}}>선포 가이드</div>
-              <div style={{display:"flex",flexDirection:"column",gap:8}}>
-                {[["✦","찬양","오늘 본문에서 보이는 하나님의 성품 고백"],["◎","감사","오늘 하루 받은 은혜를 구체적으로 감사"],["◈","회개","말씀 앞에 드러나는 나의 모습을 고백"],["♡","간구","오늘의 적용을 위한 도움을 구함"]].map(([sym,title,desc])=>(
-                  <div key={title} style={{display:"flex",gap:12,alignItems:"flex-start"}}>
-                    <span style={{color:theme.color,fontSize:12,marginTop:2,flexShrink:0}}>{sym}</span>
-                    <div><span style={{fontSize:12,color:theme.color+"CC",fontWeight:500,marginRight:8}}>{title}</span><span style={{fontSize:12,color:"#6A5E50",fontWeight:300}}>{desc}</span></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button onClick={()=>setTab("calendar")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-              <span>📅</span><span>달력 보기</span>
-            </button>
           </div>
         )}
 
@@ -803,44 +577,22 @@ export default function App() {
           <div className="fade" style={{paddingTop:18}}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
               <button className="btn" onClick={()=>setCalMonth(m=>Math.max(0,m-1))} disabled={calMonth<=0}>←</button>
-              <div style={{fontSize:18,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>2026년 {MONTH_NAMES[calMonth]}</div>
+              <div style={{fontSize:18,color:"#EDE5D5"}}>{MONTH_NAMES[calMonth]} 2026</div>
               <button className="btn" onClick={()=>setCalMonth(m=>Math.min(11,m+1))} disabled={calMonth>=11}>→</button>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2,marginBottom:4}}>
-              {["일","월","화","수","목","금","토"].map((dn,i)=>(
-                <div key={dn} style={{textAlign:"center",fontSize:10,letterSpacing:".1em",color:i===0?"#D48C6E77":i===6?"#6EA8D477":"#3A3028",padding:"5px 0",fontFamily:"'Cormorant Garamond',serif"}}>{dn}</div>
-              ))}
             </div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2}}>
               {calCells.map((cell,i)=>{
                 if(!cell) return <div key={`e${i}`}/>;
-                const t2=cell.theme,isV=cell.isView;
+                const t2=cell.theme;
                 return (
                   <div key={cell.k} className="cal-cell" onClick={()=>{setViewDate(cell.dt);setTab("main");}}
-                    style={{background:isV?t2.bg:cell.done?"rgba(255,255,255,.04)":"rgba(255,255,255,.02)",border:`1px solid ${isV?t2.border:cell.done?"rgba(255,255,255,.08)":"rgba(255,255,255,.04)"}`,borderRadius:10,padding:"6px 3px 5px",cursor:"pointer",transition:"all .18s",minHeight:56,display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
-                    <div style={{fontSize:11,fontWeight:cell.isToday?700:400,color:cell.isToday?t2.color:isV?t2.color+"CC":"#6A5E50",fontFamily:"'Cormorant Garamond',serif"}}>{cell.d}</div>
-                    {cell.r2&&cell.r2!=="개별통독"&&<div style={{fontSize:8,color:t2.color+"99",textAlign:"center",lineHeight:1.3,maxWidth:42,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{cell.r2}</div>}
-                    {cell.r2==="개별통독"&&<div style={{fontSize:8,color:"#3A3028"}}>자유</div>}
-                    <div style={{display:"flex",gap:3,marginTop:1,minHeight:11,alignItems:"center"}}>
-                      {cell.done && <span style={{fontSize:9,color:t2.color}}>✓</span>}
-                      {cell.voiceDone && <span style={{fontSize:9,color:t2.color}}>🎙</span>}
-                      {cell.isToday&&!cell.done&&!cell.voiceDone&&<div style={{width:4,height:4,borderRadius:2,background:t2.color}}/>}
-                    </div>
+                    style={{background:cell.done?"rgba(255,255,255,.05)":"rgba(255,255,255,.02)",border:`1px solid ${cell.isView?t2.color:"transparent"}`,borderRadius:10,padding:"10px 5px",textAlign:"center",cursor:"pointer"}}>
+                    <div style={{fontSize:11,color:cell.isToday?t2.color:"#6A5E50"}}>{cell.d}</div>
+                    <div style={{fontSize:9,color:t2.color}}>{cell.done?"✓":""} {cell.voiceDone?"🎙":""}</div>
                   </div>
                 );
               })}
             </div>
-            <div style={{display:"flex",gap:12,justifyContent:"center",margin:"12px 0 14px",flexWrap:"wrap"}}>
-              {[["✓","묵상 완료"],["🎙","말씀 녹음 완료"]].map(([s,l])=>(
-                <div key={l} style={{display:"flex",alignItems:"center",gap:4}}>
-                  <span style={{fontSize:10,color:"#C9A84C"}}>{s}</span>
-                  <span style={{fontSize:11,color:"#6A5E50"}}>{l}</span>
-                </div>
-              ))}
-            </div>
-            <button onClick={()=>setTab("leader")} style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1px solid ${theme.color}44`,borderRadius:16,padding:"13px",color:theme.color,fontFamily:"'Noto Serif KR',serif",fontSize:13,fontWeight:500,cursor:"pointer",marginBottom:36,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-              <span>👑</span><span>현황판 보기</span>
-            </button>
           </div>
         )}
 
