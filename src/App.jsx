@@ -302,7 +302,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const handleShare = async () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile && navigator.share) {
-      try { await navigator.share({title:"2026 BASIC 성경통독", text:shareText}); return; }
+      try { await navigator.share({title:"오늘도 주님을 의지합니다!", text:shareText}); return; }
       catch(e) { if (e.name==="AbortError") return; }
     }
     setShowShareModal(true);
