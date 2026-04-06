@@ -270,8 +270,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const timerRef = useRef(null);
   const shareTextRef = useRef(null);
 
-  const dateStr = dateKey.replace("-","월 ")+"일";
-  const shareText = `🙏 오늘도 성공!\n\n📖 ${dateStr} 말씀 통독 완료\n📌 본문: ${passageRaw||""}\n🙏 5분 기도까지 완료했어요!\n\n2026 BASIC 성경통독 함께해요 ✨`;
+  const shareText = `오늘도 주님을 의지합니다!\n\n갈라디아서 2:20\n"내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"\n\nBASIC 성경통독 함께해요 🙏`;
 
   useEffect(() => { setElapsed(0); setRunning(false); setDone(false); }, [dateKey]);
 
@@ -303,7 +302,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const handleShare = async () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile && navigator.share) {
-      try { await navigator.share({title:"2026 BASIC 성경통독 🙏", text:shareText, url:window.location.href}); return; }
+      try { await navigator.share({title:"2026 BASIC 성경통독", text:shareText}); return; }
       catch(e) { if (e.name==="AbortError") return; }
     }
     setShowShareModal(true);
