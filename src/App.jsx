@@ -348,9 +348,9 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
           </div>
         </div>
 
-        {/* 버튼 */}
+        {/* 타이머 버튼 */}
         {!done && (
-          <div style={{display:"flex",gap:10,justifyContent:"center",marginBottom:8}}>
+          <div style={{display:"flex",gap:10,justifyContent:"center",marginBottom:12}}>
             <button onClick={()=>setRunning(r=>!r)}
               style={{background:`linear-gradient(135deg,${theme.color},${theme.color}BB)`,border:"none",borderRadius:100,padding:"13px 36px",color:"#08090F",fontSize:15,fontWeight:700,cursor:"pointer",minWidth:120}}>
               {running ? "⏸ 멈춤" : "▶ 시작"}
@@ -364,18 +364,19 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
           </div>
         )}
 
-        {done && (
-          <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:4}}>
-            <button onClick={handleShare}
-              style={{background:theme.color,border:"none",borderRadius:20,padding:"9px 20px",color:"#08090F",fontSize:13,fontWeight:700,cursor:"pointer"}}>
-              📤 공유
-            </button>
+        {/* 공유/삭제 — 항상 표시 */}
+        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:4}}>
+          <button onClick={handleShare}
+            style={{background:theme.color,border:"none",borderRadius:20,padding:"9px 20px",color:"#08090F",fontSize:13,fontWeight:700,cursor:"pointer"}}>
+            📤 공유
+          </button>
+          {(done || elapsed > 0) && (
             <button onClick={handleReset}
               style={{background:"rgba(224,100,100,.1)",border:"1px solid rgba(224,100,100,.2)",borderRadius:20,padding:"9px 20px",color:"#E08080",fontSize:13,cursor:"pointer"}}>
               삭제
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
@@ -531,8 +532,8 @@ export default function App() {
               <div style={{textAlign:"center",marginBottom:20}}>
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
                 <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:18}}>
-                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:2,fontWeight:500,marginBottom:10}}>
-                    <span>"내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라" </div>
+                  <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.85,fontWeight:500,marginBottom:10,textAlign:"center",wordBreak:"keep-all"}}>
+                    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
                   </div>
                   <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>갈라디아서 2:20</div>
                   <div style={{fontSize:12,color:theme.color,marginTop:5}}>이 구절을 소리 내어 선포한 후 기도를 시작하세요.</div>
