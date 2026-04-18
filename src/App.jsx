@@ -209,14 +209,30 @@ function LeaderDashboard({ theme }) {
 
   return (
     <div className="fade" style={{paddingTop:8}}>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
-        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
-        <div style={{textAlign:"center"}}>
-          <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{selDate.getMonth()+1}월 {selDate.getDate()}일 현황</div>
-          <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw || "—"}</div>
-        </div>
-        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
-      </div>
+     <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:6,marginBottom:30}}>
+  <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}
+    style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
+    <span style={{fontSize:16,lineHeight:1}}>←</span>
+    {hasPrev && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
+      {(()=>{const p=addDays(viewDate,-1);return `${p.getMonth()+1}/${p.getDate()}`;})()}
+    </span>}
+  </button>
+  <button className="btn" onClick={toggleDone}
+    style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,padding:"10px 18px",fontSize:13}}>
+    {done.has(key)?"✓ 묵상완료":"묵상완료"}
+  </button>
+  <button className="btn" onClick={()=>setTab("voice")}
+    style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.1))`,border:`1px solid ${theme.border}`,color:theme.color,padding:"10px 18px",fontSize:13}}>
+    🙏 말씀선포
+  </button>
+  <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}
+    style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
+    <span style={{fontSize:16,lineHeight:1}}>→</span>
+    {hasNext && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
+      {(()=>{const n=addDays(viewDate,1);return `${n.getMonth()+1}/${n.getDate()}`;})()}
+    </span>}
+  </button>
+</div>
       {!loading && (
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
           {[["전체",members.length,"#6A5E50"],["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"]].map(([label,count,color])=>(
