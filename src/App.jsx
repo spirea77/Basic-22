@@ -515,11 +515,11 @@ export default function App() {
               </button>
               <button className="btn" onClick={toggleDone}
                 style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,padding:"10px 18px",fontSize:13}}>
-                {done.has(key)?"✓ 묵상완료":"묵상완료"}
+                {done.has(key)?"✓ 묵상":"완료"}
               </button>
               <button className="btn" onClick={()=>setTab("voice")}
                 style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.1))`,border:`1px solid ${theme.border}`,color:theme.color,padding:"10px 18px",fontSize:13}}>
-                🙏 말씀선포
+                🙏 선포
               </button>
               <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}
                 style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
