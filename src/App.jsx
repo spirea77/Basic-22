@@ -270,7 +270,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const timerRef = useRef(null);
   const shareTextRef = useRef(null);
 
-  const shareText = `오늘도 주님을 의지합니다!\n\n갈라디아서 2:20\n"내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"\n\nBASIC 성경통독 함께해요 🙏`;
+  const shareText = `주님, 사랑합니다.\n\n민수기 6:24-26\n"여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라)"\n\n 승리했습니다!! 🙏`;
 
   useEffect(() => { setElapsed(0); setRunning(false); setDone(false); }, [dateKey]);
 
