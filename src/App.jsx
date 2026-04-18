@@ -139,8 +139,6 @@ const R = {
   "12-25":"개별통독","12-26":"개별통독","12-27":"개별통독","12-28":"개별통독","12-29":"개별통독","12-30":"개별통독","12-31":"개별통독",
 };
 
-const GOSPEL_BOOKS = new Set(["마","막","눅","요"]);
-const NT_BOOKS = new Set(["행","롬","고전","고후","갈","엡","빌","골","살전","살후","딤전","딤후","딛","몬","히","약","벧전","벧후","요일","요이","요삼","유","계"]);
 const THEMES = [
   {key:"GOD", name:"하나님", color:"#C9A84C", bg:"rgba(201,168,76,0.07)", border:"rgba(201,168,76,0.22)"},
   {key:"JESUS", name:"예수님", color:"#D48C6E", bg:"rgba(212,140,110,0.07)", border:"rgba(212,140,110,0.22)"},
@@ -188,6 +186,7 @@ function LoginScreen() {
   );
 }
 
+// ─── 현황판 ───────────────────────────────────────────────────────────────────
 function LeaderDashboard({ theme }) {
   const TODAY = today0();
   const [selDate, setSelDate] = useState(TODAY);
@@ -209,30 +208,14 @@ function LeaderDashboard({ theme }) {
 
   return (
     <div className="fade" style={{paddingTop:8}}>
-     <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:6,marginBottom:30}}>
-  <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}
-    style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
-    <span style={{fontSize:16,lineHeight:1}}>←</span>
-    {hasPrev && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
-      {(()=>{const p=addDays(viewDate,-1);return `${p.getMonth()+1}/${p.getDate()}`;})()}
-    </span>}
-  </button>
-  <button className="btn" onClick={toggleDone}
-    style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,padding:"10px 18px",fontSize:13}}>
-    {done.has(key)?"✓ 묵상완료":"묵상완료"}
-  </button>
-  <button className="btn" onClick={()=>setTab("voice")}
-    style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.1))`,border:`1px solid ${theme.border}`,color:theme.color,padding:"10px 18px",fontSize:13}}>
-    🙏 말씀선포
-  </button>
-  <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}
-    style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
-    <span style={{fontSize:16,lineHeight:1}}>→</span>
-    {hasNext && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
-      {(()=>{const n=addDays(viewDate,1);return `${n.getMonth()+1}/${n.getDate()}`;})()}
-    </span>}
-  </button>
-</div>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,gap:8}}>
+        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,-1))} disabled={!R[dk(addDays(selDate,-1))]}>← 이전</button>
+        <div style={{textAlign:"center"}}>
+          <div style={{fontSize:14,fontFamily:"'Cormorant Garamond',serif",fontWeight:600,color:"#EDE5D5"}}>{selDate.getMonth()+1}월 {selDate.getDate()}일 현황</div>
+          <div style={{fontSize:11,color:theme.color,marginTop:2}}>{raw || "—"}</div>
+        </div>
+        <button className="btn" onClick={()=>setSelDate(d=>addDays(d,1))} disabled={!R[dk(addDays(selDate,1))]}>다음 →</button>
+      </div>
       {!loading && (
         <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6,marginBottom:16}}>
           {[["전체",members.length,"#6A5E50"],["통독+기도",members.filter(m=>m.done&&m.voiceDone).length,"#4CAF81"],["통독만",members.filter(m=>m.done&&!m.voiceDone).length,"#C9A84C"],["미완료",members.filter(m=>!m.done&&!m.voiceDone).length,"#555"]].map(([label,count,color])=>(
@@ -286,7 +269,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const timerRef = useRef(null);
   const shareTextRef = useRef(null);
 
-  const shareText = `주님, 사랑합니다.\n\n민수기 6:24-26\n"여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라)"\n\n 승리했습니다!! 🙏`;
+  const shareText = `주님, 사랑합니다.\n\n민수기 6:24-26\n"여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라"\n\n승리했습니다!! 🙏`;
 
   useEffect(() => { setElapsed(0); setRunning(false); setDone(false); }, [dateKey]);
 
@@ -339,9 +322,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
           </div>
         </div>
       )}
-
       <div style={{textAlign:"center",padding:"8px 0"}}>
-        {/* 원형 타이머 */}
         <div style={{position:"relative",display:"inline-block",marginBottom:20}}>
           <svg width={150} height={150} viewBox="0 0 150 150">
             <circle cx={75} cy={75} r={60} fill="none" stroke="rgba(255,255,255,.06)" strokeWidth={8}/>
@@ -362,8 +343,6 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
             </div>
           </div>
         </div>
-
-        {/* 타이머 버튼 */}
         {!done && (
           <div style={{display:"flex",gap:10,justifyContent:"center",marginBottom:12}}>
             <button onClick={()=>setRunning(r=>!r)}
@@ -378,8 +357,6 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
             )}
           </div>
         )}
-
-        {/* 공유/삭제 — 항상 표시 */}
         <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:4}}>
           <button onClick={handleShare}
             style={{background:theme.color,border:"none",borderRadius:20,padding:"9px 20px",color:"#08090F",fontSize:13,fontWeight:700,cursor:"pointer"}}>
@@ -397,6 +374,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   );
 }
 
+// ─── 메인 앱 ─────────────────────────────────────────────────────────────────
 export default function App() {
   const TODAY = today0();
   const [user, setUser] = useState(undefined);
@@ -525,13 +503,34 @@ export default function App() {
                 ))}
               </div>
             )}
-            <div style={{display:"flex",justifyContent:"center",gap:6,marginBottom:30}}>
-              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}>← 이전</button>
-              <button className="btn" onClick={toggleDone} style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color}}>
-                {done.has(key)?"✓ 완료됨":"완료 체크"}
+
+            {/* ▼▼▼ 수정된 버튼 영역 ▼▼▼ */}
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:6,marginBottom:30}}>
+              <button className="btn" onClick={()=>nav(-1)} disabled={!hasPrev}
+                style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
+                <span style={{fontSize:16,lineHeight:1}}>←</span>
+                {hasPrev && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
+                  {(()=>{const p=addDays(viewDate,-1);return `${p.getMonth()+1}/${p.getDate()}`;})()}
+                </span>}
               </button>
-              <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}>다음 →</button>
+              <button className="btn" onClick={toggleDone}
+                style={{background:done.has(key)?theme.color:"rgba(255,255,255,.05)",color:done.has(key)?"#08090F":theme.color,padding:"10px 18px",fontSize:13}}>
+                {done.has(key)?"✓ 묵상완료":"묵상완료"}
+              </button>
+              <button className="btn" onClick={()=>setTab("voice")}
+                style={{background:`linear-gradient(135deg,${theme.bg},rgba(0,0,0,.1))`,border:`1px solid ${theme.border}`,color:theme.color,padding:"10px 18px",fontSize:13}}>
+                🙏 말씀선포
+              </button>
+              <button className="btn" onClick={()=>nav(1)} disabled={!hasNext}
+                style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"8px 12px",minWidth:52}}>
+                <span style={{fontSize:16,lineHeight:1}}>→</span>
+                {hasNext && <span style={{fontSize:9,color:"#5A5040",marginTop:2}}>
+                  {(()=>{const n=addDays(viewDate,1);return `${n.getMonth()+1}/${n.getDate()}`;})()}
+                </span>}
+              </button>
             </div>
+            {/* ▲▲▲ 수정된 버튼 영역 ▲▲▲ */}
+
           </div>
         )}
 
@@ -548,9 +547,9 @@ export default function App() {
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
                 <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:18}}>
                   <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.85,fontWeight:500,marginBottom:10,textAlign:"center",wordBreak:"keep-all"}}>
-                    "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
+                    "여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라"
                   </div>
-                  <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>갈라디아서 2:20</div>
+                  <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>민수기 6:24-26</div>
                   <div style={{fontSize:12,color:theme.color,marginTop:5}}>이 구절을 소리 내어 선포한 후 기도를 시작하세요.</div>
                 </div>
               </div>
