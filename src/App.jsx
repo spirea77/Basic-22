@@ -600,9 +600,7 @@ function PrayerTimer({ dateKey, passageRaw, theme, onComplete }) {
   const timerRef = useRef(null);
   const shareTextRef = useRef(null);
 
-  const shareText = `주님, 사랑합니다.\n\n민수기 6:24-26\n"여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라"\n\n <BR></BR>
-"주님, 제 과거의 깊은 상처와 어둠 속에서도 함께 계셨던 예수님을 만나게 하시고, 
-그 부활의 능력으로 얽매임에서 자유케 하소서."
+  const shareText = `주님 사랑합니다.\n\n민수기 6:24-26\n"여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라"\n\n "하나님께 시선을 두게 하소서."
   \n 이미 승리했습니다!! 🙏`;
 
   useEffect(() => { setElapsed(0); setRunning(false); setDone(false); }, [dateKey]);
