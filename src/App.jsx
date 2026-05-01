@@ -879,7 +879,8 @@ export default function App() {
                 <div style={{fontSize:10,letterSpacing:".25em",color:theme.color+"77",textTransform:"uppercase",marginBottom:10}}>오늘의 말씀 선포 및 기도</div>
                 <div style={{background:"rgba(255,255,255,.02)",border:`1px solid ${theme.border}66`,borderRadius:14,padding:"18px",marginBottom:18}}>
                   <div style={{fontSize:15,color:"#EDE5D5",lineHeight:1.85,fontWeight:500,marginBottom:10,textAlign:"center",wordBreak:"keep-all"}}>
-                    "여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라 할지니라 하라"
+                    "너의 하나님 여호와가 너의 가운데 계시니 그는 구원을 베푸실 전능자시라 그가 너로 인하여 기쁨을 이기지 못하여 하시며 너를 잠잠히 사랑하시며 너로 인하여 즐거이 부르며 기뻐하시리라 하리라
+스바냐 3:17 "
                   </div>
                   <div style={{fontSize:12,color:theme.color+"88",fontWeight:600}}>민수기 6:24-26</div>
                   <div style={{fontSize:12,color:theme.color,marginTop:5}}>이 구절을 소리 내어 선포한 후 기도를 시작하세요.</div>
